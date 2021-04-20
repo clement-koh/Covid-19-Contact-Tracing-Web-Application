@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<style>
+/* fonts */
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+/* top right log out button */
+.w3-right {
+  background-color: black; /* black */
+  border: none;
+  cursor: pointer;
+}
+</style>
+
+<body class="w3-white">
+
+  <!-- Top container -->
+  <div class="w3-bar w3-top w3-black w3-large">
+    <a href="/login"<button class="w3-right">Log Out</button></a>
+  </div>
+
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="{{url_for('static', filename='icon.png')}}"/>
+    </div>
+  </div>
+
+  <div class="w3-bar-block">
+    <a href="/healthHome" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Overview</a>
+    <a href="/healthContact" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bluetooth"></i> &nbsp; Contact Tracing</a>
+    <a href="/healthAlert" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  Send Alerts</a>
+    <a href="/logout" class="w3-bar-item w3-button w3-padding"><i class="fa fa-lock fa-fw"></i>  Log Out</a>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h3><b><i class="fa fa-users fa-fw"></i> Overview</b></h3>
+  </header>
+
+  <!-- Buttons -->
+  <div class="w3-row-padding w3-margin-bottom">
+    <!-- Contact Tracing -->
+    <div class="w3-quarter">
+      <a href="/healthContact" style="text-decoration:none">
+        <div class="w3-container w3-red w3-padding-16">
+          <div class="w3-left"><i class="fa fa-bluetooth w3-xxxlarge"></i></div>
+          <div class="w3-clear"></div>
+          <h4>Contact Tracing</h4>
+        </div>
+      </a>
+    </div>
+    <!-- Send Alerts -->
+    <div class="w3-quarter">
+      <a href="/healthAlert" style="text-decoration:none">
+        <div class="w3-container w3-blue w3-padding-16">
+          <div class="w3-left"><i class="fa fa-bell fa-fw w3-xxxlarge"></i></div>
+          <div class="w3-clear"></div>
+          <h4>Send Alerts</h4>
+        </div>
+      </a>
+    </div>
+    <!-- Logout -->
+    <div class="w3-quarter">
+      <a href="/logout" style="text-decoration:none">
+        <div class="w3-container w3-teal w3-padding-16">
+          <div class="w3-left"><i class="fa fa-lock fa-fw w3-xxxlarge"></i></div>
+          <div class="w3-clear"></div>
+          <h4>Logout</h4>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

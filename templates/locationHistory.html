@@ -1,0 +1,40 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="locationHistory" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<title>My Location History</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+    <b><i class="fa fa-history fa-fw"></i>My Location History</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+  <div class="w3-row-padding w3-margin-bottom">
+    <table>
+        <tr>
+            <th width="100px">Date</th>
+            <th width="250px">Location</th>
+            <th width="80px">Time In</th>
+            <th width="80px">Time Out</th>
+        </tr>
+        <tr>
+            <td>11 Apr 2021</td>
+            <td>Some random shop</td>
+            <td>2.29pm</td>
+            <td>3.00pm</td>
+        </tr>
+        <tr>
+            <td>12 Apr 2021</td>
+            <td>Another random shop</td>
+            <td>4.29pm</td>
+            <td>7.00pm</td>
+      </tr>
+    </table>
+  </div>
+
+{% endblock %}
