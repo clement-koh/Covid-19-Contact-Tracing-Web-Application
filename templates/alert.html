@@ -37,36 +37,11 @@
 
     function markRead() {
       var buttons = document.getElementsByClassName("markAsRead");
-      //var all_alerts = {{ all_alerts | safe }}
-      
-      // add event listener for all buttons with class "markAsRead"
       for (i = 0; i < buttons.length; i++) {
-        //for (alert in all_alerts) {
-          buttons[i].addEventListener("click", function () {
-            /*var sent_on = new Date(alert["sent_on"]);
-            var currentDateTime = new Date();
-            
-            // send the alert data to the controller
-            $.ajax({
-              url: "/alerts",
-              type: "POST",
-              data: JSON.stringify({
-                id: alert["id"]
-                read_on: currentDateTime.toJSON()
-              }),
-              contentType: "application/json",
-              success: function(response) {
-                console.log(response);
-              },
-              error: function(error) {
-                console.log(error);
-              }
-            });*/
-            
+          buttons[i].addEventListener("click", function () {            
             // hide the mark as read button when clicked
             this.style.display = "none";
-          });   
-        //}
+        });
       }
     }  
   </script>

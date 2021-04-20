@@ -1,0 +1,37 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+  	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/general_updateContactDetails.css') }}"/>
+	<title>Update Contact Details</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+    <b><i class="fa fa-edit fa-fw"></i>Update Particulars</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+    <form>
+      <form>
+        <label>First Name :</label>
+        <input type="text" disabled="disabled" placeholder="John" ><br/>
+
+        <label>Last Name :</label>
+        <input type="text" disabled="disabled" placeholder="Tyson"><br/>
+
+        <label>Middle Name :</label>
+        <input type="text" disabled="disabled" placeholder="Doe"><br/>
+
+        <label>NRIC :</label>
+        <input type="text" disabled="disabled" placeholder="S0001"><br/>
+
+				<label>Contact Number :</label>
+				<input type="number" id="current_contact" value="91112222"><br/>
+        <br/><br/>
+				<input type="submit" value="Update"><br/><br/>
+      </form>
+    </form>
+{% endblock %}

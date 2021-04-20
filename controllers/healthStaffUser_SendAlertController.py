@@ -1,4 +1,4 @@
-from ..entities import User, Business, BusinessUser, Alert
+from ..entities import User, Business, BusinessUser, Alert, Location
 from datetime import datetime
 from flask import session
 
