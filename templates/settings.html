@@ -1,0 +1,33 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="settings" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/update.css') }}"/>
+	<title>Overview</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+    <b><i class="fa fa-cog fa-fw"></i>Settings</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+ 
+	<form action = "/settings" autocomplete="off" method = "POST">
+		<label>current password</label>
+		<input type = "password" name = "currentpassword" /></br/>
+
+		<label>new password</label>
+		<input type = "password" name = "password" /></br/>
+		
+		<label>confirm password</label>
+		<input type = "password" name = "confirmpassword" ><br/>
+		<br/><br/>
+		<br/>
+		<input type = "submit" value = "Change Password" /><br/><br/>
+
+    </form>
+{% endblock %}

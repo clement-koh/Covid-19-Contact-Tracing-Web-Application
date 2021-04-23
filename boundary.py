@@ -6,6 +6,8 @@ from .controllers.public_affectedLocationController import public_affectedLocati
 from .controllers.public_manageAlertController import public_manageAlertController
 from .controllers.healthStaffUser_viewUserDetails import healthStaffUser_viewUserDetails
 from .controllers.healthStaffUser_SendAlertController import healthStaffUser_SendAlertController
+from .controllers.settingsController import settingsController
+from .controllers.updatePersonalDetailsController import updatePersonalDetailsController
 
 
 # -----------------------------------------------------
@@ -49,13 +51,6 @@ def loginPage():
 		# If login is unsuccessful
 		return render_template('login.html', errorMessage=loginAttempt[1])
 
-@app.route('/update_contact', methods=['GET', 'POST'])
-def updateContactPage():
-	return render_template('general_updateContactDetails.html', userType=userLoginController.getUserType())
-
-@app.route('/settings', methods=['GET', 'POST'])
-def settingsPage():
-	return render_template('general_settings.html', userType=userLoginController.getUserType())
 
 @app.route('/view_alert', methods=['GET', 'POST'])
 @userLoginController.loginRequired
@@ -81,6 +76,7 @@ def viewAlertPage():
 	return render_template('public_viewAlert.html', userType=userLoginController.getUserType(),
 													all_alerts=all_alerts)
 
+
 # -----------------------------------------------------
 #                   Public User Pages
 # -----------------------------------------------------
@@ -97,6 +93,76 @@ def viewLocationHistoryPage():
 @userLoginController.loginRequired
 def viewAffectedLocationPage():
 	return render_template('public_viewAffectedLocations.html', userType=userLoginController.getUserType())
+
+#------------------------------------------------------
+#update Particulars 
+@app.route('/updateParticulars', methods=['GET', 'POST'])
+@userLoginController.loginRequired
+def updateParticularsPage():
+
+    #get firstName 
+    firstname = updatePersonalDetailsController.getFirstName()
+
+    #get lastname
+    lastname = updatePersonalDetailsController.getLastName()
+
+    #get mobile
+    mobile = updatePersonalDetailsController.getMobile()
+    
+    if request.method == 'POST':
+
+        # Get form details
+        mobile = request.form['mobile']
+
+        result = updatePersonalDetailsController.updateRecord(mobile)
+
+
+         # If successful
+        if result[0]:
+            flash(result[1], 'message')
+        
+        else:
+            flash(result[1], 'error')
+
+    return render_template('updateParticulars.html', firstname=firstname, lastname=lastname ,mobile=mobile)
+
+#------------------------------------------------------
+#setting
+@app.route('/settings', methods=['GET', 'POST'])
+@userLoginController.loginRequired
+def settingsPage():
+    
+    if request.method == 'POST':
+
+        # Get form details
+        currentpassword = request.form["currentpassword"]
+        password = request.form['password']
+        confirmpassword = request.form["confirmpassword"]
+
+
+        
+        #check if password equal to confirm password
+        if password != confirmpassword:
+            flash('Password not Match', 'error')
+            
+        #check password at least 5 character 
+        elif len(password) < 5:
+            flash('Password at least 5 characters', 'error')
+
+        #allow to change password
+        else:
+            result = settingsController.updatePassword(currentpassword,password)
+
+
+            # If successful
+            if result[0]:
+                flash(result[1], 'message')
+            
+            else:
+                flash(result[1], 'error')
+
+    return render_template('settings.html')
+
 
 # -----------------------------------------------------
 #                   Health Staff Pages
@@ -173,3 +239,4 @@ def getAffectedLocationData():
 	days_ago = int(request.form['days_ago'])
 	if days_ago >= 0:
 		return jsonify(public_affectedLocationController.getInfectedLocationHistory2(days_ago))
+

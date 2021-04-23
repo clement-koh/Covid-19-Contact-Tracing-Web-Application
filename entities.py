@@ -1,31 +1,41 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from flask import Flask
 from .app import db
 
+
 class Business(db.Model):
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	name = db.Column(db.String(50), unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    
+    def __repr__(self):
+        message = "{}. {}"
+        return message.format(self.id, self.name)
 
-	# Get all business records
-	@staticmethod
-	def getAllBusiness():
-		return Business.query.all()
+    # Search for a business
+    @staticmethod
+    def getAllBusiness():
+        return Business.query.all()
 
-	# Get business ID from business name
-	@staticmethod
-	def getID(name):
-		result = Business.query.filter_by(name=name).first()
+    # Get business ID from business name
+    @staticmethod
+    def getID(name):
+        result = Business.query.filter_by(name=name).first()
 
-		# Id no result is found
-		if result is None:
-			return None
-		
-		# If result is found
-		return result.id
-	
+        # Id no result is found
+        if result is None:
+            return None
+        
+        # If result is found
+        return result.id
+    
+
 class Organisation(db.Model):
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	name = db.Column(db.String(50), unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+    
+    def __repr__(self):
+        message = "{}. {}"
+        return message.format(self.id, self.name)
 
 class Location(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -61,126 +71,169 @@ class Location(db.Model):
 		# If result is found
 		return result.locationName
 
+
 class User(db.Model):
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	NRIC = db.Column(db.String(10), unique=True, nullable=False)
-	password = db.Column(db.String(50), nullable=False)
-	firstName = db.Column(db.String(50), nullable=False)
-	middleName = db.Column(db.String(50), nullable=False)
-	lastName = db.Column(db.String(50), nullable=False)
-	mobile = db.Column(db.Integer, nullable=False)
-	gender = db.Column(db.String(1), nullable=False)
-	accountActive = db.Column(db.Boolean, default=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    NRIC = db.Column(db.String(10), unique=True, nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+    firstName = db.Column(db.String(50), nullable=False)
+    middleName = db.Column(db.String(50), nullable=False)
+    lastName = db.Column(db.String(50), nullable=False)
+    mobile = db.Column(db.Integer, nullable=False)
+    gender = db.Column(db.String(1), nullable=False)
+    accountActive = db.Column(db.Boolean, default=True)
 
-	# Verify if the user exists, returns True/False
-	@staticmethod
-	def verifyUser(NRIC, password):
-		# Verify the user by their NRIC and password
-		result = User.query.filter_by(NRIC=NRIC,password=password).first()
-		# select * from user where TABLE COLUMN = 'NRIC_VALUE' AND TABLE COLUMN = 'password value' limit 1;
+    def __repr__(self):
+        message = "{} {} {}"
+        return message.format(self.firstName, self.middleName, self.lastName)
 
-		# If no result is found
-		if result is None:
-			return False
+    # Verify if the user exists, returns True/False
+    @staticmethod
+    def verifyUser(NRIC, password):
+        # Verify the user by their NRIC and password
+        result = User.query.filter_by(NRIC=NRIC,password=password).first()
+        # select * from user where TABLE COLUMN = 'NRIC_VALUE' AND TABLE COLUMN = 'password value' limit 1;
 
-		# If result is found
-		return True
+        # If no result is found
+        if result is None:
+            return False
 
-	# Check if user exists, returns True/False
-	@staticmethod
-	def getAccountStatus(NRIC):
-		result = User.query.filter_by(NRIC=NRIC).first()
-		if result is None:
-			return None
-		return result.accountActive
+        # If result is found
+        return True
 
-	# Search for a user
-	@staticmethod
-	def getAllUser():
-		result = User.query.all()
-		if result is None:
-			return None
-		return result
-	
-	# Check if a NRIC exist in the database
-	@staticmethod
-	def hasRecord(NRIC):
-		result = User.query.filter_by(NRIC=NRIC).first()
+    # Check if user exists, returns True/False
+    @staticmethod
+    def getAccountStatus(NRIC):
+        result = User.query.filter_by(NRIC=NRIC).first()
+        return result.accountActive
 
-		# If no result is found
-		if result is None:
-			return False
+    # Search for a user
+    @staticmethod
+    def getAllUser():
+        return User.query.all()
+    
+    # Check if a NRIC exist in the database
+    @staticmethod
+    def hasRecord(NRIC):
+        result = User.query.filter_by(NRIC=NRIC).first()
 
-		# If result is found
-		return True
+        # If no result is found
+        if result is None:
+            return False
 
-	@staticmethod
-	def getUser(NRIC):
-		return User.query.filter_by(NRIC=NRIC).first()
+        # If result is found
+        return True
+        
+    #--------------------update personal information and settting-------------------------
+
+    #update personal information
+    @staticmethod
+    def updateRecord(NRIC, mobile):
+       Record = User.query.filter_by(NRIC=NRIC).update(dict(mobile=mobile))
+       print(Record)
+       db.session.commit()
+       return Record
+
+    #get firstname
+    @staticmethod
+    def getFirstName(NRIC):
+        result = User.query.filter_by(NRIC=NRIC).first()
+        return result.firstName
+
+    #get lastname
+    @staticmethod
+    def getLastName(NRIC):
+        result = User.query.filter_by(NRIC=NRIC).first()
+        return result.lastName
+
+    #get Moblie
+    @staticmethod
+    def getMobile(NRIC):
+        result = User.query.filter_by(NRIC=NRIC).first()
+        return result.mobile
+
+    #update password
+    @staticmethod
+    def updatePassword(NRIC, password):
+       Record = User.query.filter_by(NRIC=NRIC).update(dict(password=password))
+       print(Record)
+       db.session.commit()
+       return Record 
+
+    #check passwords
+    def checkpasswords(NRIC):
+        Record = User.query.filter_by(NRIC=NRIC).first()
+        return Record.password
+
+    #--------------------------------end --------------------------------------------
+
+
 
 class BusinessUser(db.Model):
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	NRIC = db.Column(db.String(10), db.ForeignKey('user.NRIC'), unique=True, nullable=False)
-	businessID = db.Column(db.Integer, db.ForeignKey('business.id'), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    NRIC = db.Column(db.String(10), db.ForeignKey('user.NRIC'), unique=True, nullable=False)
+    businessID = db.Column(db.String(10), db.ForeignKey('business.id'), nullable=False)
 
-	# Verify if the user exists, returns True/False
-	@staticmethod
-	def verifyUser(NRIC):
-		# Verify the user by their NRIC number
-		result = BusinessUser.query.filter_by(NRIC=NRIC).first()
+    # Verify if the user exists, returns True/False
+    @staticmethod
+    def verifyUser(NRIC):
+        # Verify the user by their NRIC number
+        result = BusinessUser.query.filter_by(NRIC=NRIC).first()
 
-		# If no result is found
-		if result is None:
-			return False
+        # If no result is found
+        if result is None:
+            return False
 
-		# If result is found
-		return True
-	
-	@staticmethod
-	def getUsers(businessName):
-		userQuery = BusinessUser.query\
-								.join(User, User.NRIC==BusinessUser.NRIC)\
-								.join(Business, Business.id==BusinessUser.businessID)\
-								.filter(User.NRIC==BusinessUser.NRIC)\
-								.filter(BusinessUser.businessID==Business.getID(businessName))\
-								.all()
-		return userQuery   
+        # If result is found
+        return True
+    
+    @staticmethod
+    def getUsers(businessName):
+        userQuery = BusinessUser.query\
+                                .join(User, User.NRIC==BusinessUser.NRIC)\
+                                .join(Business, Business.id==BusinessUser.businessID)\
+                                .filter(User.NRIC==BusinessUser.NRIC)\
+                                .filter(BusinessUser.businessID==Business.getID(businessName))\
+                                .all()
+        return userQuery
+
+    
 
 class HealthStaffUser(db.Model):
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	NRIC = db.Column(db.String(10), db.ForeignKey('user.NRIC'), unique=True, nullable=False)
-	licenseNo = db.Column(db.Integer, unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    NRIC = db.Column(db.String(10), db.ForeignKey('user.NRIC'), unique=True, nullable=False)
+    licenseNo = db.Column(db.Integer, unique=True, nullable=False)
 
-	# Verify if the user exists, returns True/False
-	@staticmethod
-	def verifyUser(NRIC):
-		# Verify the user by their NRIC number
-		result = HealthStaffUser.query.filter_by(NRIC=NRIC).first()
+    # Verify if the user exists, returns True/False
+    @staticmethod
+    def verifyUser(NRIC):
+        # Verify the user by their NRIC number
+        result = HealthStaffUser.query.filter_by(NRIC=NRIC).first()
 
-		# If no result is found
-		if result is None:
-			return False
+        # If no result is found
+        if result is None:
+            return False
 
-		# If result is found
-		return True
+        # If result is found
+        return True
 
 class OrganisationUser(db.Model):
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	NRIC = db.Column(db.String(10), db.ForeignKey('user.NRIC'), unique=True, nullable=False)
-	organisationID = db.Column(db.Integer, db.ForeignKey('organisation.id'), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    NRIC = db.Column(db.String(10), db.ForeignKey('user.NRIC'), unique=True, nullable=False)
+    organisationID = db.Column(db.Integer, db.ForeignKey('organisation.id'), nullable=False)
 
-	# Verify if the user exists, returns True/False
-	@staticmethod
-	def verifyUser(NRIC):
-		# Verify the user by their NRIC number
-		result = OrganisationUser.query.filter_by(NRIC=NRIC).first()
+    # Verify if the user exists, returns True/False
+    @staticmethod
+    def verifyUser(NRIC):
+        # Verify the user by their NRIC number
+        result = OrganisationUser.query.filter_by(NRIC=NRIC).first()
 
-		# If no result is found
-		if result is None:
-			return False
+        # If no result is found
+        if result is None:
+            return False
 
-		# If result is found
-		return True
+        # If result is found
+        return True
 
 class Alert(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -220,6 +273,7 @@ class Alert(db.Model):
 		db.session.commit()
 		return record
 
+    
 class LocationHistory(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	NRIC = db.Column(db.String(10), db.ForeignKey('user.NRIC'), nullable=False)
@@ -292,4 +346,3 @@ class InfectedPeople(db.Model):
 		for result in results:
 			allInfected.append(result.NRIC)
 		return allInfected
-		
