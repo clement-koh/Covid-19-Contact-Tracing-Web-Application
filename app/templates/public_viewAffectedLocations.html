@@ -1,0 +1,22 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="public_covid19Locations" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<script type=text/javascript src="{{url_for('static', filename='js/public_viewAffectedLocations.js') }}"></script>
+	<title>Affected Locations</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+    <b><i class="fa fa-street-view fa-fw"></i>  Public Places Visited by Positive COVID-19 Cases When Infectious</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+    <!-- Location history table -->
+    <div id="dataTable" class="w3-row-padding w3-margin-bottom">
+
+  	</div>
+{% endblock %}

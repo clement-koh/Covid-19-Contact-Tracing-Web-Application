@@ -1,0 +1,131 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page = "overview" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<title>Overview</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+    <b><i class="fa fa-users fa-fw"></i> Overview</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+    <!-- Exposure Risk -->
+    <div class="w3-row-padding w3-margin-bottom">
+        <div class="w3-full">
+        <div class="w3-container w3-white w3-padding-16">
+            <!-- Green -->
+            {% if healthStatus == 'Green' %}
+            <div id="green">
+                <div class="w3-left"><i class="fa fa-check w3-xxxlarge" style="color:green"></i></div>
+                <h4><b>You're okay! You were not at places visited by COVID-19 cases.</b></h4>
+                <p>Based on your location records from the last 14 days.</p>
+            </div>
+            {% endif %}
+
+
+            <!-- Orange -->
+            {% if healthStatus == 'Orange' %}
+            <div id="orange">
+                <div class="w3-left"><i class="fa fa-exclamation-circle w3-xxxlarge" style="color:orange"></i></div>
+                <h4><b>&nbsp;Please monitor your health for the next 14 days. You were at places visited by COVID-19 cases.</b></h4>
+                <p>&nbsp;Based on your location records from the last 14 days.</p>
+            </div>
+            {% endif %}
+
+            <!-- Red -->
+            {% if healthStatus == 'Red' %}
+            <div id="red">
+                <div class="w3-left"><i class="fa fa-exclamation-triangle w3-xxxlarge" style="color:red"></i></div>
+                <h4><b>&nbsp;You have come into contact with a person with COVID-19.</b></h4>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <!-- Update Particulars -->
+    <div class="w3-quarter">
+        <div class="w3-container w3-red w3-padding-16">
+            <div class="w3-left">
+                <i class="fa fa-edit w3-xxxlarge"></i>
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Update Particulars</h4>
+        </div>
+    </div>
+
+	<!-- Functionalities for Public User and Business User -->
+	{% if userType == 'Public' or userType == 'Business' %}
+		<!-- Alerts -->
+		<div class="w3-quarter">
+			<a href="/view_alert" style="text-decoration:none">
+				<div class="w3-container w3-teal w3-padding-16">
+					<div class="w3-left">
+						<i class="fa fa-bell fa-fw w3-xxxlarge"></i>
+					</div>
+					<div class="w3-clear"></div>
+					<h4>Alerts</h4>
+				</div>
+			</a>
+		</div>
+	{% endif %}
+
+    {% if userType == 'Public' %}
+        <!-- View History -->
+        <div class="w3-quarter">
+            <a href="/view_location_history" style="text-decoration:none">
+                <div class="w3-container w3-blue w3-padding-16">
+                    <div class="w3-left">
+                        <i class="fa fa-history fa-fw w3-xxxlarge"></i>
+                    </div>
+                    <div class="w3-clear"></div>
+                    <h4>View History</h4>
+                </div>
+            </a>
+        </div>
+
+        <!-- Places Visited By COVID-19 cases -->
+        <div class="w3-quarter">
+            <a href="/view_affected_location" style="text-decoration:none">
+            <div class="w3-container w3-deep-orange w3-padding-16">
+                <div class="w3-left">
+                    <i class="fa fa-street-view fa-fw w3-xxxlarge"></i>
+                </div>
+                <div class="w3-clear"></div>
+                <h4>View Affected Locations</h4>
+            </div>
+            </a>  
+        </div>
+    {% endif %}
+    
+    <!-- If account type is Health Staff -->
+    {% if userType == 'Health Staff' %}
+        <!-- Contact Tracing -->
+        <div class="w3-quarter">
+            <a href="/" style="text-decoration:none">
+                <div class="w3-container w3-red w3-padding-16">
+                    <div class="w3-left">
+                        <i class="fa fa-bluetooth w3-xxxlarge"></i>
+                    </div>
+                    <div class="w3-clear"></div>
+                    <h4>Contact Tracing</h4>
+                </div>
+            </a>
+        </div>
+        <!-- Send Alerts -->
+        <div class="w3-quarter">
+            <a href="/send_alert" style="text-decoration:none">
+                <div class="w3-container w3-blue w3-padding-16">
+                    <div class="w3-left"><i class="fa fa-bell fa-fw w3-xxxlarge"></i></div>
+                    <div class="w3-clear"></div>
+                    <h4>Send Alerts</h4>
+                </div>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

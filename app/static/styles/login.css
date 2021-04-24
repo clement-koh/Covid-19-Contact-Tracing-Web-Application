@@ -1,0 +1,66 @@
+/* Centralise the login box to the center of the screen */
+html,
+body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	background: #e0e0e0;
+}
+
+body {
+	display: flex;
+}
+
+form {
+	margin: auto;
+	padding: 10px;
+	background: rgba(255, 255, 255, 0.7);
+	box-shadow: 0 0 10px #070707;
+	text-align: center;
+	border-radius: 20px;
+}
+
+h1 {
+	margin: auto;
+	padding: 10px;
+}
+
+/* Make submit button same width as other input fields */
+input[type="submit"] {
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	background: rgba(81, 250, 81, 0.8);
+	color: rgb(43, 43, 43);
+	margin-bottom: 20px;
+}
+
+/* Format the login fields */
+input {
+	margin: 10px;
+	padding: 10px;
+	width: 500px;
+	border-radius: 5px;
+	border: 1px solid black;
+}
+
+/* Style what the selected fields looks like */
+input:focus {
+	transition: box-shadow 0.3s;
+	outline: none !important;
+	border-color: #719ece;
+	box-shadow: 0 0 10px #719ece;
+}
+
+/* Formatting of error message if any */
+#errorMessage {
+	color: red;
+	padding: 10px;
+}
+
+/* Formatting of error message if any */
+.message {
+	color: green;
+	padding: 10px;
+}
+
