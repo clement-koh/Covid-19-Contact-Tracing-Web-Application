@@ -8,9 +8,9 @@ from .boundary.User_UpdateContactUI import User_UpdateContactUI
 from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
 
 # Boundary for Public Users
-from .boundary.PublicUser_LocationHistoryUI import PublicUser_LocationHistoryUI
+from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistoryUI
+from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedLocationUI
 
-from .controllers.public_locationHistoryController import public_locationHistoryController
 from .controllers.public_affectedLocationController import public_affectedLocationController
 from .controllers.public_manageAlertController import public_manageAlertController
 from .controllers.healthStaffUser_viewUserDetails import healthStaffUser_viewUserDetails
@@ -183,10 +183,20 @@ def viewLocationHistoryPage():
 	return render_template('public_viewLocationHistory.html', userType=userLoginController.getUserType(),
 															  locationHistory=locationHistory)
 
-@app.route('/view_affected_location', methods=['GET'])
+@app.route('/view_affected_location', methods=['GET', 'POST'])
 @loginRequired
 def viewAffectedLocationPage():
-	return render_template('public_viewAffectedLocations.html', userType=userLoginController.getUserType())
+	# Initialise PublicUser_ViewAffectedLocationUI Object
+	publicUser_viewAffectedLocationBoundary = PublicUser_ViewAffectedLocationUI()
+
+	# If user is requesting the page
+	if request.method == 'GET':
+		return publicUser_viewAffectedLocationBoundary.displayPage()
+
+	# Provide data back based on an ajax call
+	if request.method == 'POST':
+		days_ago = int(request.form['days_ago'])
+		return publicUser_viewAffectedLocationBoundary.getAffectedLocation(days_ago)
 
 # -----------------------------------------------------
 #                   Health Staff Pages
@@ -255,13 +265,3 @@ def viewPatientDetailsPage():
 # @userLoginController.loginRequired
 # def testpage():
 #     return 'test successful'
-
-# ---------------------------------------------------------
-# 						 AJAX CALL
-# --------------------------------------------------------
-@app.route('/view_location_history/get_history', methods=['POST'])
-@loginRequired
-def getAffectedLocationData():
-	days_ago = int(request.form['days_ago'])
-	if days_ago >= 0:
-		return jsonify(public_affectedLocationController.getInfectedLocationHistory2(days_ago))
