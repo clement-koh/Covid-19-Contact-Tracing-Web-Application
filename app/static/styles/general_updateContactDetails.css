@@ -1,0 +1,32 @@
+/* fonts */
+html,body,h1,h2,h3,h4,h5,label {font-family: "Raleway", sans-serif}
+
+/* top right log out button */
+.w3-right {
+	background-color: black; /* black */
+	border: none;
+	cursor: pointer;
+}
+
+.w3-margin-bottom {
+	width: 400px;
+	clear: both;
+}
+
+.w3-margin-bottom input {
+	width: 100%;
+	clear: both;
+	font-family: "Arial", sans-serif
+}
+
+
+/* Hides the step in input number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}

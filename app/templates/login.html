@@ -1,0 +1,37 @@
+<!-- Extends the basic html template -->
+{% extends "layout.html" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}"/>
+	<title>Login</title>
+{% endblock %} 
+
+<!-- Updates the <body> of the webpage -->
+{% block body %}
+	<!-- Login Form -->
+	<form method="POST" action="/login">
+		<h1>CSIT314 - 30T's Contact Tracing Application</h1>
+
+		<!-- Show Error Message if any -->
+		{% if errorMessage %}
+			<div id="errorMessage">{{ errorMessage }}</div>
+		{% endif %}
+
+		<!-- Flash Message (if any) -->
+		{% for message in get_flashed_messages() %}
+			<div class="message">{{ message }}</div>
+		{% endfor %}
+
+		<!-- Username Field -->
+		<input name="username" type="text" placeholder="NRIC / Username" />
+		<br />
+
+		<!-- Password Field -->
+		<input name="password" type="password" placeholder="Mobile Number / Password" />
+		<br />
+
+		<!-- Login Button -->
+		<input type="submit" value="Login" />
+	</form>
+{% endblock %}

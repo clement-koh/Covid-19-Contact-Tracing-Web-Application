@@ -1,0 +1,35 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="public_viewAlert" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+    <title>Alerts</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+  <b><i class="fa fa-bell fa-fw"></i> Alerts</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+<!-- Display Alerts -->
+<div class="w3-row-padding w3-margin-bottom">
+    <table>
+        {% for alert in all_alerts %}
+            <tr>
+              <b><i>{{ alert["sent_on"] }}</i></b>
+              <p><pre>{{ alert["message"] }}</pre></p>
+              {% if alert["is_read"] == 0 %}
+                  <form action="/view_alert" method="post">
+                    <input name="alert_id" value={{ alert["id"] }} type="hidden">
+                    <input class="markAsRead" type="submit" value="Mark as read">
+                  </form>
+              {% endif %}
+              <hr/>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
