@@ -1,0 +1,80 @@
+from ...dbConfig import dbConnect, dbDisconnect
+
+class LocationHistory:
+	# Constructor
+	def __init__(self, id = None):
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# If the id is provided, fill the object with details from database
+		hasResult = False
+		if id is not None:
+			# Select location history from database and populate instance variables
+			result = db.execute("""SELECT id, NRIC, location_visited, time_in,
+										  time_out
+								   FROM location_history 
+								   WHERE id = (?)""", (id,)).fetchone()
+			
+			# Populate private instance variables with value or None 
+			if result is not None:
+				hasResult = True
+				self.__id = result[0]
+				self.__NRIC = result[1]
+				self.__locationVisited = result[2] 
+				self.__time_in = result[3]
+				self.__time_out = result[4]
+		
+		# If no result
+		if not hasResult:
+				self.__id = None
+				self.__NRIC = None
+				self.__locationVisited = None 
+				self.__time_in = None
+				self.__time_out = None
+		
+		# Disconnect from database
+		dbDisconnect(connection)
+
+	# Accessor Method
+	def getID(self):
+		return self.__id
+	
+	def getNRIC(self):
+		return self.__NRIC
+
+	def getlocationID(self):
+		return self.__NRIC
+	
+	def getTimeIn(self):
+		return self.__time_in
+	
+	def getTimeOut(self):
+		return self.__time_out
+
+	# Other Method
+	def getPastLocationHistory(self, NRIC, noOfDays):
+		""" 
+		Return None if there is no result, or 
+		Return a 2d array containing all results
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		#Format statement for SQL
+		date = "-{} days".format(noOfDays)
+
+		# Select location history within past __ of days based on NRIC
+		result = db.execute("""SELECT id, NRIC, location_visited, time_in,
+									  time_out
+							   FROM location_history 
+							   WHERE NRIC = (?) AND
+							   		 date(time_in) >= date('now', (?))
+							   ORDER BY time_in DESC""", 
+							(NRIC, date)).fetchall()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		return result
