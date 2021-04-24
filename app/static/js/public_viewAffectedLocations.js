@@ -33,7 +33,7 @@ function loadContent() {
 			days_ago : count
 		},
 		type : 'POST',
-		url : '/view_location_history/get_history'
+		url : '/view_affected_location'
 	})
 	.done(function(data) {
 		document.getElementById("dataTable").innerHTML += generateBlock(data);
