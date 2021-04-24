@@ -70,7 +70,7 @@ class LocationHistory:
 									  time_out
 							   FROM location_history 
 							   WHERE NRIC = (?) AND
-							   		 date(time_in) >= date('now', (?))
+							   		 date(time_in) >= strftime('%Y-%m-%d', date(date('now','localtime')), (?))
 							   ORDER BY time_in DESC""", 
 							(NRIC, date)).fetchall()
 
@@ -78,3 +78,42 @@ class LocationHistory:
 		dbDisconnect(connection)
 
 		return result
+
+	def getLocationHistoryOn(self, NRIC, noOfDaysAgo):
+		""" 
+		Return None if there is no result, or 
+		Return an array containing all locationID
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		#Format statement for SQL
+		date = "-{} days".format(noOfDaysAgo)
+		
+		latestDate = None
+		if noOfDaysAgo > 0:
+			latestDate = "-{} days".format(noOfDaysAgo - 1)
+		else: 
+			latestDate = "+{} days".format(noOfDaysAgo + 1)
+
+		# Select location history within past __ of days based on NRIC
+		results = db.execute("""SELECT id, NRIC, location_visited, time_in,
+									  time_out
+							   FROM location_history 
+							   WHERE NRIC = (?) AND
+							   		 date(time_in) >= strftime('%Y-%m-%d', date(date('now','localtime')), (?)) AND
+									 date(time_in) < strftime('%Y-%m-%d', date(date('now','localtime')), (?))
+							   ORDER BY time_in DESC""", 
+							(NRIC, date, latestDate)).fetchall()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# Get all infected people's locationID
+		locationList = []
+		for result in results:
+			locationList.append(result[2])
+
+		# Return the list of locationID
+		return locationList
