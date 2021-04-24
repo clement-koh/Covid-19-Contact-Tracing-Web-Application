@@ -10,7 +10,7 @@
     # Ignore any warning to upgrade pip, or you can upgrade it if you want to
 
 5. Run the following 2 code
-    >>> set FLASK_APP=app.py
+    >>> set FLASK_APP=run.py
     >>> flask run
 
 
