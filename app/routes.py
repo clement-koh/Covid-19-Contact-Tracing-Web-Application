@@ -1,10 +1,14 @@
 from flask import render_template, request, send_from_directory, flash, jsonify, session
 from ..run import app, loginRequired
 
+# Boundary for Users
 from .boundary.User_LoginUI import User_LoginUI
 from .boundary.User_LogoutUI import User_LogoutUI
 from .boundary.User_UpdateContactUI import User_UpdateContactUI
 from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
+
+# Boundary for Public Users
+from .boundary.PublicUser_LocationHistoryUI import PublicUser_LocationHistoryUI
 
 from .controllers.public_locationHistoryController import public_locationHistoryController
 from .controllers.public_affectedLocationController import public_affectedLocationController
@@ -168,6 +172,11 @@ def viewAlertPage():
 @app.route('/view_location_history', methods=['GET'])
 @loginRequired
 def viewLocationHistoryPage():
+	# Initialise User_ChangePasswordUI Object
+	publicUser_locationHistoryBoundary = PublicUser_LocationHistoryUI()
+
+	return publicUser_locationHistoryBoundary.displayPage()
+
 	# Get location history of current user
 	locationHistory = public_locationHistoryController.getLocationHistory()
 	
