@@ -27,7 +27,7 @@
 		<form action="/view_patient_details" autocomplete="off" method="POST">
 			<label for="user">User: &nbsp;</label>
 			<div class="autocomplete" style="width:302px;">
-				<input id="user" type="text" name="user" size="40" placeholder="Enter NRIC or Business Name" required>
+				<input id="user" type="text" name="user" size="40" placeholder="Enter NRIC or Business Name">
 			</div>
 			&nbsp; &nbsp;
 
@@ -35,25 +35,25 @@
 			<br><br>
 		</form>
 	
-		<table id="records">
-			<tr>
-				<th>NRIC / Business Name</th>
-				<th>First Name</th>
-				<th>Middle Name</th>
-				<th>Last Name</th>
-				<th>Gender</th>
-				<th>Mobile</th>
-			</tr>
-			{%for patient in patientDetails%}
+		{% if patientDetails %}
+			<table id="records">
 				<tr>
-					<td>{{ patient.NRIC }}</td>
-					<td>{{ patient.firstName }}</td>
-					<td>{{ patient.middleName }}</td>
-					<td>{{ patient.lastName }}</td>
-					<td>{{ patient.gender }}</td>
-					<td>{{ patient.mobile }}</td>
+					<th>NRIC / Business Name</th>
+					<th>First Name</th>
+					<th>Middle Name</th>
+					<th>Last Name</th>
+					<th>Gender</th>
+					<th>Mobile</th>
 				</tr>
-			{% endfor %}
-		</table>
+				<tr>
+					<td>{{ patientDetails[0] }}</td>
+					<td>{{ patientDetails[1] }}</td>
+					<td>{{ patientDetails[2] }}</td>
+					<td>{{ patientDetails[3] }}</td>
+					<td>{{ patientDetails[4] }}</td>
+					<td>{{ patientDetails[5] }}</td>
+				</tr>
+			</table>
+		{% endif %}
 	</div>
 {% endblock %}
