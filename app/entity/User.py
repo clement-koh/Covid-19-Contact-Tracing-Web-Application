@@ -2,31 +2,36 @@ from ...dbConfig import dbConnect, dbDisconnect
 
 class User:
 	# Constructor for user
-	def __init__(self, NRIC):
+	def __init__(self, NRIC=None):
 		# Connect to database
 		connection = dbConnect()
 		db = connection.cursor()
 
-		# Select User from database and populate instance variables
-		result = db.execute("""SELECT NRIC, password, firstName,
-									  middleName, lastName, mobile, gender,
-									  accountActive, accountType
-							   FROM user 
-							   WHERE NRIC = (?)""", (NRIC,)).fetchone()
+		# If the NRIC is provided, fill the object with details from database
+		hasResult = False
+		if NRIC is not None:
+			# Select User from database and populate instance variables
+			result = db.execute("""SELECT NRIC, password, firstName,
+										middleName, lastName, mobile, gender,
+										accountActive, accountType
+								FROM user 
+								WHERE NRIC = (?)""", (NRIC,)).fetchone()
 
-		# If a result is returned, populate object with data
-		if result is not None:
-			# Initialise instance variables for this object
-			self.__NRIC = NRIC
-			self.__password = result[1]
-			self.__firstName = result[2]
-			self.__middleName = result[3]
-			self.__lastName = result[4]
-			self.__mobile = result[5]
-			self.__gender = result[6]
-			self.__accountActive = result[7]
-			self.__accountType = result[8]
-		else:
+			# If a result is returned, populate object with data
+			if result is not None:
+				hasResult = True
+				# Initialise instance variables for this object
+				self.__NRIC = NRIC
+				self.__password = result[1]
+				self.__firstName = result[2]
+				self.__middleName = result[3]
+				self.__lastName = result[4]
+				self.__mobile = result[5]
+				self.__gender = result[6]
+				self.__accountActive = result[7]
+				self.__accountType = result[8]
+		
+		if not hasResult:
 			self.__NRIC = None
 			self.__password = None
 			self.__firstName = None
@@ -67,7 +72,7 @@ class User:
 	
 	def getGender(self):
 		"""Returns the gender of the user"""
-		return self.__mobile
+		return self.__gender
 	
 	def getAccountActive(self):
 		"""Returns True if account is active"""
@@ -192,3 +197,25 @@ class User:
 		Returns False if verification does not match
 		"""
 		return self.__password == password
+
+	def getAllNRIC(self):
+		"""
+		Returns a list of all NRIC
+		"""
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Select User from database and populate instance variables
+		results = db.execute("""SELECT NRIC FROM user""").fetchall()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# Returns a list of all NRIC
+		NRICList = []
+		for result in results:
+			NRICList.append(result[0])
+		
+		return NRICList
+
