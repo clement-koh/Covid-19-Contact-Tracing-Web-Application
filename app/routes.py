@@ -6,6 +6,7 @@ from .boundary.User_LoginUI import User_LoginUI
 from .boundary.User_LogoutUI import User_LogoutUI
 from .boundary.User_UpdateContactUI import User_UpdateContactUI
 from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
+from .boundary.User_OverviewUI import User_OverviewUI
 
 # Boundary for Public Users
 from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistoryUI
@@ -27,8 +28,9 @@ from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAler
 @app.route('/', methods=['GET'])
 @loginRequired
 def overviewPage():
-	return render_template('overview.html', userType = session['userType'],
-											healthStatus = 'Red')
+	# Create User_Overview Boundary to display page
+	user_overviewUI = User_OverviewUI()
+	return user_overviewUI.displayPage()
 
 @app.route('/login', methods=['GET', 'POST'])
 def loginPage():
