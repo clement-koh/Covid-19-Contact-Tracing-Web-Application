@@ -13,9 +13,9 @@ from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedL
 
 # Boundary for Health Staff
 from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewPatientDetailsUI
+from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAlertPublicUI
 
 from .controllers.public_manageAlertController import public_manageAlertController
-from .controllers.healthStaffUser_SendAlertController import healthStaffUser_SendAlertController
 
 
 
@@ -205,33 +205,31 @@ def viewAffectedLocationPage():
 @app.route('/send_alert', methods=['GET', 'POST'])
 @loginRequired
 def sendAlertPage():
-	# Check if user has permission for this function
-	currentUserType = userLoginController.getUserType()
-	if currentUserType != 'Health Staff':
-		flash('You do not have permission to access the requested functionality','error')
-		return redirect('/')
-	
-	# Get Search Fields details
-	userDetails = healthStaffUser_SendAlertController.getUserSearchDetails()
-	businessDetails = healthStaffUser_SendAlertController.getBusinessSearchDetails()
+	# Initialise Boundary Object
+	healthStaffUser_sendAlertPublicBoundary = HealthStaffUser_SendAlertPublicUI()
 
+	# If user is requesting the page
+	if request.method == 'GET':
+	
+		# Display the requested page
+		return healthStaffUser_sendAlertPublicBoundary.displayPage()
+
+	# If user is submitting alert information
 	if request.method == 'POST':
+
 		# Get form details
-		category = request.form['category']
 		recipient = request.form['target']
 		message = request.form['message']
 
-		result = healthStaffUser_SendAlertController.newAlert(category, recipient, message)
-		
-		# If successful
-		if result[0]:
-			flash(result[1], 'message')
-		else:
-			flash(result[1], 'error')
+		# Get result of trying to send alert
+		result = healthStaffUser_sendAlertPublicBoundary.onSubmit(recipient, message)
 
-	return render_template('healthStaff_new_alert.html', userType=currentUserType,
-														 userDetails=userDetails,
-														 businessDetails=businessDetails)
+		# Display result if not successful
+		if result != healthStaffUser_sendAlertPublicBoundary.RESPONSE_SUCCESS:
+			return healthStaffUser_sendAlertPublicBoundary.displayError(result)
+
+		# Else display success
+		return healthStaffUser_sendAlertPublicBoundary.displaySuccess()
 
 @app.route('/view_patient_details', methods=['GET', 'POST'])
 @loginRequired

@@ -9,8 +9,7 @@
 	<script type=text/javascript src="{{url_for('static', filename='js/healthStaff_new_alert.js') }}"></script>
 	<script>
 		/* An array containing all the information record */
-		var NRICList = {{ userDetails | safe }};
-		var businessNames = {{businessDetails | safe }}
+		var recipientList = {{ userDetails | safe }};
 	</script>
 	<title>Send Alert</title>
 {% endblock %}
@@ -24,25 +23,16 @@
 {% block contentBody %}
     <!-- Send Alerts -->
     <form action="/send_alert" autocomplete="off" method="POST">
-
-		<!-- Dropdown Selection Box  -->
-        <label for="category">Category: &nbsp;</label>
-        <select name="category" id="category">
-            <option value="public" selected="selected">Public User</option>
-            <option value="business">Business</option>
-        </select>
-        <br><br>
-
 		<!-- Recipient Search Box -->
         <label for="recipient">Recipient: &nbsp;</label>
         <div class="autocomplete" style="width:302px;">
-            <input id="recipient" name='target' type="text" size="40" placeholder="Enter NRIC or Business Name" required>
+            <input id="recipient" name='target' type="text" size="40" placeholder="Enter Recipient Detail">
         </div>
         <br><br>
 
 		<!-- Area to type message -->
         <label for="message">Message: </label><br>
-        <textarea id="message" name="message" rows="10" cols="100" placeholder="Enter your message.." required></textarea>
+        <textarea id="message" name="message" rows="10" cols="100" placeholder="Enter your message .."></textarea>
         <br><br>
 
         <input type="submit" id="submit">
