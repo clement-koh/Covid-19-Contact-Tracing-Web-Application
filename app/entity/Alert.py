@@ -94,3 +94,34 @@ class Alert:
 		dbDisconnect(connection)
 
 		return not hasError
+
+	def getUserAlerts(self, NRIC):
+		"""
+		Returns a 2d array of alerts belonging to the user
+		
+		[][0] - id, 
+		[][1] - sent by, 
+		[][2] - sent on, 
+		[][3] - alert type, 
+		[][4] - recipient, 
+		[][5] - message, 
+		[][6] - read on, 
+		[][7] - is read
+		"""
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Select User from database and populate instance variables
+		results = db.execute("""SELECT id, sent_by, sent_on, alert_type,
+									   recipient_NRIC, message, read_on,
+									   is_read 
+								FROM alert
+								WHERE recipient_NRIC = (?)
+								ORDER BY sent_on DESC""", (NRIC,)).fetchall()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# Return search results
+		return results
