@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type=text/javascript src="{{url_for('static', filename='js/dashboard.js') }}"></script>
 		{%block head %}
 		{% endblock %}
 	</head>
@@ -24,12 +25,12 @@
 
 		<!-- Flash Message (if any) -->
 		{% for message in get_flashed_messages(category_filter=["error"]) %}
-			<div class="w3-container w3-center w3-red">
+			<div id="errorMsg" class="w3-container w3-center w3-red" style="display: none;">
 				<h4>{{ message }}</h4>
 			</div>
 		{% endfor %}
 		{% for message in get_flashed_messages(category_filter=["message"]) %}
-			<div class="w3-container w3-center w3-green">
+			<div id="msg" class="w3-container w3-center w3-green" style="display: none;">
 				<h4>{{ message }}</h4>
 			</div>
 		{% endfor %}
