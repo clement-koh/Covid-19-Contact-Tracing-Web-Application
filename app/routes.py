@@ -11,6 +11,9 @@ from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
 from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistoryUI
 from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedLocationUI
 
+# Boundary for Health Staff
+from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewPatientDetailsUI
+
 from .controllers.public_affectedLocationController import public_affectedLocationController
 from .controllers.public_manageAlertController import public_manageAlertController
 from .controllers.healthStaffUser_viewUserDetails import healthStaffUser_viewUserDetails
@@ -235,31 +238,57 @@ def sendAlertPage():
 @app.route('/view_patient_details', methods=['GET', 'POST'])
 @loginRequired
 def viewPatientDetailsPage():
-	# Check if user has permission for this function
-	currentUserType = userLoginController.getUserType()
-	if currentUserType != 'Health Staff':
-		flash('You do not have permission to access the requested functionality','error')
-		return redirect('/')
-	
-	userDetails = healthStaffUser_viewUserDetails.getUserSearchDetails()
+	# Initialise Boundary Object
+	healthStaffUser_viewPatientDetailsBoundary = HealthStaffUser_ViewPatientDetailsUI()
+
+	# If user is requesting the page
+	if request.method == 'GET':
+		# Display the requested page
+		return healthStaffUser_viewPatientDetailsBoundary.displayPage()
+
 	if request.method == 'POST':
 		# Get form details
 		NRIC = request.form['user']
-		
-		# Get Search Fields details
-		patientDetails = healthStaffUser_viewUserDetails.getUserDetails(NRIC)
 
-		# If valid user input
-		if patientDetails is not None:
-			return render_template('healthStaff_viewUserDetails.html', userType=currentUserType,
-																	   userDetails=userDetails,
-																	   patientDetails=patientDetails)
-		
-		# If invalid user input
-		flash("'{}' is not a valid user".format(NRIC), 'error')
+		# Set the boundary to contain the patient's NRIC
+		healthStaffUser_viewPatientDetailsBoundary.setPatient(NRIC)
 
-	return render_template('healthStaff_viewUserDetails.html', userType=currentUserType,
-															   userDetails=userDetails)
+		# Get submit response 
+		response = healthStaffUser_viewPatientDetailsBoundary.onSubmit()
+
+		# Display Error if any
+		if response != healthStaffUser_viewPatientDetailsBoundary.RESPONSE_SUCCESS:
+			return healthStaffUser_viewPatientDetailsBoundary.displayError(response)
+
+		# Display Success
+		return healthStaffUser_viewPatientDetailsBoundary.displaySuccess()
+		
+
+	# # Check if user has permission for this function
+	# currentUserType = userLoginController.getUserType()
+	# if currentUserType != 'Health Staff':
+	# 	flash('You do not have permission to access the requested functionality','error')
+	# 	return redirect('/')
+	
+	# userDetails = healthStaffUser_viewUserDetails.getUserSearchDetails()
+	# if request.method == 'POST':
+	# 	# Get form details
+	# 	NRIC = request.form['user']
+		
+	# 	# Get Search Fields details
+	# 	patientDetails = healthStaffUser_viewUserDetails.getUserDetails(NRIC)
+
+	# 	# If valid user input
+	# 	if patientDetails is not None:
+	# 		return render_template('healthStaff_viewUserDetails.html', userType=currentUserType,
+	# 																   userDetails=userDetails,
+	# 																   patientDetails=patientDetails)
+		
+	# 	# If invalid user input
+	# 	flash("'{}' is not a valid user".format(NRIC), 'error')
+
+	# return render_template('healthStaff_viewUserDetails.html', userType=currentUserType,
+	# 														   userDetails=userDetails)
 
 # @app.route('/test', methods=['GET'])
 # @userLoginController.loginRequired
