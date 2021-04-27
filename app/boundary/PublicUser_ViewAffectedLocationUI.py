@@ -27,13 +27,13 @@ class PublicUser_ViewAffectedLocationUI:
 		controller = PublicUser_ViewAffectedLocationController()
 
 		# Get all infected on X days ago
-		infectedPeopleArray = controller.get_infectedPeople(days_ago)
+		infectedPeopleArray = controller.getInfectedPeople(days_ago)
 
 		# Get all location id visited by infected on X days ago
-		locationIDArray = controller.get_visitedLocation(days_ago, infectedPeopleArray)
+		locationIDArray = controller.getVisitedLocation(days_ago, infectedPeopleArray)
 		
 		# Get all location name
-		locationNameArray = controller.get_locationName(locationIDArray)
+		locationNameArray = controller.getLocationName(locationIDArray)
 
 		# Get the date and time X days ago
 		today = datetime.now()
