@@ -16,7 +16,6 @@ from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewP
 
 from .controllers.public_affectedLocationController import public_affectedLocationController
 from .controllers.public_manageAlertController import public_manageAlertController
-from .controllers.healthStaffUser_viewUserDetails import healthStaffUser_viewUserDetails
 from .controllers.healthStaffUser_SendAlertController import healthStaffUser_SendAlertController
 
 
