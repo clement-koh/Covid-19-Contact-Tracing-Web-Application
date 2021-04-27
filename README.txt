@@ -22,7 +22,7 @@ venv\Scripts\activate
 -------------------------------------------------
 |	Deactivate virtual Environment	        	|
 -------------------------------------------------
-deactivate
+venv\Scripts\deactivate
 
 -------------------------------------------------
 |	Set Flask to run from app.py            	|
