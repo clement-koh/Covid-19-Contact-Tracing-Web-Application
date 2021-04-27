@@ -14,7 +14,6 @@ from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedL
 # Boundary for Health Staff
 from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewPatientDetailsUI
 
-from .controllers.public_affectedLocationController import public_affectedLocationController
 from .controllers.public_manageAlertController import public_manageAlertController
 from .controllers.healthStaffUser_SendAlertController import healthStaffUser_SendAlertController
 
