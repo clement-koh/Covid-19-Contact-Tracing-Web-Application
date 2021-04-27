@@ -10,12 +10,13 @@ from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
 # Boundary for Public Users
 from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistoryUI
 from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedLocationUI
+from .boundary.PublicUser_ViewAlertUI import PublicUser_ViewAlertUI
 
 # Boundary for Health Staff
 from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewPatientDetailsUI
 from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAlertPublicUI
 
-from .controllers.public_manageAlertController import public_manageAlertController
+
 
 
 
@@ -148,26 +149,29 @@ def settingsPage():
 @app.route('/view_alert', methods=['GET', 'POST'])
 @loginRequired
 def viewAlertPage():
-	currentUserType = userLoginController.getUserType()
-	if currentUserType not in ['Public', 'Business']:
-		flash('You do not have permission to access the requested functionality', 'error')
-		return redirect('/')
+	# If user is requesting the page
+	if request.method == 'GET':
+		# Initialize boundary object
+		publicUser_viewAlertBoundary = PublicUser_ViewAlertUI()
 
-	# Update mark as read first
-	if request.method == 'POST':
-		id = request.form['alert_id']
-		result = public_manageAlertController.markAsRead(id)
+		# Display the requested page
+		return publicUser_viewAlertBoundary.displayPage()
 
-		if result[0]:
-			flash(result[1], 'message')
-		else:
-			flash(result[1], 'error')
+	# # Update mark as read first
+	# if request.method == 'POST':
+	# 	id = request.form['alert_id']
+	# 	result = public_manageAlertController.markAsRead(id)
 
-	# Get all alerts
-	all_alerts = public_manageAlertController.getAllAlerts()
+	# 	if result[0]:
+	# 		flash(result[1], 'message')
+	# 	else:
+	# 		flash(result[1], 'error')
 
-	return render_template('public_viewAlert.html', userType=userLoginController.getUserType(),
-													all_alerts=all_alerts)
+	# # Get all alerts
+	# all_alerts = public_manageAlertController.getAllAlerts()
+
+	# return render_template('public_viewAlert.html', userType=userLoginController.getUserType(),
+	# 												all_alerts=all_alerts)
 
 
 @app.route('/view_location_history', methods=['GET'])
