@@ -125,3 +125,36 @@ class Alert:
 
 		# Return search results
 		return results
+
+	def markAsRead(self, alertID):
+		""" 
+		Updates the read status and read timing of the alert 
+		Returns True if updated successfully
+		Returns False if update failed
+		"""
+
+		self.__isRead = True
+		self.__readOn = datetime.now()
+
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Update the read timing and read status for the alert
+		db.execute("""UPDATE alert
+					  SET read_on = (?),
+					  	  is_read = (?)
+					  WHERE id = (?)""", (self.__readOn, self.__isRead, alertID))
+
+		# Commit the update to the database
+		connection.commit()
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+		
+		# Check if any rows have been updated successfully
+		if db.rowcount != 0:
+			return True
+		
+		# If no rows has been updated
+		return False

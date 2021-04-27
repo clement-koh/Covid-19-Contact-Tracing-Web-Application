@@ -27,7 +27,7 @@ class PublicUser_ViewAlertUI:
 			alertData['id'] = alert[0]
 			alertData['sent_on'] = alert[2]
 			alertData['message'] = alert[5]
-			alertData['is_read'] = alert[7] if alert[7] is True else False
+			alertData['is_read'] = bool(alert[7])
 			formatted_alert.append(alertData)
 
 		# Renders the webpage for with alerts for the user

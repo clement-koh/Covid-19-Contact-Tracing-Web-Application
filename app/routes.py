@@ -11,6 +11,7 @@ from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
 from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistoryUI
 from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedLocationUI
 from .boundary.PublicUser_ViewAlertUI import PublicUser_ViewAlertUI
+from .boundary.PublicUser_AcknowledgeAlertUI import PublicUser_AcknowledgeAlertUI
 
 # Boundary for Health Staff
 from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewPatientDetailsUI
@@ -151,27 +152,29 @@ def settingsPage():
 def viewAlertPage():
 	# If user is requesting the page
 	if request.method == 'GET':
-		# Initialize boundary object
+		# Initialize boundary object to view alert
 		publicUser_viewAlertBoundary = PublicUser_ViewAlertUI()
 
 		# Display the requested page
 		return publicUser_viewAlertBoundary.displayPage()
 
-	# # Update mark as read first
-	# if request.method == 'POST':
-	# 	id = request.form['alert_id']
-	# 	result = public_manageAlertController.markAsRead(id)
+	# Update mark as read first
+	if request.method == 'POST':
+		# Get the id of the alert being marked as read
+		id = request.form['alert_id']
 
-	# 	if result[0]:
-	# 		flash(result[1], 'message')
-	# 	else:
-	# 		flash(result[1], 'error')
+		# Initialize boundary obect to acknowledge alert
+		publicUser_acknowledgeAlertBoundary = PublicUser_AcknowledgeAlertUI()
 
-	# # Get all alerts
-	# all_alerts = public_manageAlertController.getAllAlerts()
+		# Attempt to update status of alert in database
+		response = publicUser_acknowledgeAlertBoundary.onSubmit(id)
 
-	# return render_template('public_viewAlert.html', userType=userLoginController.getUserType(),
-	# 												all_alerts=all_alerts)
+		# If submission is unsuccessful
+		if response == publicUser_acknowledgeAlertBoundary.RESPONSE_FAILURE:
+			return publicUser_acknowledgeAlertBoundary.displayError()
+		
+		# If submission is successful
+		return publicUser_acknowledgeAlertBoundary.displaySuccess()
 
 
 @app.route('/view_location_history', methods=['GET'])
