@@ -17,13 +17,13 @@ class PublicUser_ViewAffectedLocationController:
 		self.__locationHistory = LocationHistory()	# Initialise LocationHistory Object
 		self.__infectedPeople = InfectedPeople()	# Initialise InfectedPeople Object
 
-	def get_infectedPeople(self, days_ago):
+	def getInfectedPeople(self, days_ago):
 		""" 
 		Takes in an input to returns an array of infected people's NRIC ___ days ago
 		"""
 		return self.__infectedPeople.getInfectedPeople(days_ago,self.QUARANTINE_PERIOD)
 
-	def get_visitedLocation(self, days_ago, people):
+	def getVisitedLocation(self, days_ago, people):
 		""" 
 		Takes in a array of NRIC and 
 		returns an array of unique locationID visited by everyone in the array
@@ -37,7 +37,7 @@ class PublicUser_ViewAffectedLocationController:
 		# Return an array of unique location ID
 		return list(set(allLocation))
 
-	def get_locationName(self, idArray):
+	def getLocationName(self, idArray):
 		""" 
 		Takes in a array of location id and 
 		returns an array of location name
