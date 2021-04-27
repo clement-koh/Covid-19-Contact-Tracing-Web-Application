@@ -29,7 +29,7 @@ from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAler
 @loginRequired
 def overviewPage():
 	# Create User_Overview Boundary to display page
-	user_overviewUI = User_OverviewUI
+	user_overviewUI = User_OverviewUI()
 	return user_overviewUI.displayPage()
 
 @app.route('/login', methods=['GET', 'POST'])
