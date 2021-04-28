@@ -6,7 +6,7 @@ class HealthStaffUser_ViewPatientDetailsController:
 
 	def getPatientList(self):
 		"""
-			Returns an array of all patient's NRIC
+			Returns a string array of all patient's NRIC
 		"""
 
 		# Creates a user object
@@ -28,7 +28,8 @@ class HealthStaffUser_ViewPatientDetailsController:
 		return True
 
 	def getPatientDetails(self, NRIC):
-		""" Returns a list containing the following information.
+		""" 
+		Returns a string array containing the following information.
 
 		[0] - NRIC, 
 		[1] - First Name, 

@@ -32,6 +32,7 @@ class PublicUser_LocationHistoryController:
 
 	def getLocationName(self, id):
 		"""
+		Returns a string
 		Converts the id of a location to the name of a location
 		"""
 		return self.__location.getLocationNameFromID(id)

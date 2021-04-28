@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 /* top right log out button */
 .w3-right {
 	background-color: black; /* black */
@@ -14,7 +17,7 @@
 .w3-margin-bottom input {
 	width: 100%;
 	clear: both;
-	font-family: "Arial", sans-serif
+	/* font-family: "Arial", sans-serif */
 }
 
 

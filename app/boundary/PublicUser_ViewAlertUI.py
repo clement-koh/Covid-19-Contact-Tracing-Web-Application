@@ -2,10 +2,14 @@ from flask import session, flash, redirect, render_template
 from ..controllers.PublicUser_ViewAlertController import PublicUser_ViewAlertController
 
 class PublicUser_ViewAlertUI:
+	# Empty Constructor
 	def __init__(self):
 		pass
 
 	def displayPage(self):
+		"""
+		Displays the page showing all alerts for the current user
+		"""
 		# Get current user type
 		currentUserType = session['userType']
 

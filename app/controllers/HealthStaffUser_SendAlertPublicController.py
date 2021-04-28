@@ -8,7 +8,7 @@ class HealthStaffUser_SendAlertPublicController:
 
 	def getRecipientList(self):
 		"""
-			Returns an array of all user's NRIC
+			Returns a string array of all user's NRIC
 		"""
 
 		# Create User Object

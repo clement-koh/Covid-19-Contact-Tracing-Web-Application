@@ -5,7 +5,10 @@ class User_UpdateContactController:
 		pass
 
 	def getUserFirstName(self, NRIC):
-		"""Returns the first name of the person tied to this NRIC No."""
+		"""
+		Returns a string containing 
+		the first name of the person tied to this NRIC No.
+		"""
 
 		# Create a user object containing details of the NRIC owner
 		user = User(NRIC)
@@ -13,7 +16,10 @@ class User_UpdateContactController:
 		return user.getFirstName()
 
 	def getUserMiddleName(self, NRIC):
-		"""Returns the middle name of the person tied to this NRIC No."""
+		"""
+		Returns a string containing 
+		the middle name of the person tied to this NRIC No.
+		"""
 
 		# Create a user object containing details of the NRIC owner
 		user = User(NRIC)
@@ -21,7 +27,10 @@ class User_UpdateContactController:
 		return user.getMiddleName()
 
 	def getUserLastName(self, NRIC):
-		"""Returns the last name of the person tied to this NRIC No."""
+		"""
+		Returns a string containing 
+		the Last name of the person tied to this NRIC No.
+		"""
 
 		# Create a user object containing details of the NRIC owner
 		user = User(NRIC)
@@ -29,7 +38,10 @@ class User_UpdateContactController:
 		return user.getLastName()
 
 	def getUserMobile(self, NRIC):
-		"""Returns the mobile number of the person tied to this NRIC No."""
+		"""
+		Returns an int of 
+		the mobile number of the person tied to this NRIC No.
+		"""
 
 		# Create a user object containing details of the NRIC owner
 		user = User(NRIC)
