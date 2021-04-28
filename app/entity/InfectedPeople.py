@@ -74,6 +74,36 @@ class InfectedPeople:
 		# Return the list of NRIC
 		return NRIClist
 
+	def isInfected(self, NRIC, daysConsideredAsInfected):
+		""" 
+		Return False if there is no result, or 
+		Return true if NRIC is infected existing since __ days ago
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
 
+		#Format statement for SQL
+		latestdate = "+{} days".format(1)
+		# 14 days excluding today
+		earliestDate = "-{} days".format(daysConsideredAsInfected + 1)
+
+		# Select location history within past __ of days based on NRIC
+		results = db.execute("""SELECT count(*)
+								FROM infected_people
+							   	WHERE NRIC = (?) AND
+							   		  date(infected_on) >= strftime('%Y-%m-%d', date(date('now','localtime')), (?)) AND
+							   		  date(infected_on) < strftime('%Y-%m-%d', date(date('now','localtime')), (?))""", 
+							(NRIC, earliestDate, latestdate)).fetchone()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# If not infected, return false
+		if results[0] == 0:
+			return False
+
+		# If infected return True
+		return True
 
 	

@@ -9,6 +9,7 @@ from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
 from .boundary.User_OverviewUI import User_OverviewUI
 
 # Boundary for Public Users
+from .boundary.PublicUser_ExposureStatusUI import PublicUser_ExposureStatusUI
 from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistoryUI
 from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedLocationUI
 from .boundary.PublicUser_ViewAlertUI import PublicUser_ViewAlertUI
@@ -28,9 +29,15 @@ from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAler
 @app.route('/', methods=['GET'])
 @loginRequired
 def overviewPage():
-	# Create User_Overview Boundary to display page
+	# Create PublicUser_ExposureStatusBoundary Object
+	publicUser_exposureStatusBoundary = PublicUser_ExposureStatusUI()
+
+	# Exposure status is none if user is not a public user
+	exposureStatus = publicUser_exposureStatusBoundary.getExposureStatus()
+
+	# Create User_Overview Boundary Object
 	user_overviewUI = User_OverviewUI()
-	return user_overviewUI.displayPage()
+	return user_overviewUI.displayPage(exposureStatus)
 
 @app.route('/login', methods=['GET', 'POST'])
 def loginPage():

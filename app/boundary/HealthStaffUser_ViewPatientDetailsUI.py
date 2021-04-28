@@ -72,9 +72,3 @@ class HealthStaffUser_ViewPatientDetailsUI:
 	def displayError(self, response):
 		flash(response, 'error')
 		return self.displayPage()
-
-	
-	
-
-		
-
