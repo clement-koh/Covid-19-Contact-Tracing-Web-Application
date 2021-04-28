@@ -6,6 +6,9 @@ class User_ChangePasswordController:
 		pass
 
 	def validatePassword(self, NRIC, password):
+		"""
+		Returns a True if password is corrct
+		"""
 		# Create a user object containing details of the NRIC owner
 		user = User(NRIC)
 

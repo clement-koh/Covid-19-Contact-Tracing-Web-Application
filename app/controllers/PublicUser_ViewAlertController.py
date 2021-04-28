@@ -6,7 +6,7 @@ class PublicUser_ViewAlertController:
 
 	def getAllAlerts(self, NRIC):
 		"""
-		Returns a 2d array of alerts belonging to the user
+		Returns a string 2d array of alerts belonging to the user
 		
 		[][0] - id, 
 		[][1] - sent by, 

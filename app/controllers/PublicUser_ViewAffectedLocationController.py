@@ -19,6 +19,7 @@ class PublicUser_ViewAffectedLocationController:
 
 	def getInfectedPeople(self, days_ago):
 		""" 
+		Returns a string array
 		Takes in an input to returns an array of infected people's NRIC ___ days ago
 		"""
 		return self.__infectedPeople.getInfectedPeople(days_ago,self.QUARANTINE_PERIOD)
@@ -26,7 +27,7 @@ class PublicUser_ViewAffectedLocationController:
 	def getVisitedLocation(self, days_ago, people):
 		""" 
 		Takes in a array of NRIC and 
-		returns an array of unique locationID visited by everyone in the array
+		returns an array of int containing unique locationID visited by everyone in the array
 		"""
 		allLocation = []
 
@@ -40,7 +41,7 @@ class PublicUser_ViewAffectedLocationController:
 	def getLocationName(self, idArray):
 		""" 
 		Takes in a array of location id and 
-		returns an array of location name
+		returns an string array of location name
 		"""
 		allLocation = []
 
