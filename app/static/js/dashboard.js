@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	showMessages();
-	setTimeout(removeMessages, 4000);
+	setTimeout(removeMessages, 3000);
 });
 
 function showMessages(){
