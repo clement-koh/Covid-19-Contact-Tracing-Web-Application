@@ -215,6 +215,14 @@ def viewAffectedLocationPage():
 		days_ago = int(request.form['days_ago'])
 		return publicUser_viewAffectedLocationBoundary.getAffectedLocation(days_ago)
 
+@app.route('/view_vaccine_certificate', methods=['GET', 'POST'])
+@loginRequired
+def viewVaccineCertificate():
+	if request.method == 'GET':
+		return render_template('public_viewVaccineCertificate.html')
+	if request.method == 'POST':
+		return render_template('public_viewVaccineCertificate.html')
+
 # -----------------------------------------------------
 #                   Health Staff Pages
 # -----------------------------------------------------

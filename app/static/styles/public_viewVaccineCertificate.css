@@ -1,0 +1,34 @@
+/* for image */
+.imgContainer {
+	position: relative;
+	width: 800px;
+	height: 618px;
+	text-align: center;
+  }
+
+  /* append text on top of the image */
+  .txtCenter {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	bottom: 20px;
+	transform: translate(-50%, -50%);
+  }
+
+  /* certificate text */
+  .standard {
+	font-size: 25px;
+  }
+  
+  .name {
+	  font-size: 30px;
+  }
+
+  .signature {
+	  font-size: 40px;
+	  font-family: Brush Script MT, Brush Script Std, cursive;
+  }
+
+  .signOff {
+	  font-size: 15px;
+  }
