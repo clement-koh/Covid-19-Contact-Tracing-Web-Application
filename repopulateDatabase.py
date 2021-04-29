@@ -476,7 +476,7 @@ for i in numOfDays:
 				time_in_hour = randint(0, 21)
 				time_in_min = randint(0, 59)
 				time_in = time_in.replace(hour=time_in_hour, minute=time_in_min)
-				time_out = time_in.replace(hour=time_in_hour + randint(0, 2), minute=randint(0, 59))
+				time_out = time_in.replace(hour=time_in_hour + randint(1, 2), minute=randint(0, 59))
 
 				newLocationRecord = LocationHistory(NRIC=NRIC, location_visited=location, time_in=time_in , time_out=time_out)
 				db.session.add(newLocationRecord)
