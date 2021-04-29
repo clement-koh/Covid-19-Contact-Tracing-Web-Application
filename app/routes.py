@@ -20,8 +20,9 @@ from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewP
 from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAlertPublicUI
 from .boundary.HealthStaffUser_SendAlertBusinessUI import HealthStaffUser_SendAlertBusinessUI
 
-
-
+# Boundary for Business Staff
+from .boundary.BusinessUser_ViewAlertUI import BusinessUser_ViewAlertUI
+from .boundary.BusinessUser_AcknowledgeAlertUI import BusinessUser_AcknowledgeAlertUI
 
 
 # -----------------------------------------------------
@@ -309,6 +310,35 @@ def viewPatientDetailsPage():
 # -----------------------------------------------------
 #                   Business User Pages
 # -----------------------------------------------------
+@app.route('/view_business_alert', methods=['GET', 'POST'])
+@loginRequired
+def viewBusinessAlertPage():
+	# If user is requesting the page
+	if request.method == 'GET':
+		# Initialize boundary object to view alert
+		businessUser_viewAlertBoundary = BusinessUser_ViewAlertUI()
+
+		# Display the requested page
+		return businessUser_viewAlertBoundary.displayPage()
+
+	# Update mark as read first
+	if request.method == 'POST':
+		# Get the id of the alert being marked as read
+		id = request.form['alert_id']
+
+		# Initialize boundary obect to acknowledge alert
+		businessUser_acknowledgeAlertBoundary = BusinessUser_AcknowledgeAlertUI()
+
+		# Attempt to update status of alert in database
+		response = businessUser_acknowledgeAlertBoundary.onSubmit(id)
+
+		# If submission is unsuccessful
+		if response == businessUser_acknowledgeAlertBoundary.RESPONSE_FAILURE:
+			return businessUser_acknowledgeAlertBoundary.displayError()
+		
+		# If submission is successful
+		return businessUser_acknowledgeAlertBoundary.displaySuccess()
+
 @app.route('/view_affected_outlet', methods=['GET', 'POST'])
 @loginRequired
 def viewCheckinDetails():
@@ -316,34 +346,3 @@ def viewCheckinDetails():
 		return render_template('business_viewAffectedOutlet.html')
 	if request.method == 'POST':
 		return render_template('business_viewAffectedOutlet.html')
-
-	# # Check if user has permission for this function
-	# currentUserType = userLoginController.getUserType()
-	# if currentUserType != 'Health Staff':
-	# 	flash('You do not have permission to access the requested functionality','error')
-	# 	return redirect('/')
-	
-	# userDetails = healthStaffUser_viewUserDetails.getUserSearchDetails()
-	# if request.method == 'POST':
-	# 	# Get form details
-	# 	NRIC = request.form['user']
-		
-	# 	# Get Search Fields details
-	# 	patientDetails = healthStaffUser_viewUserDetails.getUserDetails(NRIC)
-
-	# 	# If valid user input
-	# 	if patientDetails is not None:
-	# 		return render_template('healthStaff_viewUserDetails.html', userType=currentUserType,
-	# 																   userDetails=userDetails,
-	# 																   patientDetails=patientDetails)
-		
-	# 	# If invalid user input
-	# 	flash("'{}' is not a valid user".format(NRIC), 'error')
-
-	# return render_template('healthStaff_viewUserDetails.html', userType=currentUserType,
-	# 														   userDetails=userDetails)
-
-# @app.route('/test', methods=['GET'])
-# @userLoginController.loginRequired
-# def testpage():
-#     return 'test successful'
