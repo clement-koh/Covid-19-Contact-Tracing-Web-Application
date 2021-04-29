@@ -1,0 +1,85 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="business_viewAffectedOutlet" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<title>View Affected Outlet</title>
+  <style>
+    tr:hover td {
+      background-color:#e7e7e7;
+    }
+  </style>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+    <b><i class="fa fa-history fa-fw"></i>View Affected Outlet</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+  <div class="w3-row-padding w3-margin-bottom">
+    <table>
+      <!-- First Location -->
+      <tr>
+        <th colspan="3">
+          <h4><u>Cola Coca - Choa Chu Kang Branch</u></h4>
+        </th>
+      </tr>
+      <tr>
+          <th width="150px">Date</th>
+          <th width="100px">Time In</th>
+          <th width="100px">Time Out</th>
+      </tr>
+      <tr>
+        <td width="150px">28 Apr 2021</td>
+        <td width="100px">19:49</td>
+        <td width="100px">20:45</td>
+      </tr>
+      <tr>
+        <td width="150px">23 Apr 2021</td>
+        <td width="100px">02:35</td>
+        <td width="100px">04:53</td>
+      </tr>
+      <!-- Blank Space -->
+      <tr><td>&nbsp;</td></tr>
+      <!-- Second Location -->
+      <tr>
+        <th colspan="3">
+          <h4><u>Cola Coca - Jurong Branch</u></h4>
+        </th>
+      </tr>
+      <tr>
+          <th width="150px">Date</th>
+          <th width="100px">Time In</th>
+          <th width="100px">Time Out</th>
+      </tr>
+      <tr>
+        <td width="150px">28 Apr 2021</td>
+        <td width="100px">17:24</td>
+        <td width="100px">17:35</td>
+      </tr>
+      <tr>
+        <td width="150px">19 Apr 2021</td>
+        <td width="100px">18:15</td>
+        <td width="100px">20:49</td>
+      </tr>
+      <!-- TO BE MODIFIED
+      {% for result in locationHistory %}
+        <tr>
+          <th colspan="3">
+            {{result.locationName}}
+          </th>
+        </tr>
+        <tr>
+            <td>{{result.date}}</td>
+            <td>{{result.time_in}}</td>
+            <td>{{result.time_out}}</td>
+        </tr>
+      {% endfor %}
+      -->
+    </table>
+  </div>
+
+{% endblock %}

@@ -18,14 +18,15 @@
 <!-- Functionalities for Business User -->
 {% if userType == 'Business' %}
     <a href="/view_alert" class="w3-bar-item w3-button w3-padding {% if active_page == 'public_viewAlert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  View Alerts</a>
-    <a href="/view_checkin_details" class="w3-bar-item w3-button w3-padding {% if active_page == 'business_viewCheckinDetails' %} w3-blue {% endif %}"><i class="fa fa-history fa-fw"></i>  View Check-In Details</a>
+    <a href="/view_affected_outlet" class="w3-bar-item w3-button w3-padding {% if active_page == 'business_viewAffectedOutlet' %} w3-blue {% endif %}"><i class="fa fa-history fa-fw"></i>  View Affected Outlet</a>
 {% endif %}
 
 <!-- Functionalities for Health Staff User -->
 {% if userType == 'Health Staff' %}
     <a href="/view_patient_details" class="w3-bar-item w3-button w3-padding {% if active_page == 'healthStaff_view_contact_details' %} w3-blue {% endif %}"><i class="fa fa-address-book-o"></i> &nbsp; View Contact Details</a>
     <a href="/" class="w3-bar-item w3-button w3-padding {% if active_page == 'XX' %} w3-blue {% endif %}"><i class="fa fa-bluetooth"></i> &nbsp; Contact Tracing</a>
-    <a href="/send_alert" class="w3-bar-item w3-button {% if active_page == 'healthStaff_new_alert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  Send Alerts</a>
+    <a href="/send_alert" class="w3-bar-item w3-button {% if active_page == 'healthStaff_new_alert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  Send Alerts (Public)</a>
+	<a href="/send_business_alert" class="w3-bar-item w3-button {% if active_page == 'healthStaff_new_business_alert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  Send Alerts (Business)</a>
 {% endif %}
 
 <!-- Functionalities for Organisation User -->
