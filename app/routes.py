@@ -275,6 +275,16 @@ def viewPatientDetailsPage():
 		# Display Success
 		return healthStaffUser_viewPatientDetailsBoundary.displaySuccess()
 		
+# -----------------------------------------------------
+#                   Business User Pages
+# -----------------------------------------------------
+@app.route('/view_checkin_details', methods=['GET', 'POST'])
+@loginRequired
+def viewCheckinDetails():
+	if request.method == 'GET':
+		return render_template('business_viewCheckinDetails.html')
+	if request.method == 'POST':
+		return render_template('business_viewCheckinDetails.html')
 
 	# # Check if user has permission for this function
 	# currentUserType = userLoginController.getUserType()
