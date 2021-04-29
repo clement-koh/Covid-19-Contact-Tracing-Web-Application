@@ -1,6 +1,6 @@
 <!-- Extends the basic html template -->
 {% extends "dashboard_layout.html" %}
-{% set active_page ="healthStaff_new_alert" %}
+{% set active_page ="healthStaff_new_public_alert" %}
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
@@ -11,18 +11,18 @@
 		/* An array containing all the information record */
 		var recipientList = {{ userDetails | safe }};
 	</script>
-	<title>Send Alert</title>
+	<title>Send Public Alert</title>
 {% endblock %}
 
 <!-- Content Header -->
 {% block contentHeader %}
-    <b><i class="fa fa-bell fa-fw"></i>  Send Alerts</b>
+    <b><i class="fa fa-bell fa-fw"></i>  Send Public Alert</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->
 {% block contentBody %}
     <!-- Send Alerts -->
-    <form action="/send_alert" autocomplete="off" method="POST">
+    <form action="/send_public_alert" autocomplete="off" method="POST">
 		<!-- Recipient Search Box -->
         <label for="recipient">Recipient: &nbsp;</label>
         <div class="autocomplete" style="width:302px;">

@@ -219,9 +219,9 @@ def viewAffectedLocationPage():
 # -----------------------------------------------------
 #                   Health Staff Pages
 # -----------------------------------------------------
-@app.route('/send_alert', methods=['GET', 'POST'])
+@app.route('/send_public_alert', methods=['GET', 'POST'])
 @loginRequired
-def sendAlertPage():
+def sendPublicAlertPage():
 	# Initialise Boundary Object
 	healthStaffUser_sendAlertPublicBoundary = HealthStaffUser_SendAlertPublicUI()
 

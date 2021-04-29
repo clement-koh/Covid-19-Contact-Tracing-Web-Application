@@ -28,7 +28,7 @@ class HealthStaffUser_SendAlertPublicUI:
 		userDetails = self.__controller.getRecipientList()
 
 		# Display the webpage
-		return render_template('healthStaff_new_alert.html', userType=userType,
+		return render_template('healthStaff_new_public_alert.html', userType=userType,
 														     		userDetails=userDetails)
 
 	def onSubmit(self, NRIC, message):
