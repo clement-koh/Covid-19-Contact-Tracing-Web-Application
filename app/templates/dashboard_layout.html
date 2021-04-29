@@ -5,13 +5,15 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1, width=device-width">
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/dashboard.css') }}"/>
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+		<!-- Local Files -->
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/dashboard.css') }}"/>
 		<script type=text/javascript src="{{url_for('static', filename='js/dashboard.js') }}"></script>
 		{%block head %}
 		{% endblock %}
@@ -37,10 +39,8 @@
 
 		<!-- Sidebar -->
 		<nav class="w3-sidebar w3-collapse w3-white" style="width:300px;" id="mySidebar"><br>
-			<div class="w3-container w3-row">
-				<div class="w3-col s4" style="text-align: center">
-				<img style="height:150px;" src="{{url_for('static', filename='appicon.png')}}"/>
-				</div>
+			<div class="w3-container w3-row" style="text-align: center;">
+				<img id="logo" style="height:150px;" src="{{url_for('static', filename='appicon.png')}}"/>
 			</div>
 
 			<!-- Navigation Bar -->
