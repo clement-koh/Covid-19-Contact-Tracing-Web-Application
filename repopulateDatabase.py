@@ -406,19 +406,19 @@ for x in firstName:
 			if count < 1000:
 				print('Account type: Public')
 
-			# Generate a business user
-			elif 1000 <= count < 2000:
-				random_businessID = randint(1,len(businessID))
-				newBusinessUser = BusinessUser(NRIC=NRIC, businessID=random_businessID)
-				db.session.add(newBusinessUser)
-				print('Account type: Business')
-
 			# Generate a health user
-			elif 2000 <= count < 3000:
+			elif 1000 <= count < 2000:
 				licenseNo += 1
 				newHealthStaffUser = HealthStaffUser(NRIC=NRIC, licenseNo=licenseNo)
 				db.session.add(newHealthStaffUser)
 				print('Account type: Health Staff')
+
+			# Generate a business user
+			elif 2000 <= count < 3000:
+				random_businessID = randint(1,len(businessID))
+				newBusinessUser = BusinessUser(NRIC=NRIC, businessID=random_businessID)
+				db.session.add(newBusinessUser)
+				print('Account type: Business')
 
 			# Generate a organisation user
 			else:
