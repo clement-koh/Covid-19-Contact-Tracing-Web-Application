@@ -61,12 +61,12 @@
             </div>
         </a>
     </div>
-
-	<!-- Functionalities for Public User and Business User -->
-	{% if userType == 'Public' or userType == 'Business' %}
+    
+    <!-- If account type is Business User -->
+    {% if userType == 'Business' %}
 		<!-- Alerts -->
 		<div class="w3-quarter">
-			<a href="/view_alert" style="text-decoration:none">
+			<a href="/view_business_alert" style="text-decoration:none">
 				<div class="hover w3-container w3-teal w3-padding-16">
 					<div class="w3-left">
 						<i class="fa fa-bell fa-fw w3-xxxlarge"></i>
@@ -76,10 +76,7 @@
 				</div>
 			</a>
 		</div>
-	{% endif %}
-    
-    <!-- If account type is Business User -->
-    {% if userType == 'Business' %}
+	
 		<!-- View Check-In Details -->
 		<div class="w3-quarter">
 			<a href="/view_affected_outlet" style="text-decoration:none">
@@ -96,6 +93,19 @@
     
     <!-- If account type is Public User -->
     {% if userType == 'Public' %}
+		<!-- Alerts -->
+		<div class="w3-quarter">
+			<a href="/view_alert" style="text-decoration:none">
+				<div class="hover w3-container w3-teal w3-padding-16">
+					<div class="w3-left">
+						<i class="fa fa-bell fa-fw w3-xxxlarge"></i>
+					</div>
+					<div class="w3-clear"></div>
+					<h4>View Alerts</h4>
+				</div>
+			</a>
+		</div>
+
         <!-- View History -->
         <div class="w3-quarter">
             <a href="/view_location_history" style="text-decoration:none">
