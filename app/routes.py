@@ -18,6 +18,7 @@ from .boundary.PublicUser_AcknowledgeAlertUI import PublicUser_AcknowledgeAlertU
 # Boundary for Health Staff
 from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewPatientDetailsUI
 from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAlertPublicUI
+from .boundary.HealthStaffUser_SendAlertBusinessUI import HealthStaffUser_SendAlertBusinessUI
 
 
 
@@ -246,6 +247,36 @@ def sendAlertPage():
 
 		# Else display success
 		return healthStaffUser_sendAlertPublicBoundary.displaySuccess()
+
+@app.route('/send_business_alert', methods=['GET', 'POST'])
+@loginRequired
+def sendBusinessAlertPage():
+	# Initialise Boundary Object
+	healthStaffUser_sendAlertBusinessBoundary = HealthStaffUser_SendAlertBusinessUI()
+
+	# If user is requesting the page
+	if request.method == 'GET':
+	
+		# Display the requested page
+		return healthStaffUser_sendAlertBusinessBoundary.displayPage()
+
+	# If user is submitting alert information
+	if request.method == 'POST':
+
+		# Get form details
+		recipient = request.form['target']
+		message = request.form['message']
+
+		# Get result of trying to send alert
+		result = healthStaffUser_sendAlertBusinessBoundary.onSubmit(recipient, message)
+
+		# Display result if not successful
+		if result != healthStaffUser_sendAlertBusinessBoundary.RESPONSE_SUCCESS:
+			return healthStaffUser_sendAlertBusinessBoundary.displayError(result)
+
+		# Else display success
+		return healthStaffUser_sendAlertBusinessBoundary.displaySuccess()
+
 
 @app.route('/view_patient_details', methods=['GET', 'POST'])
 @loginRequired
