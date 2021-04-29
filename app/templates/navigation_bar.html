@@ -2,11 +2,6 @@
 <a href="/" class="w3-bar-item w3-button w3-padding {% if active_page == 'overview' %} w3-blue {% endif %}"><i class="fa fa-users fa-fw"></i>  Overview</a>
 <a href="/update_contact" class="w3-bar-item w3-button w3-padding {% if active_page == 'update_contact' %} w3-blue {% endif %}"><i class="fa fa-edit fa-fw"></i>  Update Particulars</a>
 
-<!-- Functionalities for Public User and Business User -->
-{% if userType == 'Public'%}
-	
-{% endif %}
-
 <!-- Functionalities for Public User -->
 {% if userType == 'Public' %}
 	<a href="/view_alert" class="w3-bar-item w3-button w3-padding {% if active_page == 'public_viewAlert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  View Alerts</a>
@@ -16,7 +11,7 @@
 
 <!-- Functionalities for Business User -->
 {% if userType == 'Business' %}
-    <a href="/view_alert" class="w3-bar-item w3-button w3-padding {% if active_page == 'public_viewAlert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  View Alerts</a>
+    <a href="/view_business_alert" class="w3-bar-item w3-button w3-padding {% if active_page == 'business_viewAlert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  View Alerts</a>
     <a href="/view_affected_outlet" class="w3-bar-item w3-button w3-padding {% if active_page == 'business_viewAffectedOutlet' %} w3-blue {% endif %}"><i class="fa fa-history fa-fw"></i>  View Affected Outlet</a>
 {% endif %}
 
