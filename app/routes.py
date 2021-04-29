@@ -341,7 +341,7 @@ def viewBusinessAlertPage():
 
 @app.route('/view_affected_outlet', methods=['GET', 'POST'])
 @loginRequired
-def viewCheckinDetails():
+def viewAffectedOutlet():
 	if request.method == 'GET':
 		return render_template('business_viewAffectedOutlet.html')
 	if request.method == 'POST':
