@@ -278,13 +278,13 @@ def viewPatientDetailsPage():
 # -----------------------------------------------------
 #                   Business User Pages
 # -----------------------------------------------------
-@app.route('/view_checkin_details', methods=['GET', 'POST'])
+@app.route('/view_affected_outlet', methods=['GET', 'POST'])
 @loginRequired
 def viewCheckinDetails():
 	if request.method == 'GET':
-		return render_template('business_viewCheckinDetails.html')
+		return render_template('business_viewAffectedOutlet.html')
 	if request.method == 'POST':
-		return render_template('business_viewCheckinDetails.html')
+		return render_template('business_viewAffectedOutlet.html')
 
 	# # Check if user has permission for this function
 	# currentUserType = userLoginController.getUserType()
