@@ -80,8 +80,7 @@ class BusinessUser_ViewAffectedOutletController:
 				day += 1
 			# Add the records for one location
 			locationRecord.append(infectedCheckIns)
-
-		print(locationRecord)
+			
 		return json.dumps(locationRecord)
 
 
