@@ -53,7 +53,7 @@ class BusinessUser:
 
 		# Select User from database and populate instance variables
 		results = db.execute("""SELECT NRIC FROM business_user
-								WHERE businessID = (?)""", (str(businessID))).fetchall()
+								WHERE businessID = (?)""", (str(businessID), )).fetchall()
 
 		# Disconnect from database
 		dbDisconnect(connection)
