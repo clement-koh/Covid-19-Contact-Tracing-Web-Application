@@ -4,14 +4,7 @@
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/autocomplete_field.css') }}"/>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/healthStaff_viewUserDetails.css') }}"/>
-	<script type=text/javascript src="{{url_for('static', filename='js/autocomplete.js') }}"></script>
-	<script type=text/javascript src="{{url_for('static', filename='js/healthStaff_viewUserDetails.js') }}"></script>
-	<script>
-		/* An array containing all the information record */
-		var NRICList = {{ userDetails | safe }};
-	</script>
 	<title>View Contact Details</title>
 {% endblock %}
 

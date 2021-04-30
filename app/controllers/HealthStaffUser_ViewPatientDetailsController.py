@@ -4,17 +4,6 @@ class HealthStaffUser_ViewPatientDetailsController:
 	def __init__(self):
 		pass
 
-	def getPatientList(self):
-		"""
-			Returns a string array of all patient's NRIC
-		"""
-
-		# Creates a user object
-		user = User()
-
-		# Returns a list of all NRIC of patients
-		return user.getAllNRIC()
-
 	def verifyPatient(self, NRIC):
 		"""
 			Returns True if patient exists
