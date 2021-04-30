@@ -22,7 +22,7 @@ class HealthStaffUser_SendAlertPublicUI:
 			return redirect('/')
 
 		# Display the webpage
-		return render_template('healthStaff_new_public_alert.html', userType=userType,)
+		return render_template('healthStaff_new_public_alert.html', userType=userType)
 
 	def onSubmit(self, NRIC, message):
 		"""
