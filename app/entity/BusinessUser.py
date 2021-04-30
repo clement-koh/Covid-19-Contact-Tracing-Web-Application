@@ -1,8 +1,13 @@
 from ...dbConfig import dbConnect, dbDisconnect
+from .User import User
 
-class BusinessUser:
+
+class BusinessUser(User):
 	# Constructor
-	def __init__(self, id = None):
+	def __init__(self, NRIC = None):
+		# Calls superclass constructor
+		super().__init__(NRIC)
+		
 		# Connect to database
 		connection = dbConnect()
 		db = connection.cursor()
@@ -13,7 +18,7 @@ class BusinessUser:
 			# Select location from database and populate instance variables
 			result = db.execute("""SELECT id, NRIC, businessID
 								   FROM business_user 
-								   WHERE id = (?)""", (id,)).fetchone()
+								   WHERE NRIC = (?)""", (NRIC,)).fetchone()
 			
 			# Populate private instance variables with value or None 
 			if result is not None:
@@ -64,3 +69,5 @@ class BusinessUser:
 			NRICList.append(result[0])
 		
 		return NRICList
+	
+	
