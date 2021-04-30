@@ -60,7 +60,7 @@ def loginPage():
 	# If user is submitting the login details
 	if request.method == "POST":
 		# Get fields from the login form
-		username = request.form['username']
+		username = request.form['username'].upper()
 		password = request.form['password']
 
 		# If login fields are empty
