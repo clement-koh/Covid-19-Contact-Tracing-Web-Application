@@ -23,6 +23,7 @@ from .boundary.HealthStaffUser_SendAlertBusinessUI import HealthStaffUser_SendAl
 # Boundary for Business Staff
 from .boundary.BusinessUser_ViewAlertUI import BusinessUser_ViewAlertUI
 from .boundary.BusinessUser_AcknowledgeAlertUI import BusinessUser_AcknowledgeAlertUI
+from .boundary.BusinessUser_ViewAffectedOutletUI import BusinessUser_ViewAffectedOutletUI
 
 
 # -----------------------------------------------------
@@ -81,14 +82,14 @@ def loginPage():
 @app.route('/logout', methods=['GET'])
 @loginRequired
 def logout():
-		# Initialise User_LogoutUI Object
-		user_logoutBoundary = User_LogoutUI()
+	# Initialise User_LogoutUI Object
+	user_logoutBoundary = User_LogoutUI()
 
-		# Log User Out
-		user_logoutBoundary.logout()
+	# Log User Out
+	user_logoutBoundary.logout()
 
-		# Redirect to login page
-		return user_logoutBoundary.redirectToLogin()
+	# Redirect to login page
+	return user_logoutBoundary.redirectToLogin()
 		
 
 @app.route('/update_contact', methods=['GET', 'POST'])
@@ -339,10 +340,8 @@ def viewBusinessAlertPage():
 		# If submission is successful
 		return businessUser_acknowledgeAlertBoundary.displaySuccess()
 
-@app.route('/view_affected_outlet', methods=['GET', 'POST'])
+@app.route('/view_affected_outlet', methods=['GET'])
 @loginRequired
 def viewAffectedOutlet():
-	if request.method == 'GET':
-		return render_template('business_viewAffectedOutlet.html')
-	if request.method == 'POST':
-		return render_template('business_viewAffectedOutlet.html')
+	businessUser_viewAffectedOutletBoundary = BusinessUser_ViewAffectedOutletUI()
+	return businessUser_viewAffectedOutletBoundary.displayPage()

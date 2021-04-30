@@ -66,3 +66,32 @@ class Location:
 		
 		# Return the name if there is a result
 		return result[0]
+
+	def getLocationsBelongingToBusiness(self, businessID):
+		"""
+		Takes in a businessID and 
+		returns an int array of locationIDs associated with 
+		the businessID
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Select all id based on businessID
+		result = db.execute("""SELECT id FROM location 
+							   WHERE businessID = (?)""", (businessID,)).fetchall()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# Return None if no result
+		if result is None:
+			return None
+		
+		# Store all results in a int array
+		locationIDs = []
+		for item in result:
+			locationIDs.append(int(item[0]))
+		
+		# Return the array of location ID
+		return locationIDs

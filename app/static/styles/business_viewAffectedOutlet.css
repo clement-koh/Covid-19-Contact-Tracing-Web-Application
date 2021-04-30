@@ -1,0 +1,19 @@
+.LocationContainer{
+	border: 1px solid black;
+	border-radius: 50px;
+	margin-top: 50px;
+	overflow: hidden;
+}
+
+.LocationNameContainer {
+	background-color: aliceblue;
+	text-align: center;
+	padding: 10px;
+}
+
+.RecordChunk {
+	background-color:pink;
+	text-align: center;
+	min-height: 100px;
+}
+
