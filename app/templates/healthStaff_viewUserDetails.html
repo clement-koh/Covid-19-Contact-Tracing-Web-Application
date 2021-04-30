@@ -19,17 +19,12 @@
 	<div class="w3-row-padding w3-margin-bottom">
 		<form action="/view_patient_details" autocomplete="off" method="POST">
 			<label for="user">User: &nbsp;</label>
-			<div class="autocomplete" style="width:302px;">
-				<input id="user" type="text" name="user" size="40" placeholder="Enter NRIC">
-			</div>
-			&nbsp; &nbsp;
-
+			<input id="user" type="text" name="user" size="40" placeholder="Enter NRIC">
 			<input type="submit" id="submit" value="Search">
-			<br><br>
 		</form>
 	
 		{% if patientDetails %}
-			<table id="records">
+			<table id="records" style='margin-top: 20px;'>
 				<tr>
 					<th>NRIC / Business Name</th>
 					<th>First Name</th>
