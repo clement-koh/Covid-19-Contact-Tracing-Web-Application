@@ -6,17 +6,6 @@ class HealthStaffUser_SendAlertPublicController:
 	def __init__(self):
 		pass
 
-	def getRecipientList(self):
-		"""
-			Returns a string array of all user's NRIC
-		"""
-
-		# Create User Object
-		user = User()
-
-		# Return array containing all NRIC
-		return user.getAllNRIC()
-
 	def verifyNRIC(self, NRIC):
 		"""
 			Returns True if the NRIC provided is a valid user

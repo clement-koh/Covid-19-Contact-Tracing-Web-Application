@@ -27,13 +27,9 @@ class HealthStaffUser_ViewPatientDetailsUI:
 		if userType!= "Health Staff":
 			flash("Unauthorised to access this content", 'error')
 			return redirect('/')
-		
-		# Get a list of all possible patient NRIC
-		patientsNRIC = self.__viewPatientController.getPatientList()
 
 		# Render the page
-		return render_template('healthStaff_viewUserDetails.html', userType=userType,
-	 														   	   userDetails=patientsNRIC)
+		return render_template('healthStaff_viewUserDetails.html', userType=userType)
 		
 	def onSubmit(self):
 		"""
