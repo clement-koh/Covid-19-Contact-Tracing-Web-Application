@@ -54,15 +54,11 @@ class HealthStaffUser_ViewPatientDetailsUI:
 		# Gets the current user type
 		userType = session['userType']
 
-		# Get a list of all possible patient NRIC
-		patientsNRIC = self.__viewPatientController.getPatientList()
-
 		# Get the patient's details
 		patientDetails = self.__viewPatientController.getPatientDetails(self.__patientNRIC)
 
 		# Render the page with patient's details
 		return render_template('healthStaff_viewUserDetails.html', userType=userType,
-	 														   	   userDetails=patientsNRIC,
 																   patientDetails=patientDetails)
 
 	def displayError(self, response):
