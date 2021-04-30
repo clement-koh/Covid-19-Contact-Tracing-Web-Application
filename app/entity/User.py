@@ -197,25 +197,3 @@ class User:
 		Returns False if verification does not match
 		"""
 		return self.__password == password
-
-	def getAllNRIC(self):
-		"""
-		Returns a list of all NRIC
-		"""
-		# Open connection to database
-		connection = dbConnect()
-		db = connection.cursor()
-
-		# Select User from database and populate instance variables
-		results = db.execute("""SELECT NRIC FROM user""").fetchall()
-
-		# Disconnect from database
-		dbDisconnect(connection)
-
-		# Returns a list of all NRIC
-		NRICList = []
-		for result in results:
-			NRICList.append(result[0])
-		
-		return NRICList
-
