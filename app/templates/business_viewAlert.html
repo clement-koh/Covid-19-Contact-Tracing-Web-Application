@@ -30,6 +30,11 @@
               <hr/>
             </tr>
         {% endfor %}
+		{% if alert|length == 0 %}
+			<hr/>
+			<b><i>There are no alerts to be read</i></b>
+			<hr/>
+		{% endif %}
     </table>
 </div>
 {% endblock %}
