@@ -292,7 +292,7 @@ def viewPatientDetailsPage():
 
 	if request.method == 'POST':
 		# Get form details
-		NRIC = request.form['user']
+		NRIC = request.form['user'].strip()
 
 		# Set the boundary to contain the patient's NRIC
 		healthStaffUser_viewPatientDetailsBoundary.setPatient(NRIC)
