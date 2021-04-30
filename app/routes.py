@@ -236,8 +236,8 @@ def sendPublicAlertPage():
 	if request.method == 'POST':
 
 		# Get form details
-		recipient = request.form['target']
-		message = request.form['message']
+		recipient = request.form['target'].strip()
+		message = request.form['message'].strip()
 
 		# Get result of trying to send alert
 		result = healthStaffUser_sendAlertPublicBoundary.onSubmit(recipient, message)
@@ -265,8 +265,8 @@ def sendBusinessAlertPage():
 	if request.method == 'POST':
 
 		# Get form details
-		recipient = request.form['target']
-		message = request.form['message']
+		recipient = request.form['target'].strip()
+		message = request.form['message'].strip()
 
 		# Get result of trying to send alert
 		result = healthStaffUser_sendAlertBusinessBoundary.onSubmit(recipient, message)
