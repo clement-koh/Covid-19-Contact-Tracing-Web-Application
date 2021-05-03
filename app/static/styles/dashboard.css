@@ -1,5 +1,11 @@
-html,body,h1,h2,h3,h4,h5 {
-    font-family: "Raleway", sans-serif
+@font-face { 
+	font-family: Nunito; 
+	src: url('nunito/Nunito-Regular.ttf'); 
+} 
+
+/* Change default font to Nunito-Regular */
+html,body,h1,h2,h3,h4,h5,input,div,table,tr,td,th,select {
+	font-family: "Nunito", sans-serif;
 }
 
 /* top right log out button */
