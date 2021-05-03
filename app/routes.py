@@ -6,7 +6,6 @@ from .boundary.User_LoginUI import User_LoginUI
 from .boundary.User_LogoutUI import User_LogoutUI
 from .boundary.User_UpdateContactUI import User_UpdateContactUI
 from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
-from .boundary.User_OverviewUI import User_OverviewUI
 
 # Boundary for Public Users
 from .boundary.PublicUser_ExposureStatusUI import PublicUser_ExposureStatusUI
@@ -217,6 +216,14 @@ def viewAffectedLocationPage():
 	if request.method == 'POST':
 		days_ago = int(request.form['days_ago'])
 		return publicUser_viewAffectedLocationBoundary.getAffectedLocation(days_ago)
+
+@app.route('/view_vaccine_certificate', methods=['GET', 'POST'])
+@loginRequired
+def viewVaccineCertificate():
+	if request.method == 'GET':
+		return render_template('public_viewVaccineCertificate.html')
+	if request.method == 'POST':
+		return render_template('public_viewVaccineCertificate.html')
 
 # -----------------------------------------------------
 #                   Health Staff Pages

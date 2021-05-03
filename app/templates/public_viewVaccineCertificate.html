@@ -1,0 +1,88 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="public_viewVaccineCertificate" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<title>View Vaccine Certificate</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/public_viewVaccineCertificate.css') }}"/>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+    <b><i class="fa fa-certificate"></i>  View Vaccine Certificate</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+  <div class="w3-row-padding w3-margin-bottom">
+    <!-- Completed Vaccination -->
+    <div id="completed">
+      <div class="imgContainer" id="cert">
+        <img id="img" src="{{url_for('static', filename='certificate.png')}}"/>
+        <div class="txtCenter">
+          <br><br>
+          <span class="standard"><i>This is to certify that</i></span>
+          <br><br>
+          <span class="name" id="patientName"><b></b></span><br><br>
+          <span class="standard"><i>has completed the vaccination on</i></span><br><br>
+          <span class="standard" id="date"></span><br><br>
+          <span class="signature"><i>naaaomi</i></span><br>
+          <span class="signOff">Naomi Chan</span><br>
+          <span class="signOff">Project Manager, 30T</span> 
+          <br><br>
+        </div>
+      </div>
+      <br>
+      <button onclick="downloadimage()" class="clickbtn">Download Certificate</button>
+    </div>
+    <br><br><br>
+    
+    <!-- Incomplete Vaccination -->
+    <div id="incomplete">
+      <!-- Status Field -->
+      <label for="status">Status: </label>
+      <input name="status" id="status" type="text" disabled /><br><br>
+      <label for="record">Date: &nbsp;&nbsp;</label>
+      <input name="record" id="record" type="date" disabled />
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      /* For Incomplete Vaccination */
+      // vaccination status
+      document.getElementById("status").value = "Not Completed";
+      // date of last vaccination
+      document.getElementById("record").value = "2021-04-29";
+
+      /* For Completed Vaccination */
+      // patient's full name
+      document.getElementById("patientName").innerHTML = "Drew Bay Smith";
+      // date of vaccination completion
+      document.getElementById("date").innerHTML = "29 April 2021";
+      // disable right click on template image
+      $('img').bind('contextmenu', function(e) {
+        return false;
+      }); 
+      // disable drag and drop template image
+      document.getElementById('img').ondragstart = function() { return false; };
+    });
+
+    function downloadimage() {
+      // elements to be included in the printing
+      var container = document.getElementById("cert"); 
+
+      html2canvas(container, { allowTaint: true }).then(function (canvas) {
+        var link = document.createElement("a");
+        document.body.appendChild(link);
+        link.download = "certificate.jpg";
+        link.href = canvas.toDataURL();
+        link.target = '_blank';
+        link.click();
+      });
+    }
+  </script>
+
+{% endblock %}

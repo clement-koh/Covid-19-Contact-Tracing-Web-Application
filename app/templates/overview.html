@@ -17,37 +17,37 @@
     <!-- Exposure Risk -->
     <div class="w3-row-padding w3-margin-bottom">
         <div class="w3-full">
-        <div class="w3-container w3-white w3-padding-16">
-            <!-- Green -->
-            {% if healthStatus == 'Green' %}
-            <div id="green">
-                <div class="w3-left"><i class="fa fa-check w3-xxxlarge" style="color:green"></i></div>
-                <h4><b>You're okay! You were not at places visited by COVID-19 cases.</b></h4>
-                <p>Based on your location records from the last 14 days.</p>
-            </div>
-            {% endif %}
+            <div class="w3-container w3-white w3-padding-16">
+                <!-- Green -->
+                {% if healthStatus == 'Green' %}
+                <div id="green">
+                    <div class="w3-left"><i class="fa fa-check w3-xxxlarge" style="color:green"></i></div>
+                    <h4><b>You're okay! You were not at places visited by COVID-19 cases.</b></h4>
+                    <p>Based on your location records from the last 14 days.</p>
+                </div>
+                {% endif %}
 
 
-            <!-- Orange -->
-            {% if healthStatus == 'Orange' %}
-            <div id="orange">
-                <div class="w3-left"><i class="fa fa-exclamation-circle w3-xxxlarge" style="color:orange"></i></div>
-                <h4><b>&nbsp;Please monitor your health. You were at places visited by COVID-19 cases.</b></h4>
-                <p>&nbsp;Based on your location records from the last 14 days.</p>
-            </div>
-            {% endif %}
+                <!-- Orange -->
+                {% if healthStatus == 'Orange' %}
+                <div id="orange">
+                    <div class="w3-left"><i class="fa fa-exclamation-circle w3-xxxlarge" style="color:orange"></i></div>
+                    <h4><b>&nbsp;Please monitor your health. You were at places visited by COVID-19 cases.</b></h4>
+                    <p>&nbsp;Based on your location records from the last 14 days.</p>
+                </div>
+                {% endif %}
 
-            <!-- Red -->
-            {% if healthStatus == 'Red' %}
-            <div id="red">
-                <div class="w3-left"><i class="fa fa-exclamation-triangle w3-xxxlarge" style="color:red"></i></div>
-                <h4><b>&nbsp;You have been infected with covid-19.</b></h4>
-				<p>&nbsp;Please quarentine yourself and do not have contact with others.</p>
+                <!-- Red -->
+                {% if healthStatus == 'Red' %}
+                <div id="red">
+                    <div class="w3-left"><i class="fa fa-exclamation-triangle w3-xxxlarge" style="color:red"></i></div>
+                    <h4><b>&nbsp;You have been infected with covid-19.</b></h4>
+                    <p>&nbsp;Please quarentine yourself and do not have contact with others.</p>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
     </div>
-
 
     <!-- Update Particulars -->
     <div class="w3-quarter">
@@ -128,6 +128,18 @@
                 </div>
                 <div class="w3-clear"></div>
                 <h4>View Affected Locations</h4>
+            </div>
+            </a>  
+        </div>
+        <!-- View Vaccine Certificate -->
+        <div class="w3-quarter w3-padding-16">
+            <a href="/view_vaccine_certificate" style="text-decoration:none">
+            <div class="hover w3-container w3-deep-purple w3-padding-16">
+                <div class="w3-left">
+                    <i class="fa fa-certificate w3-xxxlarge"></i>
+                </div>
+                <div class="w3-clear"></div>
+                <h4>View Vaccine Certificate</h4>
             </div>
             </a>  
         </div>
