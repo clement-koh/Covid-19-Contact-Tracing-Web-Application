@@ -38,9 +38,9 @@ def overviewPage():
 	# Exposure status is none if user is not a public user
 	exposureStatus = publicUser_exposureStatusBoundary.getExposureStatus()
 
-	# Create User_Overview Boundary Object
-	user_overviewUI = User_OverviewUI()
-	return user_overviewUI.displayPage(exposureStatus)
+	# Displays the webpage
+	return render_template('overview.html', userType = session['userType'],
+											healthStatus = healthStatus)
 
 @app.route('/login', methods=['GET', 'POST'])
 def loginPage():

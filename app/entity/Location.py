@@ -46,7 +46,7 @@ class Location:
 	def getLocationNameFromID(self, id):
 		""" 
 		Return None if there is no result, or 
-		Return a 2d array containing all results
+		Return a string containing the location name
 		"""
 		# Connect to database
 		connection = dbConnect()
