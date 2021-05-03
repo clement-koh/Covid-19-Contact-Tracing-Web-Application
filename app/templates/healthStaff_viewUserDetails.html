@@ -4,20 +4,13 @@
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/autocomplete_field.css') }}"/>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/healthStaff_viewUserDetails.css') }}"/>
-	<script type=text/javascript src="{{url_for('static', filename='js/autocomplete.js') }}"></script>
-	<script type=text/javascript src="{{url_for('static', filename='js/healthStaff_viewUserDetails.js') }}"></script>
-	<script>
-		/* An array containing all the information record */
-		var NRICList = {{ userDetails | safe }};
-	</script>
 	<title>View Contact Details</title>
 {% endblock %}
 
 <!-- Content Header -->
 {% block contentHeader %}
-	<b><i class="fa fa-bluetooth"></i> &nbsp; View Contact Details</b>
+	<b><i class="fa fa-address-book-o"></i> &nbsp;View Contact Details</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->
@@ -26,17 +19,12 @@
 	<div class="w3-row-padding w3-margin-bottom">
 		<form action="/view_patient_details" autocomplete="off" method="POST">
 			<label for="user">User: &nbsp;</label>
-			<div class="autocomplete" style="width:302px;">
-				<input id="user" type="text" name="user" size="40" placeholder="Enter NRIC or Business Name">
-			</div>
-			&nbsp; &nbsp;
-
+			<input id="user" type="text" name="user" size="40" placeholder="Enter NRIC">
 			<input type="submit" id="submit" value="Search">
-			<br><br>
 		</form>
 	
 		{% if patientDetails %}
-			<table id="records">
+			<table id="records" style='margin-top: 20px;'>
 				<tr>
 					<th>NRIC / Business Name</th>
 					<th>First Name</th>
