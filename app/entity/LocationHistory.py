@@ -117,3 +117,49 @@ class LocationHistory:
 
 		# Return the list of locationID
 		return locationList
+	
+	def getLocationCheckInDetails(self, locationID, noOfDaysAgo, NRICList):
+		""" 
+		Return 2d array containing details
+		[][0] - id
+		[][1] - NRIC
+		[][2] - location_visited
+		[][3] - time_in
+		[][4] - time_out
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		#Format statement for SQL
+		date = "-{} days".format(noOfDaysAgo)
+		
+		latestDate = None
+		if noOfDaysAgo > 0:
+			latestDate = "-{} days".format(noOfDaysAgo - 1)
+		else: 
+			latestDate = "+{} days".format(noOfDaysAgo + 1)
+
+		
+		query = """SELECT id, NRIC, location_visited, time_in, time_out
+					FROM location_history 
+					WHERE 
+						date(time_in) >= strftime('%Y-%m-%d', date(date('now','localtime')), (?)) AND
+						date(time_in) < strftime('%Y-%m-%d', date(date('now','localtime')), (?)) AND
+						location_visited = (?) AND 
+						NRIC IN ({seq})
+					ORDER BY time_in DESC""".format(seq=','.join(['?']*len(NRICList)))
+
+		# Prepare query arguments
+		queryArgs = [date, latestDate, locationID]
+		for item in NRICList:
+			queryArgs.append(item)
+
+		# Select location history within past __ of days based on NRIC
+		results = db.execute(query,queryArgs).fetchall()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# Return the list of locationID
+		return results
