@@ -6,7 +6,6 @@ from .boundary.User_LoginUI import User_LoginUI
 from .boundary.User_LogoutUI import User_LogoutUI
 from .boundary.User_UpdateContactUI import User_UpdateContactUI
 from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
-from .boundary.User_OverviewUI import User_OverviewUI
 
 # Boundary for Public Users
 from .boundary.PublicUser_ExposureStatusUI import PublicUser_ExposureStatusUI
