@@ -307,7 +307,15 @@ def viewPatientDetailsPage():
 
 		# Display Success
 		return healthStaffUser_viewPatientDetailsBoundary.displaySuccess()
-		
+
+@app.route('/view_update_vaccination', methods=['GET', 'POST'])
+@loginRequired
+def viewUpdateVaccination():
+	if request.method == 'GET':
+		return render_template('healthStaff_viewUpdateVaccination.html')
+	if request.method == 'POST':
+		return render_template('healthStaff_viewUpdateVaccination.html')
+				
 # -----------------------------------------------------
 #                   Business User Pages
 # -----------------------------------------------------
