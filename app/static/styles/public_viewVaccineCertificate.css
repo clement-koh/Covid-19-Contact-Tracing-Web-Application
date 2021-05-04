@@ -4,10 +4,17 @@
 	width: 800px;
 	height: 618px;
 	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
 }
 
-img {
+#img {
 	width: 100%;
+}
+
+/* centralize div content */
+#completed, #incomplete {
+	text-align: center;
 }
 
 /* append text on top of the image */

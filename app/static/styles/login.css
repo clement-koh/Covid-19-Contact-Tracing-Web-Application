@@ -1,3 +1,13 @@
+@font-face { 
+	font-family: Nunito-Regular; 
+	src: url('nunito/Nunito-Regular.ttf'); 
+} 
+
+/* Change default font to Nunito-Regular */
+html,body,h1,h2,h3,h4,h5,input,div,table,tr,td,th,select {
+	font-family: "Nunito-Regular", sans-serif;
+}
+
 /* Centralise the login box to the center of the screen */
 html,
 body {

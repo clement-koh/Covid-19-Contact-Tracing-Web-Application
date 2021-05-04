@@ -5,7 +5,6 @@
 {% block head %}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/healthStaff_updateVaccinationStatus.css') }}"/>
-    <script type=text/javascript src="{{url_for('static', filename='js/healthStaff_updateVaccinationStatus.js') }}"></script>
     <title>View and Update Vaccination Status</title>
 {% endblock %}
 
@@ -45,7 +44,7 @@
           <td>F</td>
           <td>30 Apr 2021</td>
           <td>-</td>
-          <td>First Dose Taken</td>
+          <td>Scheduled for Second Dose</td>
           <td>
               <!-- Open Update Pop Up -->
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
@@ -84,21 +83,22 @@
           <label class="label_details" for="label_gender">Patient's Gender: </label>
           <input type="text" id="gender" size = "30" placeholder="F" disabled><br><br>
       
-          <!-- Date of First Dose -->
-          <label class="label_details" for="label_first_dose">Date of Vaccination (First Dose): </label>
-          <input type="date" class="vaccination_date" id="first_dose_date"><br><br>
-      
-          <!-- Date of Second Dose -->
-          <label class="label_details" for="label_second_dose">Date of Vaccination (Second Dose): </label>
-          <input type="date" class="vaccination_date" id="second_dose_date"><br><br>
-      
           <!-- Status Dropdown List -->
           <label class="label_details" for="status_label">Status: </label>
           <select id="status_dropdown">
-              <option value="not_applicable">Not Applicable</option>
-              <option value="first_dose">First Dose Taken</option>
-              <option value="vaccinated">Fully Vaccinated</option>
+              <option value="not_eligible">Not Eligible For Vaccination</option>
+              <option value="eligible">Eligible For Vaccination</option>
+              <option value="first_dose_scheduled">Scheduled for First Dose</option>
+              <option value="second_dose_scheduled">Scheduled for Second Dose</option>
+              <option value="vaccination_completed">Vaccination Completed</option>
           </select><br><br>
+
+          <!-- Checkbox for First Dose -->
+          <label class="label_details" for="label_first_dose">First Dose Vaccinated: </label>
+          <input type="checkbox" id="first_dose" name="first_dose" value="first_dose"><br><br>
+          <!-- Checkbox for Second Dose -->
+          <label class="label_details" for="label_second_dose">Second Dose Vaccinated: </label>
+          <input type="checkbox" id="second_dose" name="second_dose" value="second_dose"><br><br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
