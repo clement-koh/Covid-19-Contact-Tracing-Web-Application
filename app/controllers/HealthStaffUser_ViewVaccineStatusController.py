@@ -44,8 +44,8 @@ class HealthStaffUser_ViewVaccineStatusController:
 		userInfo.append(user.getMiddleName())
 		userInfo.append(user.getLastName())
 		userInfo.append(user.getGender())
-		userInfo.append(vaccineStatus.getFirstShotDate)
-		userInfo.append(vaccineStatus.getSecondShotDate)
-		userInfo.append(vaccineStatus.getVaccinationStatus)
+		userInfo.append(vaccineStatus.getFirstShotDate())
+		userInfo.append(vaccineStatus.getSecondShotDate())
+		userInfo.append(vaccineStatus.getVaccinationStatus())
 		
 		return userInfo
