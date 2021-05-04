@@ -24,6 +24,7 @@
       <input type="submit" id="submit" value="Search">
   </form>
   <!-- If Patient Is Found -->
+  {% if vaccineStatusDetails %}
   <table id="vaccine_satus" style='margin-top: 20px;'>
       <tr>
           <th>NRIC</th>
@@ -37,14 +38,14 @@
           <th>Update</th>
       </tr>
       <tr>
-          <td>S0001</td>
-          <td>Addison</td>
-          <td>Angel</td>
-          <td>Smith</td>
-          <td>F</td>
-          <td>30 Apr 2021</td>
-          <td>-</td>
-          <td>Scheduled for Second Dose</td>
+          <td>{{ vaccineStatusDetails[0] }}</td>
+          <td>{{ vaccineStatusDetails[1] }}</td>
+          <td>{{ vaccineStatusDetails[2] }}</td>
+          <td>{{ vaccineStatusDetails[3] }}</td>
+          <td>{{ vaccineStatusDetails[4] }}</td>
+          <td>{{ vaccineStatusDetails[5] }}</td>
+          <td>{{ vaccineStatusDetails[6] }}</td>
+          <td>{{ vaccineStatusDetails[7] }}</td>
           <td>
               <!-- Open Update Pop Up -->
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
@@ -53,6 +54,7 @@
           </td>
       </tr>
   </table>
+  {% endif %}
 <div>  
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -62,26 +64,27 @@
         <b><i class='fa fa-pencil'></i> Update Vaccination Status</b>
       </div>
       <form>
+		{% if vaccineStatusDetails %}
         <div class="modal-body">
           <!-- Patient NRIC -->
           <label class="label_details" for="label_nric">Patient's NRIC: </label>
-          <input type="text" id="NRIC" size = "30" placeholder="S0001" disabled><br><br>
+          <input type="text" id="NRIC" size = "30" placeholder= {{ vaccineStatusDetails[0] }} disabled><br><br>
       
           <!-- Patient First Name -->
           <label class="label_details" for="label_fname">Patient's First Name: </label>
-          <input type="text" id="first_name" size = "30" placeholder="Addison" disabled> <br><br>
+          <input type="text" id="first_name" size = "30" placeholder= {{ vaccineStatusDetails[1] }} disabled> <br><br>
       
           <!-- Patient Middle Name -->
           <label class="label_details" for="label_mname">Patient's Middle Name: </label>
-          <input type="text" id="middle_name" size = "30" placeholder="Angel" disabled> <br><br>
+          <input type="text" id="middle_name" size = "30" placeholder={{ vaccineStatusDetails[2] }} disabled> <br><br>
       
           <!-- Patient Last Name -->
           <label class="label_details" for="label_lname">Patient's Last Name: </label>
-          <input type="text" id="last_name" size = "30" placeholder="Smith" disabled><br><br>
+          <input type="text" id="last_name" size = "30" placeholder={{ vaccineStatusDetails[3] }} disabled><br><br>
       
           <!-- Patient Gender -->
           <label class="label_details" for="label_gender">Patient's Gender: </label>
-          <input type="text" id="gender" size = "30" placeholder="F" disabled><br><br>
+          <input type="text" id="gender" size = "30" placeholder={{ vaccineStatusDetails[4] }} disabled><br><br>
       
           <!-- Status Dropdown List -->
           <label class="label_details" for="status_label">Status: </label>
@@ -104,7 +107,8 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           <button class="btn btn-danger">Update</button>
         </div>
-      </form>
+		{% endif %}
+      </form> 
     </div>
   </div>
 </div>
