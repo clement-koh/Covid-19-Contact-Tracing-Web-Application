@@ -24,6 +24,7 @@
       <input type="submit" id="submit" value="Search">
   </form>
   <!-- If Patient Is Found -->
+  {% if vaccineStatusDetails %}
   <table id="vaccine_satus" style='margin-top: 20px;'>
       <tr>
           <th>NRIC</th>
@@ -37,14 +38,14 @@
           <th>Update</th>
       </tr>
       <tr>
-          <td>S0001</td>
-          <td>Addison</td>
-          <td>Angel</td>
-          <td>Smith</td>
-          <td>F</td>
-          <td>30 Apr 2021</td>
-          <td>-</td>
-          <td>Scheduled for Second Dose</td>
+          <td>{{ vaccineStatusDetails[0] }}</td>
+          <td>{{ vaccineStatusDetails[1] }}</td>
+          <td>{{ vaccineStatusDetails[2] }}</td>
+          <td>{{ vaccineStatusDetails[3] }}</td>
+          <td>{{ vaccineStatusDetails[4] }}</td>
+          <td>{{ vaccineStatusDetails[5] }}</td>
+          <td>{{ vaccineStatusDetails[6] }}</td>
+          <td>{{ vaccineStatusDetails[7] }}</td>
           <td>
               <!-- Open Update Pop Up -->
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
@@ -53,6 +54,7 @@
           </td>
       </tr>
   </table>
+  {% endif %}
 <div>  
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
