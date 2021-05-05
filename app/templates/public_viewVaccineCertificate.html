@@ -22,7 +22,6 @@
     {% if vaccinationDetails[1] == 'Vaccination completed' %}
       <div id="completed">
         <div class="imgContainer" id="cert">
-          <img id="img" src="{{url_for('static', filename='certificate.png')}}"/>
           <div class="txtCenter">
             <br><br>
             <span class="standard"><i>This is to certify that</i></span>
@@ -32,7 +31,7 @@
             <span class="standard">{{ vaccinationDetails[3] }}</span><br><br>
             <span class="signature"><i>naaaomi</i></span><br>
             <span class="signOff">Naomi Chan</span><br>
-            <span class="signOff">Project Manager, 30T</span> 
+            <span class="signOff">Project Manager, 30T</span>
           </div>
         </div>
         <br>
