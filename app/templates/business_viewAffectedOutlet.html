@@ -5,38 +5,59 @@
 <!-- Updates the <head> of the webpage -->
 {% block head %}
 	<title>View Affected Outlet</title>
-  <style>
-    tr:hover td {
-      background-color:#e7e7e7;
-    }
-  </style>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/business_viewAffectedOutlet.css') }}"/>
+	<script type=text/javascript src="{{url_for('static', filename='js/business_viewAffectedOutlet.js') }}"></script>
 {% endblock %}
 
 <!-- Content Header -->
 {% block contentHeader %}
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/business_viewAffectedOutlet.css') }}"/>
     <b><i class="fa fa-history fa-fw"></i>View Affected Outlet</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->
 {% block contentBody %}
 	<div class="w3-row-padding w3-margin-bottom">
+		<!-- "Open all" Button -->
+		<div class ="button_div">
+			<button onclick = "showAllFunction()" class="showAll">Open All</button>
+			<button onclick = "closeAllFunction()" class="closeAll">Close All</button>
+		</div>
 		{% for location in locationDetails %}
+		<!-- Location Container -->
 			<div class="LocationContainer">
+				<!-- Location Name -->
 				<div class="LocationNameContainer">
 					<h4>{{location.locationName}}</h4>
 				</div>
+				<!-- Time Records -->
 				<div class="RecordChunk">
-					Can add some message here so people know what they are looking at?
-					{% for record in location.checkInData %}
+					{% if location.checkInData != [] %}
+					<span class="message">Check in Time of COVID-19 Positive People</span>  
 						<div class="RecordRow">
-							<span>{{record.date}}</span>
-							<span>{{record.timeIn}}</span>
-							<span>{{record.timeOut}}</span>
+							<!-- Table To Display Time Records -->
+							<table class="tablerecords">
+								<tr>
+									<th>No</th>
+									<th width="150px">Date</th>
+									<th width="150px">Time In</th>
+									<th width="150px">Time Out</th>
+								</tr>
+								{% for record in location.checkInData %}
+								<tr>
+									<td></td><!-- this is left blank to generate count -->
+									<td>{{record.date}}</td>
+									<td>{{record.timeIn}}</td>
+									<td>{{record.timeOut}}</td>
+								</tr>
+								{% endfor %}
+							</table>
 						</div>
-					{% endfor %}
+					{% else %}
+					<span class="message">This branch is not visited by any COVID-19 Positive People</span>
+					{% endif %}
 				</div>
 			</div>
 		{% endfor %}
 	</div>
 {% endblock %}
+
