@@ -63,52 +63,54 @@
       <div class="modal-header">
         <b><i class='fa fa-pencil'></i> Update Vaccination Status</b>
       </div>
-      <form>
-		{% if vaccineStatusDetails %}
-        <div class="modal-body">
-          <!-- Patient NRIC -->
-          <label class="label_details" for="label_nric">Patient's NRIC: </label>
-          <input type="text" id="NRIC" size = "30" placeholder= {{ vaccineStatusDetails[0] }} disabled><br><br>
+      {% if vaccineStatusDetails %}
+        <form action="/update_vaccination" method="POST">
       
-          <!-- Patient First Name -->
-          <label class="label_details" for="label_fname">Patient's First Name: </label>
-          <input type="text" id="first_name" size = "30" placeholder= {{ vaccineStatusDetails[1] }} disabled> <br><br>
-      
-          <!-- Patient Middle Name -->
-          <label class="label_details" for="label_mname">Patient's Middle Name: </label>
-          <input type="text" id="middle_name" size = "30" placeholder={{ vaccineStatusDetails[2] }} disabled> <br><br>
-      
-          <!-- Patient Last Name -->
-          <label class="label_details" for="label_lname">Patient's Last Name: </label>
-          <input type="text" id="last_name" size = "30" placeholder={{ vaccineStatusDetails[3] }} disabled><br><br>
-      
-          <!-- Patient Gender -->
-          <label class="label_details" for="label_gender">Patient's Gender: </label>
-          <input type="text" id="gender" size = "30" placeholder={{ vaccineStatusDetails[4] }} disabled><br><br>
-      
-          <!-- Status Dropdown List -->
-          <label class="label_details" for="status_label">Status: </label>
-          <select id="status_dropdown">
-              <option value="not_eligible">Not Eligible For Vaccination</option>
-              <option value="eligible">Eligible For Vaccination</option>
-              <option value="first_dose_scheduled">Scheduled for First Dose</option>
-              <option value="second_dose_scheduled">Scheduled for Second Dose</option>
-              <option value="vaccination_completed">Vaccination Completed</option>
-          </select><br><br>
+          <div class="modal-body">
+            <!-- Patient NRIC -->
+            <label class="label_details" for="label_nric">Patient's NRIC: </label>
+            <input type="text" name="name" id="NRIC" size="30" value="{{ vaccineStatusDetails[0] }}" readonly><br><br>
+        
+            <!-- Patient First Name -->
+            <label class="label_details" for="label_fname">Patient's First Name: </label>
+            <input type="text" id="first_name" size="30" value="{{ vaccineStatusDetails[1] }}" readonly> <br><br>
+        
+            <!-- Patient Middle Name -->
+            <label class="label_details" for="label_mname">Patient's Middle Name: </label>
+            <input type="text" id="middle_name" size="30" value="{{ vaccineStatusDetails[2] }}" readonly> <br><br>
+        
+            <!-- Patient Last Name -->
+            <label class="label_details" for="label_lname">Patient's Last Name: </label>
+            <input type="text" id="last_name" size="30" value="{{ vaccineStatusDetails[3] }}" readonly><br><br>
+        
+            <!-- Patient Gender -->
+            <label class="label_details" for="label_gender">Patient's Gender: </label>
+            <input type="text" id="gender" size="30" value="{{ vaccineStatusDetails[4] }}" readonly><br><br>
+        
+            <!-- Status Dropdown List -->
+            <label class="label_details" for="status_label">Status: </label>
+            <select name="vaccinationstatus" id="status_dropdown">
+                <option value="not_eligible">Not Eligible For Vaccination</option>
+                <option value="eligible">Eligible For Vaccination</option>
+                <option value="first_dose_scheduled">Scheduled for First Dose</option>
+                <option value="second_dose_scheduled">Scheduled for Second Dose</option>
+                <option value="vaccination_completed">Vaccination Completed</option>
+            </select><br><br>
 
-          <!-- Checkbox for First Dose -->
-          <label class="label_details" for="label_first_dose">First Dose Vaccinated: </label>
-          <input type="checkbox" id="first_dose" name="first_dose" value="first_dose"><br><br>
-          <!-- Checkbox for Second Dose -->
-          <label class="label_details" for="label_second_dose">Second Dose Vaccinated: </label>
-          <input type="checkbox" id="second_dose" name="second_dose" value="second_dose"><br><br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button class="btn btn-danger">Update</button>
-        </div>
-		{% endif %}
-      </form> 
+            <!-- Checkbox for First Dose -->
+            <label class="label_details" for="label_first_dose">First Dose Vaccinated: </label>
+            <input type="checkbox" id="first_dose" name="first_dose" value="first_dose"><br><br>
+            <!-- Checkbox for Second Dose -->
+            <label class="label_details" for="label_second_dose">Second Dose Vaccinated: </label>
+            <input type="checkbox" id="second_dose" name="second_dose" value="second_dose"><br><br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <input type="submit" value="Update"><br/><br/>
+          </div>
+        </form>
+		  {% endif %}
+       
     </div>
   </div>
 </div>
