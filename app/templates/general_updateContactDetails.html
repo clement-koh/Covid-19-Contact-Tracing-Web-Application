@@ -16,22 +16,28 @@
 <!-- Main Content of the Page -->
 {% block contentBody %}
 	<form action='/update_contact' method='POST'>
+		<!-- First Name -->
 		<label>First Name :</label>
 		<input type="text" placeholder="{{firstName}}" disabled><br/>
 
-		<label>Last Name :</label>
+		<!-- Middle Name -->
+		<label>Middle Name :</label>
 		<input type="text" placeholder="{{middleName}}" disabled><br/>
 
-		<label>Middle Name :</label>
+		<!-- Last Name -->
+		<label>Last Name :</label>
 		<input type="text" placeholder="{{lastName}}" disabled><br/>
 
+		<!-- NRIC -->
 		<label>NRIC :</label>
 		<input type="text" placeholder="{{NRIC}}" disabled><br/>
 
+		<!-- Contact Number -->
 		<label>Contact Number :</label>
 		<input name="mobile" type="number" id="current_contact" value="{{mobile}}"><br/>
 		<br/><br/>
 		
+		<!-- Submit Button -->
 		<input type="submit" value="Update"><br/><br/>
 	</form>
 {% endblock %}
