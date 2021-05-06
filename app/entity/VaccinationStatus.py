@@ -68,25 +68,31 @@ class VaccinationStatus:
 		date = datetime.now().strftime("%Y-%m-%d %X")
 
 
-		#Check if firstshot is check if check input date
-		if(firstShotDate =="first_dose"):
+		#check if both input is check mean vaccination completedm
+		if firstShotDate == "first_dose" and secondShotDate == "second_dose":
+			vaccinationStatus = "vaccination Completed"	
+
+		#Check if firstshot is check ... if variable got input and vaccination status will change to "Scheduled for Second Shot"
+		if firstShotDate == "first_dose":
 			firstShotDate = date
+			vaccinationStatus = "Scheduled for Second Shot"
 		
-		#Check if secondShotDate is check if check input date
-		if(secondShotDate == "second_dose"):
+		#Check if secondShotDate is check ... if variable got input and and vaccination status will change to "vaccination Completed"
+		if secondShotDate == "second_dose":
 			secondShotDate = date
+			vaccinationStatus = "vaccination Completed"
+
 
 		 
-		# IF DATABASE got date already and wont rewrite
+		# IF DATABASE got date it wont rewrite
 		if self.__firstShotDate is not None:
 			firstShotDate = self.__firstShotDate
-			print(firstShotDate)
+			
 
-		# IF DATABASE got date already and wont rewrite 
+		# IF DATABASE got date it  wont rewrite 
 		if self.__secondShotDate is not None:
 			secondShotDate = self.__secondShotDate
 
-			print(secondShotDate)
 
 		
 		# Update the object's recorded NRIC"
@@ -116,7 +122,7 @@ class VaccinationStatus:
 		
 		#if patient dont not have a record
 		else:
-			# inside new vaccination status for the patient
+			# insert new vaccination status for the patient
 			db.execute("""INSERT INTO vaccination_status(NRIC, vaccinationStatus, dateOfFirstShot, dateOfSecondShot)
 						  VALUES((?), (?), (?), (?))""",
 						  (NRIC, vaccinationStatus, firstShotDate, secondShotDate))

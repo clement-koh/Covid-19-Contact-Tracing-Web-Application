@@ -364,7 +364,7 @@ def UpdateVaccinationPage():
 
 		# If unsuccessful at updating vaccination state
 		if not Health_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
-			error_message = "Failed to update vaccination state" 
+			error_message = "Failed to update vaccination status" 
 			return Health_UpdateVaccinationBoundary.displayError(message=error_message)
 		
 		# If successful at updating vaccination state
