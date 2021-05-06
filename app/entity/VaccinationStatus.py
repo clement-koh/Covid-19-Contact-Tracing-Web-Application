@@ -64,13 +64,16 @@ class VaccinationStatus:
 		"""
 
 
-		#today date 
-		date = datetime.now().strftime("%Y-%m-%d %X")
+		# current date and time
+		now = datetime.now() 
+
+		#format date
+		date = now.strftime("%m/%d/%Y, %H:%M:%S")
 
 
 		#check if both input is check mean vaccination completed
 		if firstShotDate == "first_dose" and secondShotDate == "second_dose":
-			vaccinationStatus = "vaccination Completed"	
+			vaccinationStatus = "Vaccination Completed"	
 
 		#Check if firstshot is check ... if variable got input and vaccination status will change to "Scheduled for Second Shot"
 		if firstShotDate == "first_dose":
@@ -80,7 +83,7 @@ class VaccinationStatus:
 		#Check if secondShotDate is check ... if variable got input and and vaccination status will change to "vaccination Completed"
 		if secondShotDate == "second_dose":
 			secondShotDate = date
-			vaccinationStatus = "vaccination Completed"
+			vaccinationStatus = "Vaccination Completed"
 
 
 		 
