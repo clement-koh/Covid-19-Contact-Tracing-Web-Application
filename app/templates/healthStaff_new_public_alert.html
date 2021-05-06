@@ -1,6 +1,6 @@
 <!-- Extends the basic html template -->
 {% extends "dashboard_layout.html" %}
-{% set active_page ="healthStaff_new_public_alert" %}
+{% set active_page = "healthStaff_new_public_alert" %}
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
@@ -9,24 +9,24 @@
 
 <!-- Content Header -->
 {% block contentHeader %}
-    <b><i class="fa fa-bell fa-fw"></i>  Send Public Alert</b>
+	<b><i class="fa fa-bell fa-fw"></i>Send Public Alert</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->
 {% block contentBody %}
-    <!-- Send Alerts -->
-    <form action="/send_public_alert" autocomplete="off" method="POST">
+	<!-- Send Alerts -->
+	<form action="/send_public_alert" autocomplete="off" method="POST">
 		<!-- Recipient Search Box -->
-        <label for="recipient">Recipient: &nbsp;</label>
+		<label for="recipient">Recipient: &nbsp;</label>
 		<input id="recipient" name='target' type="text" size="40" placeholder="Enter Recipient Detail">
-
-        <br><br>
+		<br><br>
 
 		<!-- Area to type message -->
-        <label for="message">Message: </label><br>
-        <textarea id="message" name="message" rows="10" cols="100" placeholder="Enter your message .."></textarea>
-        <br><br>
+		<label for="message">Message: </label><br>
+		<textarea id="message" name="message" rows="10" cols="100" placeholder="Enter your message .."></textarea>
+		<br><br>
 
-        <input type="submit" id="submit">
-    </form>
+		<!-- Submit Button  -->
+		<input type="submit" id="submit">
+	</form>
 {% endblock %}
