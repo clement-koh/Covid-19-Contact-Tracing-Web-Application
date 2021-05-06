@@ -350,24 +350,19 @@ def UpdateVaccinationPage():
 	# Initialise Health_UpdateVaccinationUI Object
 	Health_UpdateVaccinationBoundary = HealthStaffUser_UpdateVaccinationUI()
 
-
-	# If health staff is submitting new details to be updated
-	if request.method == 'POST':
-
-
-		# Get fields from the update vaccination state form
-		NRIC = request.form.get('name')
-		vaccination_Status = request.form.get('vaccinationstatus')
-		first_dose = request.form.get('first_dose')
-		second_dose = request.form.get('second_dose')
+    # Get fields from the update vaccination state form
+	NRIC = request.form.get('name')
+	vaccination_Status = request.form.get('vaccinationstatus')
+	first_dose = request.form.get('first_dose')
+	second_dose = request.form.get('second_dose')
 
 
-		# If unsuccessful at updating vaccination state
-		if not Health_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
-			return Health_UpdateVaccinationBoundary.displayError()
+	# If unsuccessful at updating vaccination state
+	if not Health_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
+		return Health_UpdateVaccinationBoundary.displayError()
 		
-		# If successful at updating vaccination state
-		return Health_UpdateVaccinationBoundary.displaySuccess()
+	# If successful at updating vaccination state
+	return Health_UpdateVaccinationBoundary.displaySuccess()
 	
 				
 # -----------------------------------------------------

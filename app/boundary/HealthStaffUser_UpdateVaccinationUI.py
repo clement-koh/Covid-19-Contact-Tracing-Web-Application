@@ -10,11 +10,9 @@ class HealthStaffUser_UpdateVaccinationUI:
 
 	def onSubmit(self, NRIC, vaccination_Status, dateOfFirstShot, dateOfSecondShot):
 		"""
-		Checks if mobile is 8 characters and not empty. Calls relevant function
-		for the controller handle the request to update mobile number
-		Returns True if mobile number is updated successfully
+		Updates a patient's vaccination status.
+		Returns True if the status is updated successfully.
 		"""
-        
       
 		# Create controller to update vaccination Status
 		controller = HealthStaffUser_UpdateVaccinationController()
