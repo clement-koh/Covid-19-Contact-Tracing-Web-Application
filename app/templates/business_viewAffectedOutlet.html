@@ -1,17 +1,17 @@
 <!-- Extends the basic html template -->
 {% extends "dashboard_layout.html" %}
-{% set active_page ="business_viewAffectedOutlet" %}
+{% set active_page = "business_viewAffectedOutlet" %}
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
 	<title>View Affected Outlet</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/business_viewAffectedOutlet.css') }}"/>
-	<script type=text/javascript src="{{url_for('static', filename='js/business_viewAffectedOutlet.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/business_viewAffectedOutlet.css')}}"/>
+	<script type=text/javascript src="{{url_for('static', filename='js/business_viewAffectedOutlet.js')}}"></script>
 {% endblock %}
 
 <!-- Content Header -->
 {% block contentHeader %}
-    <b><i class="fa fa-history fa-fw"></i>View Affected Outlet</b>
+	<b><i class="fa fa-history fa-fw"></i>View Affected Outlet</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->
@@ -23,7 +23,7 @@
 			<button onclick = "closeAllFunction()" class="closeAll">Close All</button>
 		</div>
 		{% for location in locationDetails %}
-		<!-- Location Container -->
+			<!-- Location Container -->
 			<div class="LocationContainer">
 				<!-- Location Name -->
 				<div class="LocationNameContainer">
@@ -32,28 +32,28 @@
 				<!-- Time Records -->
 				<div class="RecordChunk">
 					{% if location.checkInData != [] %}
-					<span class="message">Check in Time of COVID-19 Positive People</span>  
-						<div class="RecordRow">
-							<!-- Table To Display Time Records -->
-							<table class="tablerecords">
-								<tr>
-									<th>No</th>
-									<th width="150px">Date</th>
-									<th width="150px">Time In</th>
-									<th width="150px">Time Out</th>
-								</tr>
-								{% for record in location.checkInData %}
-								<tr>
-									<td></td><!-- this is left blank to generate count -->
-									<td>{{record.date}}</td>
-									<td>{{record.timeIn}}</td>
-									<td>{{record.timeOut}}</td>
-								</tr>
-								{% endfor %}
-							</table>
-						</div>
+						<span class="message">Check in Time of COVID-19 Positive People</span>  
+							<div class="RecordRow">
+								<!-- Table To Display Time Records -->
+								<table class="tablerecords">
+									<tr>
+										<th>No</th>
+										<th width="150px">Date</th>
+										<th width="150px">Time In</th>
+										<th width="150px">Time Out</th>
+									</tr>
+									{% for record in location.checkInData %}
+										<tr>
+											<td></td><!-- this is left blank to generate count -->
+											<td>{{record.date}}</td>
+											<td>{{record.timeIn}}</td>
+											<td>{{record.timeOut}}</td>
+										</tr>
+									{% endfor %}
+								</table>
+							</div>
 					{% else %}
-					<span class="message">This branch is not visited by any COVID-19 Positive People</span>
+						<span class="message">This branch is not visited by any COVID-19 Positive People</span>
 					{% endif %}
 				</div>
 			</div>
