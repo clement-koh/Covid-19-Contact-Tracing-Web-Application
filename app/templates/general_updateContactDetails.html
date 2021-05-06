@@ -1,16 +1,16 @@
 <!-- Extends the basic html template -->
 {% extends "dashboard_layout.html" %}
-{% set active_page ="update_contact" %}
+{% set active_page = "update_contact" %}
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
-  	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/general_updateContactDetails.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/general_updateContactDetails.css') }}"/>
 	<title>Update Contact Details</title>
 {% endblock %}
 
 <!-- Content Header -->
 {% block contentHeader %}
-    <b><i class="fa fa-edit fa-fw"></i>Update Particulars</b>
+	<b><i class="fa fa-edit fa-fw"></i>Update Particulars</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->
