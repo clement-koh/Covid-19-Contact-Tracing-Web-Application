@@ -8,6 +8,12 @@
     <title>View and Update Vaccination Status</title>
 {% endblock %}
 
+
+<!-- show updated successful -->
+{% for mesg in get_flashed_messages() %}
+<h1>{{ mesg }}</h1>
+{% endfor %}
+
 <!-- Content Header -->
 {% block contentHeader %}
 <!-- Display ICON and Header -->

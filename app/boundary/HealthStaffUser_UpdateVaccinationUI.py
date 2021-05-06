@@ -1,26 +1,12 @@
 from flask import flash, redirect, session, render_template
 from ..controllers.HealthStaffUser_UpdateVaccinationController import HealthStaffUser_UpdateVaccinationController
-
+from flask import session, url_for
 
 class HealthStaffUser_UpdateVaccinationUI:
 	# Empty Constructor
 	def __init__(self):
 		pass
 
-
-	def displayPage(self):
-		"""
-		Displays the update vaccination status page with details of the patient
-		"""
-        
-		# Ensure that the user is authroised to access this page, otherwise redirect to other page
-		userType = session['userType'] 
-		if userType!= "Health Staff":
-			flash("Unauthorised to access this content", 'error')
-			return redirect('/')
-		
-		
-		return render_template('healthStaff_viewUpdateVaccination.html', userType=session['userType'])
 
 	def onSubmit(self, NRIC, vaccination_Status, dateOfFirstShot, dateOfSecondShot):
 		"""
@@ -41,14 +27,18 @@ class HealthStaffUser_UpdateVaccinationUI:
 		# Returns True if successfully updated / False if failed to update
 		return result
 
-	def displayError(self, message):
+	def displayError(self):
 		"""
 		Displays the update status of patient
 		with an error message
 		"""
 
-		flash(message, 'error')
-		return self.displayPage()
+		messages = "Failed to update vaccination status"
+
+		flash(messages, 'error')
+
+		#redirect to viewUpdateVaccination route
+		return redirect(url_for('.viewUpdateVaccination'))
 		
 
 	def displaySuccess(self):
@@ -57,5 +47,11 @@ class HealthStaffUser_UpdateVaccinationUI:
 		with a message to inform the health stuff that the update was successful
 		"""
 
-		flash('Vaccination Status updated', 'message')
-		return self.displayPage()
+		#store successful message in session 
+		messages = "Vaccination Status updated"
+
+		#Flash Successful message
+		flash(messages)
+
+		#redirect to viewUpdateVaccination route
+		return redirect(url_for('.viewUpdateVaccination'))

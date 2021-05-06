@@ -68,7 +68,7 @@ class VaccinationStatus:
 		date = datetime.now().strftime("%Y-%m-%d %X")
 
 
-		#check if both input is check mean vaccination completedm
+		#check if both input is check mean vaccination completed
 		if firstShotDate == "first_dose" and secondShotDate == "second_dose":
 			vaccinationStatus = "vaccination Completed"	
 
