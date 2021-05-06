@@ -1,6 +1,6 @@
 <!-- Extends the basic html template -->
 {% extends "dashboard_layout.html" %}
-{% set active_page ="healthStaff_view_contact_details" %}
+{% set active_page = "healthStaff_view_contact_details" %}
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
@@ -23,8 +23,10 @@
 			<input type="submit" id="submit" value="Search">
 		</form>
 	
+		<!-- Table Displaying Patient Records (If Any) -->
 		{% if patientDetails %}
 			<table id="records" style='margin-top: 20px;'>
+				<!-- Table Header -->
 				<tr>
 					<th>NRIC / Business Name</th>
 					<th>First Name</th>
@@ -33,6 +35,8 @@
 					<th>Gender</th>
 					<th>Mobile</th>
 				</tr>
+
+				<!-- Patient Details -->
 				<tr>
 					<td>{{ patientDetails[0] }}</td>
 					<td>{{ patientDetails[1] }}</td>

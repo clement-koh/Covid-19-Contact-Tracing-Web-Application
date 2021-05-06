@@ -1,81 +1,81 @@
 <!-- Extends the basic html template -->
 {% extends "dashboard_layout.html" %}
-{% set active_page ="public_viewVaccineCertificate" %}
+{% set active_page = "public_viewVaccineCertificate" %}
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
 	<title>View Vaccine Certificate</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/public_viewVaccineCertificate.css') }}"/>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-  <script type=text/javascript src="{{url_for('static', filename='js/public_viewVaccineCertificate.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/public_viewVaccineCertificate.css') }}"/>
+	<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+	<script type=text/javascript src="{{ url_for('static', filename='js/public_viewVaccineCertificate.js') }}"></script>
 {% endblock %}
 
 <!-- Content Header -->
 {% block contentHeader %}
-    <b><i class="fa fa-certificate"></i>  View Vaccine Certificate</b>
+	<b><i class="fa fa-certificate"></i>View Vaccine Certificate</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->
 {% block contentBody %}
-  <div class="w3-row-padding w3-margin-bottom">
-    <!-- Completed Vaccination -->
-    {% if vaccinationDetails[1] == 'Vaccination completed' %}
-      <div id="completed">
-        <div class="imgContainer" id="cert">
-          <div class="txtCenter">
-            <br><br>
-            <span class="standard"><i>This is to certify that</i></span>
-            <br><br>
-            <span class="name"><b>{{ vaccinationDetails[0] }}</b></span><br><br>
-            <span class="standard"><i>has completed the vaccination on</i></span><br><br>
-            <span class="standard">{{ vaccinationDetails[3] }}</span><br><br>
-            <span class="signature"><i>naaaomi</i></span><br>
-            <span class="signOff">Naomi Chan</span><br>
-            <span class="signOff">Project Manager, 30T</span>
-          </div>
-        </div>
-        <br>
-        <h3>Congratulations for completing the vaccination. You can click the button below to download your certificate.</h3>
-        <button onclick="downloadimage()" class="clickbtn">Download Certificate</button>
-      </div>
-      <br><br><br>
-    {% endif %}
-    
-    <!-- Incomplete Vaccination -->
-    <div id="incomplete">
-      <!-- Eligible for Vaccination but not taken -->
-      {% if vaccinationDetails[1] == 'Eligible for vaccination' %}
-        <div id="eligibleBNT">
-          <img id="displayPic" src="{{url_for('static', filename='getVaccinated.jpg')}}"/>
-          <h3>Our record shows that you have not been vaccinated yet. Think about your loved ones. 
-            Don't expose them to unnecessary risks. Get vaccinated now! </h3>
-        </div>
-      {% endif %}
-      {% if vaccinationDetails[1] == 'Scheduled for first shot' %}
-        <div id="eligibleBNT">
-          <img id="displayPic" src="{{url_for('static', filename='getVaccinated.jpg')}}"/>
-          <h3>Our record shows that you have not been vaccinated yet. Think about your loved ones. 
-            Don't expose them to unnecessary risks. Get vaccinated now! </h3>
-        </div>
-      {% endif %}
+	<div class="w3-row-padding w3-margin-bottom">
+		<!-- Completed Vaccination -->
+		{% if vaccinationDetails[1] == 'Vaccination completed' %}
+			<div id="completed">
+				<div class="imgContainer" id="cert">
+					<div class="txtCenter">
+						<br><br>
+						<span class="standard"><i>This is to certify that</i></span>
+						<br><br>
+						<span class="name"><b>{{ vaccinationDetails[0] }}</b></span><br><br>
+						<span class="standard"><i>has completed the vaccination on</i></span><br><br>
+						<span class="standard">{{ vaccinationDetails[3] }}</span><br><br>
+						<span class="signature"><i>naaaomi</i></span><br>
+						<span class="signOff">Naomi Chan</span><br>
+						<span class="signOff">Project Manager, 30T</span>
+					</div>
+				</div>
+				<br>
+				<h3>Congratulations for completing the vaccination. You can click the button below to download your certificate.</h3>
+				<button onclick="downloadimage()" class="clickbtn">Download Certificate</button>
+			</div>
+			<br /><br /><br />
+		{% endif %}
+		
+		<!-- Incomplete Vaccination -->
+		<div id="incomplete">
+			<!-- Eligible for Vaccination but not taken -->
+			{% if vaccinationDetails[1] == 'Eligible for vaccination' %}
+				<div id="eligibleBNT">
+					<img id="displayPic" src="{{ url_for('static', filename='getVaccinated.jpg') }}"/>
+					<h3>Our record shows that you have not been vaccinated yet. Think about your loved ones. 
+						Don't expose them to unnecessary risks. Get vaccinated now! </h3>
+				</div>
+			{% endif %}
+			{% if vaccinationDetails[1] == 'Scheduled for first shot' %}
+				<div id="eligibleBNT">
+					<img id="displayPic" src="{{ url_for('static', filename='getVaccinated.jpg') }}"/>
+					<h3>Our record shows that you have not been vaccinated yet. Think about your loved ones. 
+						Don't expose them to unnecessary risks. Get vaccinated now! </h3>
+				</div>
+			{% endif %}
 
-      <!-- Eligible for Vaccination but not Completed -->
-      {% if vaccinationDetails[1] == 'Scheduled for second shot' %}
-        <div id="eligibleBNC">
-          <img id="displayPic" src="{{url_for('static', filename='getVaccinated.jpg')}}"/>
-          <h3>Our record shows that you have taken your first dose on <b>{{ vaccinationDetails[2] }}</b>. 
-            But that's not the end. In fact, you're only halfway done. Get your second dose now! </h3>
-        </div>
-      {% endif %}
+			<!-- Eligible for Vaccination but not Completed -->
+			{% if vaccinationDetails[1] == 'Scheduled for second shot' %}
+				<div id="eligibleBNC">
+					<img id="displayPic" src="{{ url_for('static', filename='getVaccinated.jpg') }}"/>
+					<h3>Our record shows that you have taken your first dose on <b>{{ vaccinationDetails[2] }}</b>. 
+						But that's not the end. In fact, you're only halfway done. Get your second dose now! </h3>
+				</div>
+			{% endif %}
 
-      <!-- Not Eligible for Vaccination -->
-      {% if vaccinationDetails[1] == 'Not eligible for vaccination' %}
-        <div id="notEligible">
-          <img id="displayPic" src="{{url_for('static', filename='together.jpg')}}"/>
-          <h3>Unfortunately, you are not eligible for this batch of vaccination due to various health reasons. But not to worry. 
-            We assure you that we are committed to keep you well protected. Please stay tuned for further updates! </h3>
-        </div>
-      {% endif %}
-    </div>
-  </div>
+			<!-- Not Eligible for Vaccination -->
+			{% if vaccinationDetails[1] == 'Not eligible for vaccination' %}
+				<div id="notEligible">
+					<img id="displayPic" src="{{ url_for('static', filename='together.jpg') }}"/>
+					<h3>Unfortunately, you are not eligible for this batch of vaccination due to various health reasons. But not to worry. 
+						We assure you that we are committed to keep you well protected. Please stay tuned for further updates! </h3>
+				</div>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}
