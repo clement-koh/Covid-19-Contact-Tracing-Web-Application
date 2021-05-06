@@ -19,8 +19,13 @@
 		<table>
 			{% for alert in all_alerts %}
 				<tr>
+					<!-- Alert Timing -->
 					<b><i>{{ alert["sent_on"] }}</i></b>
+
+					<!-- Alert Message -->
 					<p><pre>{{ alert["message"] }}</pre></p>
+					
+					<!-- 'Mark as Read' Button -->
 					{% if alert["is_read"] == 0 %}
 						<form action="/view_business_alert" method="post">
 							<input name="alert_id" value={{ alert["id"] }} type="hidden">
