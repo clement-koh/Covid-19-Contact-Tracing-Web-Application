@@ -3,122 +3,123 @@
 {% set active_page ="healthStaff_view_update_vaccination" %}
 <!-- Updates the <head> of the webpage -->
 {% block head %}
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/healthStaff_updateVaccinationStatus.css') }}"/>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/healthStaff_updateVaccinationStatus.css') }}"/>
 	<script type=text/javascript src="{{url_for('static', filename='js/healthStaff_viewUpdateVaccination.js') }}"></script>
-    <title>View and Update Vaccination Status</title>
+	<title>View and Update Vaccination Status</title>
 {% endblock %}
 
 
 <!-- show updated successful -->
 {% for mesg in get_flashed_messages() %}
-<h1>{{ mesg }}</h1>
+	<h1>{{ mesg }}</h1>
 {% endfor %}
 
 <!-- Content Header -->
 {% block contentHeader %}
-<!-- Display ICON and Header -->
-<b><i class='fa fa-user-md'></i> View and Update Vaccination Status</b><br><br>
+	<!-- Display ICON and Header -->
+	<b><i class='fa fa-user-md'></i> View and Update Vaccination Status</b><br><br>
 {% endblock %}
 
 <!-- Main Content of the Page -->
 {% block contentBody %}
-<!-- Search for Patient -->
-<div class="w3-row-padding w3-margin-bottom">
-  <form autocomplete="off" method="POST">
-      <label for="patient">Patient: &nbsp;</label>
-      <input id="patient" type="text" name="user" size="40" placeholder="Enter NRIC">
-      <input type="submit" id="submit" value="Search">
-  </form>
-  <!-- If Patient Is Found -->
-  {% if vaccineStatusDetails %}
-  <table id="vaccine_satus" style='margin-top: 20px;'>
-      <tr>
-          <th>NRIC</th>
-          <th>First Name</th>
-          <th>Middle Name</th>
-          <th>Last Name</th>
-          <th>Gender</th>
-          <th>Date of Vaccination<br/> (1st Dose)</th>
-          <th>Date of Vaccination<br/> (2nd Dose)</th>
-          <th>Status</th>
-          <th>Update</th>
-      </tr>
-      <tr>
-          <td>{{ vaccineStatusDetails[0] }}</td>
-          <td>{{ vaccineStatusDetails[1] }}</td>
-          <td>{{ vaccineStatusDetails[2] }}</td>
-          <td>{{ vaccineStatusDetails[3] }}</td>
-          <td>{{ vaccineStatusDetails[4] }}</td>
-          <td>{{ vaccineStatusDetails[5] }}</td>
-          <td>{{ vaccineStatusDetails[6] }}</td>
-          <td>{{ vaccineStatusDetails[7] }}</td>
-          <td>
-              <!-- Open Update Pop Up -->
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                Update
-              </button>
-          </td>
-      </tr>
-  </table>
-  {% endif %}
-<div>  
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <b><i class='fa fa-pencil'></i> Update Vaccination Status</b>
-      </div>
-      {% if vaccineStatusDetails %}
-        <form action="/update_vaccination" method="POST">
-      
-          <div class="modal-body">
-            <!-- Patient NRIC -->
-            <label class="label_details" for="label_nric">Patient's NRIC: </label>
-            <input type="text" name="name" id="NRIC" size="30" value="{{ vaccineStatusDetails[0] }}" readonly><br><br>
-        
-            <!-- Patient First Name -->
-            <label class="label_details" for="label_fname">Patient's First Name: </label>
-            <input type="text" id="first_name" size="30" value="{{ vaccineStatusDetails[1] }}" readonly> <br><br>
-        
-            <!-- Patient Middle Name -->
-            <label class="label_details" for="label_mname">Patient's Middle Name: </label>
-            <input type="text" id="middle_name" size="30" value="{{ vaccineStatusDetails[2] }}" readonly> <br><br>
-        
-            <!-- Patient Last Name -->
-            <label class="label_details" for="label_lname">Patient's Last Name: </label>
-            <input type="text" id="last_name" size="30" value="{{ vaccineStatusDetails[3] }}" readonly><br><br>
-        
-            <!-- Patient Gender -->
-            <label class="label_details" for="label_gender">Patient's Gender: </label>
-            <input type="text" id="gender" size="30" value="{{ vaccineStatusDetails[4] }}" readonly><br><br>
-        
-            <!-- Status Dropdown List -->
-            <label class="label_details" for="status_label">Status: </label>
-            <select name="vaccinationstatus" id="status_dropdown">
-                <option value="not_eligible">Not Eligible For Vaccination</option>
-                <option value="eligible">Eligible For Vaccination</option>
-                <option value="first_dose_scheduled">Scheduled for First Dose</option>
-                <option value="second_dose_scheduled">Scheduled for Second Dose</option>
-                <option value="vaccination_completed">Vaccination Completed</option>
-            </select><br><br>
+	<!-- Search for Patient -->
+	<div class="w3-row-padding w3-margin-bottom">
+	<form autocomplete="off" method="POST">
+		<label for="patient">Patient: &nbsp;</label>
+		<input id="patient" type="text" name="user" size="40" placeholder="Enter NRIC">
+		<input type="submit" id="submit" value="Search">
+	</form>
+	<!-- If Patient Is Found -->
+	{% if vaccineStatusDetails %}
+		<table id="vaccine_satus" style='margin-top: 20px;'>
+			<tr>
+				<th>NRIC</th>
+				<th>First Name</th>
+				<th>Middle Name</th>
+				<th>Last Name</th>
+				<th>Gender</th>
+				<th>Date of Vaccination<br/> (1st Dose)</th>
+				<th>Date of Vaccination<br/> (2nd Dose)</th>
+				<th>Status</th>
+				<th>Update</th>
+			</tr>
+			<tr>
+				<td>{{ vaccineStatusDetails[0] }}</td>
+				<td>{{ vaccineStatusDetails[1] }}</td>
+				<td>{{ vaccineStatusDetails[2] }}</td>
+				<td>{{ vaccineStatusDetails[3] }}</td>
+				<td>{{ vaccineStatusDetails[4] }}</td>
+				<td>{{ vaccineStatusDetails[5] }}</td>
+				<td>{{ vaccineStatusDetails[6] }}</td>
+				<td>{{ vaccineStatusDetails[7] }}</td>
+				<td>
+					<!-- Open Update Pop Up -->
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+						Update
+					</button>
+				</td>
+			</tr>
+		</table>
+	{% endif %}
 
-            <!-- Checkbox for First Dose -->
-            <label class="label_details" for="first_dose">First Dose Vaccinated: </label>
-            <input type="checkbox" id="first_dose" name="first_dose" value="first_dose"><br><br>
-            <!-- Checkbox for Second Dose -->
-            <label class="label_details" for="second_dose">Second Dose Vaccinated: </label>
-            <input type="checkbox" id="second_dose" name="second_dose" value="second_dose"><br><br>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <input type="submit" value="Update"><br/><br/>
-          </div>
-        </form>
-		  {% endif %}
-       
-    </div>
-  </div>
-</div>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<b><i class='fa fa-pencil'></i> Update Vaccination Status</b>
+				</div>
+				{% if vaccineStatusDetails %}
+					<form action="/update_vaccination" method="POST">
+						<div class="modal-body">
+							<!-- Patient NRIC -->
+							<label class="label_details" for="label_nric">Patient's NRIC: </label>
+							<input type="text" name="name" id="NRIC" size="30" value="{{ vaccineStatusDetails[0] }}" readonly><br><br>
+						
+							<!-- Patient First Name -->
+							<label class="label_details" for="label_fname">Patient's First Name: </label>
+							<input type="text" id="first_name" size="30" value="{{ vaccineStatusDetails[1] }}" readonly> <br><br>
+						
+							<!-- Patient Middle Name -->
+							<label class="label_details" for="label_mname">Patient's Middle Name: </label>
+							<input type="text" id="middle_name" size="30" value="{{ vaccineStatusDetails[2] }}" readonly> <br><br>
+						
+							<!-- Patient Last Name -->
+							<label class="label_details" for="label_lname">Patient's Last Name: </label>
+							<input type="text" id="last_name" size="30" value="{{ vaccineStatusDetails[3] }}" readonly><br><br>
+						
+							<!-- Patient Gender -->
+							<label class="label_details" for="label_gender">Patient's Gender: </label>
+							<input type="text" id="gender" size="30" value="{{ vaccineStatusDetails[4] }}" readonly><br><br>
+						
+							<!-- Status Dropdown List -->
+							<label class="label_details" for="status_label">Status: </label>
+							<select name="vaccinationstatus" id="status_dropdown">
+								<option value="not_eligible">Not Eligible For Vaccination</option>
+								<option value="eligible">Eligible For Vaccination</option>
+								<option value="first_dose_scheduled">Scheduled for First Dose</option>
+								<option value="second_dose_scheduled">Scheduled for Second Dose</option>
+								<option value="vaccination_completed">Vaccination Completed</option>
+							</select><br><br>
+
+							<!-- Checkbox for First Dose -->
+							<label class="label_details" for="first_dose">First Dose Vaccinated: </label>
+							<input type="checkbox" id="first_dose" name="first_dose" value="first_dose"><br><br>
+							
+							<!-- Checkbox for Second Dose -->
+							<label class="label_details" for="second_dose">Second Dose Vaccinated: </label>
+							<input type="checkbox" id="second_dose" name="second_dose" value="second_dose"><br><br>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+							<input type="submit" value="Update"><br/><br/>
+						</div>
+					</form>
+				{% endif %}
+			
+			</div>
+		</div>
+	</div>
 {% endblock %}
