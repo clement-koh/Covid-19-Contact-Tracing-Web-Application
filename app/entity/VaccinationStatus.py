@@ -67,34 +67,44 @@ class VaccinationStatus:
 		# current date and time
 		now = datetime.now() 
 
-		#format date
+		#format datevaccinationStatus
 		date = now.strftime("%m/%d/%Y, %H:%M:%S")
 
+		#change input text for vaccinationStatus
+		status = {
+		"not_eligible": "Not Eligible for Vaccination",
+		"eligible": "Eligible for Vaccination",
+		"first_dose_scheduled": "Scheduled for First Shot",
+		"second_dose_scheduled": "Scheduled for Second Shot",
+		"vaccination_completed": "Vaccination Completed"
+		}
+		vaccinationStatus = status[vaccinationStatus]
 
-		#check if both input is check mean vaccination completed
-		if firstShotDate == "first_dose" and secondShotDate == "second_dose":
-			vaccinationStatus = "Vaccination Completed"	
 
-		#Check if firstshot is check ... if variable got input and vaccination status will change to "Scheduled for Second Shot"
-		if firstShotDate == "first_dose":
+		#check status is Scheduled for First Shot 
+		if vaccinationStatus == "Scheduled for First Shot":
+			firstShotDate = "Not Vaccinated"
+			secondShotDate = "Not Vaccinated"
+
+		#check status is Eligible for Vaccination
+		if vaccinationStatus == "Eligible for Vaccination":
+			firstShotDate = "Not Vaccinated"
+			secondShotDate = "Not Vaccinated"
+
+		#check status is Not Eligible for Vaccination
+		if vaccinationStatus == "Not Eligible for Vaccination":
+			firstShotDate = "Not Vaccinated"
+			secondShotDate = "Not Vaccinated"
+
+		#check status is Scheduled for Second Shot
+		if vaccinationStatus == "Scheduled for Second Shot":
 			firstShotDate = date
-			vaccinationStatus = "Scheduled for Second Shot"
-		
-		#Check if secondShotDate is check ... if variable got input and and vaccination status will change to "vaccination Completed"
-		if secondShotDate == "second_dose":
-			secondShotDate = date
-			vaccinationStatus = "Vaccination Completed"
+			secondShotDate = "Not Vaccinated"
 
-
-		 
-		# IF DATABASE got date it wont rewrite
-		if self.__firstShotDate is not None:
+		#check status is Vaccination Completed
+		if vaccinationStatus == "Vaccination Completed":
 			firstShotDate = self.__firstShotDate
-			
-
-		# IF DATABASE got date it  wont rewrite 
-		if self.__secondShotDate is not None:
-			secondShotDate = self.__secondShotDate
+			secondShotDate = date
 
 
 		
