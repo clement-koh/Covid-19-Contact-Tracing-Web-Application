@@ -6,10 +6,8 @@
 	text-align: center;
 	margin-right: auto;
 	margin-left: auto;
-}
-
-#img {
-	width: 100%;
+	background-image: url('../certificate.png');
+	background-size: cover;
 }
 
 /* centralize div content */

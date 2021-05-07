@@ -9,61 +9,60 @@
 
 <!-- Content Header -->
 {% block contentHeader %}
-    <b><i class="fa fa-users fa-fw"></i> Overview</b>
+	<b><i class="fa fa-users fa-fw"></i> Overview</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->
 {% block contentBody %}
-    <!-- Exposure Risk -->
-    <div class="w3-row-padding w3-margin-bottom">
-        <div class="w3-full">
-            <div class="w3-container w3-white w3-padding-16">
-                <!-- Green -->
-                {% if healthStatus == 'Green' %}
-                <div id="green">
-                    <div class="w3-left"><i class="fa fa-check w3-xxxlarge" style="color:green"></i></div>
-                    <h4><b>You're okay! You were not at places visited by COVID-19 cases.</b></h4>
-                    <p>Based on your location records from the last 14 days.</p>
-                </div>
-                {% endif %}
+	<!-- Exposure Risk -->
+	<div class="w3-row-padding w3-margin-bottom">
+		<div class="w3-full">
+			<div class="w3-container w3-white w3-padding-16">
+				<!-- Green -->
+				{% if healthStatus == 'Green' %}
+					<div id="green">
+						<div class="w3-left"><i class="fa fa-check w3-xxxlarge" style="color:green"></i></div>
+						<h4><b>You're okay! You were not at places visited by COVID-19 cases.</b></h4>
+						<p>Based on your location records from the last 14 days.</p>
+					</div>
+				{% endif %}
 
+				<!-- Orange -->
+				{% if healthStatus == 'Orange' %}
+					<div id="orange">
+						<div class="w3-left"><i class="fa fa-exclamation-circle w3-xxxlarge" style="color:orange"></i></div>
+						<h4><b>&nbsp;Please monitor your health. You were at places visited by COVID-19 cases.</b></h4>
+						<p>&nbsp;Based on your location records from the last 14 days.</p>
+					</div>
+				{% endif %}
 
-                <!-- Orange -->
-                {% if healthStatus == 'Orange' %}
-                <div id="orange">
-                    <div class="w3-left"><i class="fa fa-exclamation-circle w3-xxxlarge" style="color:orange"></i></div>
-                    <h4><b>&nbsp;Please monitor your health. You were at places visited by COVID-19 cases.</b></h4>
-                    <p>&nbsp;Based on your location records from the last 14 days.</p>
-                </div>
-                {% endif %}
+				<!-- Red -->
+				{% if healthStatus == 'Red' %}
+					<div id="red">
+						<div class="w3-left"><i class="fa fa-exclamation-triangle w3-xxxlarge" style="color:red"></i></div>
+						<h4><b>&nbsp;You have been infected with covid-19.</b></h4>
+						<p>&nbsp;Please quarentine yourself and do not have contact with others.</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 
-                <!-- Red -->
-                {% if healthStatus == 'Red' %}
-                <div id="red">
-                    <div class="w3-left"><i class="fa fa-exclamation-triangle w3-xxxlarge" style="color:red"></i></div>
-                    <h4><b>&nbsp;You have been infected with covid-19.</b></h4>
-                    <p>&nbsp;Please quarentine yourself and do not have contact with others.</p>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+	<!-- Update Particulars -->
+	<div class="w3-quarter">
+		<a href="/update_contact" style="text-decoration:none">
+			<div class="hover w3-container w3-red w3-padding-16">
+				<div class="w3-left">
+					<i class="fa fa-edit w3-xxxlarge"></i>
+				</div>
+				<div class="w3-clear"></div>
+				<h4>Update Particulars</h4>
+			</div>
+		</a>
+	</div>
 
-    <!-- Update Particulars -->
-    <div class="w3-quarter">
-        <a href="/update_contact" style="text-decoration:none">
-            <div class="hover w3-container w3-red w3-padding-16">
-                <div class="w3-left">
-                    <i class="fa fa-edit w3-xxxlarge"></i>
-                </div>
-                <div class="w3-clear"></div>
-                <h4>Update Particulars</h4>
-            </div>
-        </a>
-    </div>
-    
-    <!-- If account type is Business User -->
-    {% if userType == 'Business' %}
+	<!-- If account type is Business User -->
+	{% if userType == 'Business' %}
 		<!-- Alerts -->
 		<div class="w3-quarter">
 			<a href="/view_business_alert" style="text-decoration:none">
@@ -76,7 +75,7 @@
 				</div>
 			</a>
 		</div>
-	
+
 		<!-- View Check-In Details -->
 		<div class="w3-quarter">
 			<a href="/view_affected_outlet" style="text-decoration:none">
@@ -90,9 +89,9 @@
 			</a>
 		</div>
 	{% endif %}
-    
-    <!-- If account type is Public User -->
-    {% if userType == 'Public' %}
+
+	<!-- If account type is Public User -->
+	{% if userType == 'Public' %}
 		<!-- Alerts -->
 		<div class="w3-quarter">
 			<a href="/view_alert" style="text-decoration:none">
@@ -106,100 +105,104 @@
 			</a>
 		</div>
 
-        <!-- View History -->
-        <div class="w3-quarter">
-            <a href="/view_location_history" style="text-decoration:none">
-                <div class="hover w3-container w3-blue w3-padding-16">
-                    <div class="w3-left">
-                        <i class="fa fa-history fa-fw w3-xxxlarge"></i>
-                    </div>
-                    <div class="w3-clear"></div>
-                    <h4>View History</h4>
-                </div>
-            </a>
-        </div>
+		<!-- View History -->
+		<div class="w3-quarter">
+			<a href="/view_location_history" style="text-decoration:none">
+				<div class="hover w3-container w3-blue w3-padding-16">
+					<div class="w3-left">
+						<i class="fa fa-history fa-fw w3-xxxlarge"></i>
+					</div>
+					<div class="w3-clear"></div>
+					<h4>View History</h4>
+				</div>
+			</a>
+		</div>
 
-        <!-- Places Visited By COVID-19 cases -->
-        <div class="w3-quarter">
-            <a href="/view_affected_location" style="text-decoration:none">
-            <div class="hover w3-container w3-deep-orange w3-padding-16">
-                <div class="w3-left">
-                    <i class="fa fa-street-view fa-fw w3-xxxlarge"></i>
-                </div>
-                <div class="w3-clear"></div>
-                <h4>View Affected Locations</h4>
-            </div>
-            </a>  
-        </div>
-        <!-- View Vaccine Certificate -->
-        <div class="w3-quarter w3-padding-16">
-            <a href="/view_vaccine_certificate" style="text-decoration:none">
-            <div class="hover w3-container w3-deep-purple w3-padding-16">
-                <div class="w3-left">
-                    <i class="fa fa-certificate w3-xxxlarge"></i>
-                </div>
-                <div class="w3-clear"></div>
-                <h4>View Vaccine Certificate</h4>
-            </div>
-            </a>  
-        </div>
-    {% endif %}
-    
-    <!-- If account type is Health Staff -->
-    {% if userType == 'Health Staff' %}
-        <!-- View Contact Details -->
-        <div class="w3-quarter">
-            <a href="/view_patient_details" style="text-decoration:none">
-                <div class="hover w3-container w3-teal w3-padding-16">
-                    <div class="w3-left">
-                        <i class="fa fa-address-book-o w3-xxxlarge"></i>
-                    </div>
-                    <div class="w3-clear"></div>
-                    <h4>View Contact Details</h4>
-                </div>
-            </a>
-        </div>
-        <!-- Contact Tracing -->
-        <div class="w3-quarter">
-            <a href="/" style="text-decoration:none">
-                <div class="hover w3-container w3-blue w3-padding-16">
-                    <div class="w3-left">
-                        <i class="fa fa-bluetooth w3-xxxlarge"></i>
-                    </div>
-                    <div class="w3-clear"></div>
-                    <h4>Contact Tracing</h4>
-                </div>
-            </a>
-        </div>
-        <!-- Send Public Alerts -->
-        <div class="w3-quarter">
-            <a href="/send_public_alert" style="text-decoration:none">
-                <div class="hover w3-container w3-deep-orange w3-padding-16">
-                    <div class="w3-left"><i class="fa fa-bell fa-fw w3-xxxlarge"></i></div>
-                    <div class="w3-clear"></div>
-                    <h4>Send Public Alert</h4>
-                </div>
-            </a>
-        </div>
-        <!-- Send Business Alerts -->
-        <div class="w3-quarter w3-padding-16">
-            <a href="/send_business_alert" style="text-decoration:none">
-                <div class="hover w3-container w3-deep-purple w3-padding-16">
-                    <div class="w3-left"><i class="fa fa-bell fa-fw w3-xxxlarge"></i></div>
-                    <div class="w3-clear"></div>
-                    <h4>Send Business Alert</h4>
-                </div>
-            </a>
-        </div>
-        <!-- View And Update Vaccination Status -->
-        <div class="w3-quarter w3-padding-16">
-            <a href="/view_update_vaccination" style="text-decoration:none">
-                <div class="hover w3-container w3-pink w3-padding-16">
-                    <div class="w3-left"><i class="fa fa-user-md fa-fw w3-xxxlarge"></i></div>
-                    <div class="w3-clear"></div>
-                    <h4>View And Update Vaccination Status</h4>
-                </div>
-            </a>
-        </div>
-    {% endif %}
+		<!-- Places Visited By COVID-19 cases -->
+		<div class="w3-quarter">
+			<a href="/view_affected_location" style="text-decoration:none">
+			<div class="hover w3-container w3-deep-orange w3-padding-16">
+				<div class="w3-left">
+					<i class="fa fa-street-view fa-fw w3-xxxlarge"></i>
+				</div>
+				<div class="w3-clear"></div>
+				<h4>View Affected Locations</h4>
+			</div>
+			</a>  
+		</div>
+		<!-- View Vaccine Certificate -->
+		<div class="w3-quarter w3-padding-16">
+			<a href="/view_vaccine_certificate" style="text-decoration:none">
+			<div class="hover w3-container w3-deep-purple w3-padding-16">
+				<div class="w3-left">
+					<i class="fa fa-certificate w3-xxxlarge"></i>
+				</div>
+				<div class="w3-clear"></div>
+				<h4>View Vaccine Certificate</h4>
+			</div>
+			</a>  
+		</div>
+	{% endif %}
+
+	<!-- If account type is Health Staff -->
+	{% if userType == 'Health Staff' %}
+		<!-- View Contact Details -->
+		<div class="w3-quarter">
+			<a href="/view_patient_details" style="text-decoration:none">
+				<div class="hover w3-container w3-teal w3-padding-16">
+					<div class="w3-left">
+						<i class="fa fa-address-book-o w3-xxxlarge"></i>
+					</div>
+					<div class="w3-clear"></div>
+					<h4>View Contact Details</h4>
+				</div>
+			</a>
+		</div>
+		
+		<!-- Contact Tracing -->
+		<div class="w3-quarter">
+			<a href="/" style="text-decoration:none">
+				<div class="hover w3-container w3-blue w3-padding-16">
+					<div class="w3-left">
+						<i class="fa fa-bluetooth w3-xxxlarge"></i>
+					</div>
+					<div class="w3-clear"></div>
+					<h4>Contact Tracing</h4>
+				</div>
+			</a>
+		</div>
+
+		<!-- Send Public Alerts -->
+		<div class="w3-quarter">
+			<a href="/send_public_alert" style="text-decoration:none">
+				<div class="hover w3-container w3-deep-orange w3-padding-16">
+					<div class="w3-left"><i class="fa fa-bell fa-fw w3-xxxlarge"></i></div>
+					<div class="w3-clear"></div>
+					<h4>Send Public Alert</h4>
+				</div>
+			</a>
+		</div>
+
+		<!-- Send Business Alerts -->
+		<div class="w3-quarter w3-padding-16">
+			<a href="/send_business_alert" style="text-decoration:none">
+				<div class="hover w3-container w3-deep-purple w3-padding-16">
+					<div class="w3-left"><i class="fa fa-bell fa-fw w3-xxxlarge"></i></div>
+					<div class="w3-clear"></div>
+					<h4>Send Business Alert</h4>
+				</div>
+			</a>
+		</div>
+
+		<!-- View And Update Vaccination Status -->
+		<div class="w3-quarter w3-padding-16">
+			<a href="/view_update_vaccination" style="text-decoration:none">
+				<div class="hover w3-container w3-pink w3-padding-16">
+					<div class="w3-left"><i class="fa fa-user-md fa-fw w3-xxxlarge"></i></div>
+					<div class="w3-clear"></div>
+					<h4>View And Update Vaccination Status</h4>
+				</div>
+			</a>
+		</div>
+	{% endif %}
 {% endblock %}

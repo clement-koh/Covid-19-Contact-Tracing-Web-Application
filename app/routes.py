@@ -13,11 +13,13 @@ from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistor
 from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedLocationUI
 from .boundary.PublicUser_ViewAlertUI import PublicUser_ViewAlertUI
 from .boundary.PublicUser_AcknowledgeAlertUI import PublicUser_AcknowledgeAlertUI
+from .boundary.PublicUser_ViewVaccineCertificateUI import PublicUser_ViewVaccineCertificateUI
 
 # Boundary for Health Staff
 from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewPatientDetailsUI
 from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAlertPublicUI
 from .boundary.HealthStaffUser_SendAlertBusinessUI import HealthStaffUser_SendAlertBusinessUI
+from .boundary.HealthStaffUser_ViewVaccineStatusUI import HealthStaffUser_ViewVaccineStatusUI
 
 # Boundary for Business Staff
 from .boundary.BusinessUser_ViewAlertUI import BusinessUser_ViewAlertUI
@@ -217,13 +219,11 @@ def viewAffectedLocationPage():
 		days_ago = int(request.form['days_ago'])
 		return publicUser_viewAffectedLocationBoundary.getAffectedLocation(days_ago)
 
-@app.route('/view_vaccine_certificate', methods=['GET', 'POST'])
+@app.route('/view_vaccine_certificate', methods=['GET'])
 @loginRequired
 def viewVaccineCertificate():
-	if request.method == 'GET':
-		return render_template('public_viewVaccineCertificate.html')
-	if request.method == 'POST':
-		return render_template('public_viewVaccineCertificate.html')
+	publicUser_viewVaccineCertificateBoundary = PublicUser_ViewVaccineCertificateUI()
+	return publicUser_viewVaccineCertificateBoundary.displayPage()
 
 # -----------------------------------------------------
 #                   Health Staff Pages
@@ -318,10 +318,29 @@ def viewPatientDetailsPage():
 @app.route('/view_update_vaccination', methods=['GET', 'POST'])
 @loginRequired
 def viewUpdateVaccination():
+	# Initialise Boundary Object
+	healthStaffUser_viewVaccineStatusBoundary = HealthStaffUser_ViewVaccineStatusUI()
+
 	if request.method == 'GET':
-		return render_template('healthStaff_viewUpdateVaccination.html')
+		# Display the requested page
+		return healthStaffUser_viewVaccineStatusBoundary.displayPage()
+
 	if request.method == 'POST':
-		return render_template('healthStaff_viewUpdateVaccination.html')
+		# Get form details
+		NRIC = request.form['user'].strip()
+
+		# Set the boundary to contain the patient's NRIC
+		healthStaffUser_viewVaccineStatusBoundary.setPatient(NRIC)
+
+		# Get submit response 
+		response = healthStaffUser_viewVaccineStatusBoundary.onSubmit()
+
+		# Display Error if any
+		if response != healthStaffUser_viewVaccineStatusBoundary.RESPONSE_SUCCESS:
+			return healthStaffUser_viewVaccineStatusBoundary.displayError(response)
+
+		# Display Success
+		return healthStaffUser_viewVaccineStatusBoundary.displaySuccess()
 				
 # -----------------------------------------------------
 #                   Business User Pages
