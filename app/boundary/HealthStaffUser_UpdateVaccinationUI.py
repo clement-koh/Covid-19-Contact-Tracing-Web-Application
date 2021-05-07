@@ -8,7 +8,7 @@ class HealthStaffUser_UpdateVaccinationUI:
 		pass
 
 
-	def onSubmit(self, NRIC, vaccination_Status, dateOfFirstShot, dateOfSecondShot):
+	def onSubmit(self, NRIC, vaccination_Status, firstShotCheckboxStatus, secondShotCheckboxStatus):
 		"""
 		Updates a patient's vaccination status.
 		Returns True if the status is updated successfully.
@@ -17,10 +17,8 @@ class HealthStaffUser_UpdateVaccinationUI:
 		# Create controller to update vaccination Status
 		controller = HealthStaffUser_UpdateVaccinationController()
 
-	
-
 		# Calls the controller to update vaccination status
-		result = controller.updateVaccinationStatus(NRIC, vaccination_Status, dateOfFirstShot, dateOfSecondShot)
+		result = controller.updateVaccinationStatus(NRIC, vaccination_Status, firstShotCheckboxStatus, secondShotCheckboxStatus)
 		
 		# Returns True if successfully updated / False if failed to update
 		return result
@@ -31,9 +29,9 @@ class HealthStaffUser_UpdateVaccinationUI:
 		with an error message
 		"""
 
-		messages = "Failed to update vaccination status"
+		message = "Failed to update vaccination status"
 
-		flash(messages, 'error')
+		flash(message, 'error')
 
 		#redirect to viewUpdateVaccination route
 		return redirect(url_for('.viewUpdateVaccination'))
@@ -46,10 +44,10 @@ class HealthStaffUser_UpdateVaccinationUI:
 		"""
 
 		#store successful message in session 
-		messages = "Vaccination Status updated"
+		message = "Vaccination Status updated"
 
 		#Flash Successful message
-		flash(messages)
+		flash(message, 'message')
 
 		#redirect to viewUpdateVaccination route
 		return redirect(url_for('.viewUpdateVaccination'))

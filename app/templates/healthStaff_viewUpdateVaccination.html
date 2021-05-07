@@ -1,6 +1,7 @@
 <!-- Extends the basic html template -->
 {% extends "dashboard_layout.html" %}
 {% set active_page ="healthStaff_view_update_vaccination" %}
+
 <!-- Updates the <head> of the webpage -->
 {% block head %}
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -8,12 +9,6 @@
 	<script type=text/javascript src="{{url_for('static', filename='js/healthStaff_viewUpdateVaccination.js') }}"></script>
 	<title>View and Update Vaccination Status</title>
 {% endblock %}
-
-
-<!-- show updated successful -->
-{% for mesg in get_flashed_messages() %}
-	<h1>{{ mesg }}</h1>
-{% endfor %}
 
 <!-- Content Header -->
 {% block contentHeader %}
@@ -96,20 +91,20 @@
 							<!-- Status Dropdown List -->
 							<label class="label_details" for="status_label">Status: </label>
 							<select name="vaccinationstatus" id="status_dropdown">
-								<option value="not_eligible">Not Eligible For Vaccination</option>
-								<option value="eligible">Eligible For Vaccination</option>
-								<option value="first_dose_scheduled">Scheduled for First Dose</option>
-								<option value="second_dose_scheduled">Scheduled for Second Dose</option>
-								<option value="vaccination_completed">Vaccination Completed</option>
+								<option value="not_eligible" {% if vaccineStatusDetails[7] == "Not Eligible for Vaccination" %} selected {% endif %}>Not Eligible for Vaccination</option>
+								<option value="eligible" {% if vaccineStatusDetails[7] == 'Eligible for Vaccination' %} selected {% endif %}>Eligible for Vaccination</option>
+								<option value="first_dose_scheduled" {% if vaccineStatusDetails[7] == 'Scheduled for First Shot' %} selected {% endif %}>Scheduled for First Shot</option>
+								<option value="second_dose_scheduled" {% if vaccineStatusDetails[7] == 'Scheduled for Second Shot' %} selected {% endif %}>Scheduled for Second Shot</option>
+								<option value="vaccination_completed" {% if vaccineStatusDetails[7] == 'Vaccination Completed' %} selected {% endif %}>Vaccination Completed</option>
 							</select><br><br>
 
 							<!-- Checkbox for First Dose -->
 							<label class="label_details" for="first_dose">First Dose Vaccinated: </label>
-							<input type="checkbox" id="first_dose" name="first_dose" value="first_dose"><br><br>
+							<input type="checkbox" id="first_dose" name="first_dose" value="checked"><br><br>
 							
 							<!-- Checkbox for Second Dose -->
 							<label class="label_details" for="second_dose">Second Dose Vaccinated: </label>
-							<input type="checkbox" id="second_dose" name="second_dose" value="second_dose"><br><br>
+							<input type="checkbox" id="second_dose" name="second_dose" value="checked"><br><br>
 						</div>
 
 						<div class="modal-footer">
@@ -118,7 +113,6 @@
 						</div>
 					</form>
 				{% endif %}
-			
 			</div>
 		</div>
 	</div>

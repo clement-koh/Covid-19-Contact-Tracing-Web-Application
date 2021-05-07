@@ -356,7 +356,6 @@ def UpdateVaccinationPage():
 	first_dose = request.form.get('first_dose')
 	second_dose = request.form.get('second_dose')
 
-
 	# If unsuccessful at updating vaccination state
 	if not Health_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
 		return Health_UpdateVaccinationBoundary.displayError()

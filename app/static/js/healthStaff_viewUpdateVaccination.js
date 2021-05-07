@@ -32,6 +32,7 @@ function updateOptions() {
 	if (selectedOption == options[3]) {
 		// Set first_dose as scheduled
 		checkbox_firstDose.attr("disabled", false);
+		checkbox_firstDose.prop("checked", true);
 
 	} else if (selectedOption == options[4]) {
 		checkbox_firstDose.prop("checked", true);
@@ -43,6 +44,10 @@ function updateOptions() {
 
 function forceCheckBox(check) {
 	var selectedOption = statusDropdown.children("option:selected").val();
+
+	if (selectedOption == options[3]) {
+		checkbox_firstDose.prop("checked", true);
+	}
 
 	if (selectedOption == options[4]) {
 		checkbox_firstDose.prop("checked", true);
