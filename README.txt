@@ -28,3 +28,4 @@ venv\Scripts\deactivate
 |	Set Flask to run from app.py            	|
 -------------------------------------------------
 set FLASK_APP=run.py
+flask run
