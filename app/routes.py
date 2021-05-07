@@ -20,6 +20,7 @@ from .boundary.HealthStaffUser_ViewPatientDetailsUI import HealthStaffUser_ViewP
 from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAlertPublicUI
 from .boundary.HealthStaffUser_SendAlertBusinessUI import HealthStaffUser_SendAlertBusinessUI
 from .boundary.HealthStaffUser_ViewVaccineStatusUI import HealthStaffUser_ViewVaccineStatusUI
+from .boundary.HealthStaffUser_UpdateVaccinationUI import HealthStaffUser_UpdateVaccinationUI
 
 # Boundary for Business Staff
 from .boundary.BusinessUser_ViewAlertUI import BusinessUser_ViewAlertUI
@@ -341,6 +342,27 @@ def viewUpdateVaccination():
 
 		# Display Success
 		return healthStaffUser_viewVaccineStatusBoundary.displaySuccess()
+
+@app.route('/update_vaccination', methods=['POST'])
+@loginRequired
+def UpdateVaccinationPage():
+
+	# Initialise Health_UpdateVaccinationUI Object
+	Health_UpdateVaccinationBoundary = HealthStaffUser_UpdateVaccinationUI()
+
+    # Get fields from the update vaccination state form
+	NRIC = request.form.get('name')
+	vaccination_Status = request.form.get('vaccinationstatus')
+	first_dose = request.form.get('first_dose')
+	second_dose = request.form.get('second_dose')
+
+	# If unsuccessful at updating vaccination state
+	if not Health_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
+		return Health_UpdateVaccinationBoundary.displayError()
+		
+	# If successful at updating vaccination state
+	return Health_UpdateVaccinationBoundary.displaySuccess()
+	
 				
 # -----------------------------------------------------
 #                   Business User Pages

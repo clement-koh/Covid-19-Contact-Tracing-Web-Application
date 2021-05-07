@@ -1,18 +1,17 @@
-$(document).ready(function()
-{
-  $(".LocationNameContainer").click(function()
-  {
+// Adds event listener to all location records to hide / display
+$(document).ready(function(){
+  $(".LocationNameContainer").click(function(){
     $(this).siblings('.RecordChunk').slideToggle(250);
   }
 )});
 
-function showAllFunction() 
-{
+// Function to show details of all location records
+function showAllFunction() {
     $(".RecordChunk").slideDown(250);
 }
 
-function closeAllFunction() 
-{
+// Function to hide details of all location records
+function closeAllFunction() {
     $('.RecordChunk').slideUp(250);
 }
 
