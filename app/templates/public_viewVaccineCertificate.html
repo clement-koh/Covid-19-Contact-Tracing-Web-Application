@@ -44,17 +44,13 @@
 		<!-- Incomplete Vaccination -->
 		<div id="incomplete">
 			<!-- Eligible for Vaccination but not taken -->
-			{% if vaccinationDetails[1] == 'Eligible for Vaccination' %}
+			{% if vaccinationDetails[1] == 'Eligible for Vaccination' or 
+				  vaccinationDetails[1] == 'Scheduled for First Shot' or
+				  vaccinationDetails[1] is none %}
 				<div id="eligibleBNT">
 					<img id="displayPic" src="{{ url_for('static', filename='getVaccinated.jpg') }}"/>
-					<h3>Our record shows that you have not been vaccinated yet. Think about your loved ones. 
-						Don't expose them to unnecessary risks. Get vaccinated now! </h3>
-				</div>
-			{% endif %}
-			{% if vaccinationDetails[1] == 'Scheduled for First Shot' %}
-				<div id="eligibleBNT">
-					<img id="displayPic" src="{{ url_for('static', filename='getVaccinated.jpg') }}"/>
-					<h3>Our record shows that you have not been vaccinated yet. Think about your loved ones. 
+					<h3>Our record shows that you have not been vaccinated yet. <br /> 
+						Think about your loved ones. <br />
 						Don't expose them to unnecessary risks. Get vaccinated now! </h3>
 				</div>
 			{% endif %}
@@ -63,8 +59,9 @@
 			{% if vaccinationDetails[1] == 'Scheduled for Second Shot' %}
 				<div id="eligibleBNC">
 					<img id="displayPic" src="{{ url_for('static', filename='getVaccinated.jpg') }}"/>
-					<h3>Our record shows that you have taken your first dose on <b>{{ vaccinationDetails[2] }}</b>. 
-						But that's not the end. In fact, you're only halfway done. Get your second dose now! </h3>
+					<h3>You are halfway done. <br />
+						Our record shows that you have taken your first dose on <b>{{ vaccinationDetails[2] }}</b>.<br /> 
+						But that's not the end. </h3>
 				</div>
 			{% endif %}
 
@@ -72,8 +69,10 @@
 			{% if vaccinationDetails[1] == 'Not Eligible for Vaccination' %}
 				<div id="notEligible">
 					<img id="displayPic" src="{{ url_for('static', filename='together.jpg') }}"/>
-					<h3>Unfortunately, you are not eligible for this batch of vaccination due to various health reasons. But not to worry. 
-						We assure you that we are committed to keep you well protected. Please stay tuned for further updates! </h3>
+					<h3>Unfortunately, you are not eligible for this batch of vaccination due to health reasons. <br />
+						But not to worry, 
+						We assure you that we are committed to keep you well protected.  <br />
+						Please stay tuned for further updates! </h3>
 				</div>
 			{% endif %}
 		</div>
