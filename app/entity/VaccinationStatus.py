@@ -83,23 +83,23 @@ class VaccinationStatus:
 
 		#check status is Scheduled for First Shot 
 		if vaccinationStatus == "Scheduled for First Shot":
-			firstShotDate = "Not Vaccinated"
-			secondShotDate = "Not Vaccinated"
+			firstShotDate = "-"
+			secondShotDate = "-"
 
 		#check status is Eligible for Vaccination
 		if vaccinationStatus == "Eligible for Vaccination":
-			firstShotDate = "Not Vaccinated"
-			secondShotDate = "Not Vaccinated"
+			firstShotDate = "-"
+			secondShotDate = "-"
 
 		#check status is Not Eligible for Vaccination
 		if vaccinationStatus == "Not Eligible for Vaccination":
-			firstShotDate = "Not Vaccinated"
-			secondShotDate = "Not Vaccinated"
+			firstShotDate = "-"
+			secondShotDate = "-"
 
 		#check status is Scheduled for Second Shot
 		if vaccinationStatus == "Scheduled for Second Shot":
 			firstShotDate = date
-			secondShotDate = "Not Vaccinated"
+			secondShotDate = "-"
 
 		#check status is Vaccination Completed
 		if vaccinationStatus == "Vaccination Completed":
