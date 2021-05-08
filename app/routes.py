@@ -451,9 +451,9 @@ def CreateUserAccount():
 @loginRequired
 def ViewUserAccount():
 	if request.method == 'GET':
-		return render_template('organisationUser_viewUserAccount.html')
+		return render_template('organisationUser_viewUserAccount.html', userType = session['userType'])
 	if request.method == 'POST':
-		return render_template('organisationUser_viewUserAccount.html')
+		return render_template('organisationUser_viewUserAccount.html', userType = session['userType'])
 
 @app.route('/update_user_account', methods=['GET', 'POST'])
 @loginRequired
