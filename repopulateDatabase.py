@@ -31,6 +31,15 @@ MAX_LOCATION_VISITED = 3        # No of location
 # Infection Setting
 POPULATION_PERCENTAGE_CONFIRMED_INFECTED_DAILY = 0.01	  # In percentage (0.01%)
 
+# Vaccination Settings (Sum to 100)
+NOT_ELIGIBLE_FOR_VACCINATION = 10 							
+ELIGIBLE_FOR_VACCINATION = 20
+SCHEDULED_FOR_FIRST_SHOT = 30
+SCHEDULED_FOR_SECOND_SHOT = 40
+VACCINATION_COMPLETED = 100 - NOT_ELIGIBLE_FOR_VACCINATION - \
+						ELIGIBLE_FOR_VACCINATION - \
+						SCHEDULED_FOR_FIRST_SHOT - \
+						SCHEDULED_FOR_SECOND_SHOT
 
 # COPIES OF ALL ENTITY BELOW. COPY ALL CLASS ENTITY FROM ENTITIES.PY BEFORE RUNNING CODE
 class Business(db.Model):
@@ -272,6 +281,58 @@ for i in numOfDays:
 			db.session.add(newinfectedRecord)
 			noOfRecords += 1
 			print('Infected History Recorded on {}. Total Infected Individual Record = {}'.format(infected_on, noOfRecords))
+
+
+# Generate random vaccination status
+for userID in totalNumberOfUsers:
+	NRIC = 'S'+ '{:04d}'.format(userID)
+	
+	# Chance for a random vaccination Status 
+	chance = uniform(0.00, 100.00)
+	
+	# Set a status for the user
+	status = None
+
+	# If not eligible for vaccination 
+	if chance <= NOT_ELIGIBLE_FOR_VACCINATION:
+		status = "Not Eligible for Vaccination"
+	else:
+		chance -= NOT_ELIGIBLE_FOR_VACCINATION
+
+	# if Eligible for vaccination
+	if status is None and chance <= ELIGIBLE_FOR_VACCINATION:
+		status = "Eligible for Vaccination"
+	else:
+		chance -= ELIGIBLE_FOR_VACCINATION
+
+	# if Scheduled for first shot
+	if status is None and chance <= SCHEDULED_FOR_FIRST_SHOT:
+		status = "Scheduled for First Shot"
+	else:
+		chance -= SCHEDULED_FOR_FIRST_SHOT
+	
+	# if scheduled for second shot
+	if status is None and chance <= SCHEDULED_FOR_SECOND_SHOT:
+		status = "Scheduled for Second Shot"
+	else:
+		status = "Vaccination Completed"
+
+	start_date = datetime(2021, 4, 1)
+	end_date = datetime.today()
+
+	time_between_dates = end_date - start_date
+	days_between_dates = time_between_dates.days
+	random_number_of_days = randrange(days_between_dates)
+	# get first random date
+	random_date = start_date + timedelta(days=random_number_of_days)
+
+
+
+
+	
+
+
+	
 
 # Commit Records
 db.session.commit()
