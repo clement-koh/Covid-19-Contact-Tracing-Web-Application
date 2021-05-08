@@ -1,7 +1,6 @@
 from ...dbConfig import dbConnect, dbDisconnect
 from .User import User
 
-
 class BusinessUser(User):
 	# Constructor
 	def __init__(self, NRIC = None):
@@ -23,13 +22,13 @@ class BusinessUser(User):
 			# Populate private instance variables with value or None 
 			if result is not None:
 				hasResult = True
-				self.__id = result[0]
+				self.__businesUserID = result[0]
 				self.__NRIC = result[1]
 				self.__businessID = result[2]
 		
 		# If no result
 		if not hasResult:
-				self.__id = None
+				self.__businessUserID = None
 				self.__name = None
 				self.__businessID = None
 		
@@ -37,8 +36,8 @@ class BusinessUser(User):
 		dbDisconnect(connection)
 
 	# Accessor Method
-	def getID(self):
-		return self.__id
+	def getBusinessUserID(self):
+		return self.__businessUserID
 
 	def getNRIC(self):
 		return self.__NRIC
@@ -70,4 +69,33 @@ class BusinessUser(User):
 		
 		return NRICList
 	
-	
+	def addNewUser(self, NRIC, firstName, middleName, lastName, gender, 
+				   mobile, password, businessID, accountType='Business'):
+		# call parents method
+		super().addNewUser(NRIC, firstName, middleName, lastName, gender, 
+							mobile, password, accountType=accountType)
+		
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+		
+		# insert new business user record
+		db.execute("""INSERT INTO business_user(
+							NRIC, businessID
+						)
+						VALUES((?), (?))""",
+						(NRIC, businessID))
+		
+		# Commit the update to the database
+		connection.commit()
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		# Check if any rows have been updated successfully
+		if db.rowcount != 0:
+			print("Added new Business User")
+			return True
+		
+		# If no rows has been updated
+		return False
