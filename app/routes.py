@@ -423,11 +423,12 @@ def CreateUserAccount():
 	if request.method == 'POST':
 
 		# Gets all form data, set to empty string if field is disabled
-		accountType = request.form.get('accountType', '').strip()
+		accountType = request.form.get('accountType')
 		NRIC = request.form.get('NRIC', '').strip().upper()
 		firstName = request.form.get('firstName', '').strip()
 		middleName = request.form.get('middleName', '').strip()
 		lastName = request.form.get('lastName', '').strip()
+		gender = request.form.get('gender')
 		mobile = request.form.get('mobile', '').strip()
 		password = request.form.get('password', '').strip()
 		confirmPassword = request.form.get('confirmPassword', '').strip()
@@ -436,7 +437,7 @@ def CreateUserAccount():
 		organisationName = request.form.get('organisationName', '').strip()
 
 		result = organisationUser_createUserBoundary.onSubmit(accountType, NRIC, firstName, middleName, 
-															  lastName, mobile, password, confirmPassword,
+															  lastName, gender, mobile, password, confirmPassword,
 															  businessName, licenseNo, organisationName)
 		
 		# If attempt to create account is successful
