@@ -205,4 +205,29 @@
 			</a>
 		</div>
 	{% endif %}
+
+	<!-- If account type is Organisation Staff -->
+	{% if userType == 'Organisation' %}
+		<!-- Create User Account -->
+		<div class="w3-quarter">
+			<a href="/create_user_account" style="text-decoration:none">
+				<div class="hover w3-container w3-teal w3-padding-16">
+					<div class="w3-left"><i class="fa fa-user-plus fa-fw w3-xxxlarge"></i></div>
+					<div class="w3-clear"></div>
+					<h4>Create User Account</h4>
+				</div>
+			</a>
+		</div>
+
+		<!-- View And Update User Account -->
+		<div class="w3-quarter">
+			<a href="/view_user_account" style="text-decoration:none">
+				<div class="hover w3-container w3-blue w3-padding-16">
+					<div class="w3-left"><i class="fa fa-user fa-fw w3-xxxlarge"></i></div>
+					<div class="w3-clear"></div>
+					<h4>View And Update User Account</h4>
+				</div>
+			</a>
+		</div>
+	{% endif %}
 {% endblock %}

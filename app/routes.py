@@ -401,3 +401,31 @@ def viewBusinessAlertPage():
 def viewAffectedOutlet():
 	businessUser_viewAffectedOutletBoundary = BusinessUser_ViewAffectedOutletUI()
 	return businessUser_viewAffectedOutletBoundary.displayPage()
+
+
+# -----------------------------------------------------
+#                   Organisation Staff Pages
+# -----------------------------------------------------
+@app.route('/create_user_account', methods=['GET', 'POST'])
+@loginRequired
+def CreateUserAccount():
+	if request.method == 'GET':
+		return render_template('overview.html', userType = session['userType'])
+	if request.method == 'POST':
+		return render_template('overview.html', userType = session['userType'])
+
+@app.route('/view_user_account', methods=['GET', 'POST'])
+@loginRequired
+def ViewUserAccount():
+	if request.method == 'GET':
+		return render_template('organisationUser_viewUserAccount.html')
+	if request.method == 'POST':
+		return render_template('organisationUser_viewUserAccount.html')
+
+@app.route('/update_user_account', methods=['GET', 'POST'])
+@loginRequired
+def UpdateUserAccount():
+	if request.method == 'GET':
+		return render_template('overview.html', userType = session['userType'])
+	if request.method == 'POST':
+		return render_template('overview.html', userType = session['userType'])

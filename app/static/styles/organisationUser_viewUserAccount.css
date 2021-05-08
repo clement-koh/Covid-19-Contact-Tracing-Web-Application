@@ -1,0 +1,29 @@
+/* table */
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+tr:hover {
+	background-color: lightblue;
+}
+
+/*Display labels as blocks and adjust its width*/
+.label_details{
+    width: 240px;
+    display:inline-block;
+}
+/*Display inputs as blocks*/
+input {
+    display:inline-block;
+}
