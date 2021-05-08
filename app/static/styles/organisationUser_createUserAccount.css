@@ -1,41 +1,38 @@
 /*Display labels as blocks and adjust its width*/
-.label_details{
-  width: 150px;
-  display:inline-block;
+.label_details {
+	width: 150px;
+	display: inline-block;
 }
 
 /* Create a spacing before every label */
 .label_details:before {
-  content:"\A";
-  white-space: pre-line;
+	content: "\A";
+	white-space: pre-line;
 }
 
 /* Adjust width of all input */
 input {
-  width: 240px;
+	width: 240px;
 }
 
 /* Adjust width of create button */
 .create_button {
-  width: 110px;
+	margin-top: 20px;
+	width: auto;
 }
 
 /* Adjust width of account type */
-.acc_type{
-  width: 180px;
+.select {
+	width: 180px;
 }
 
 /* Hides the step in input number */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0; 
+	-webkit-appearance: none;
+	margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance:textfield;
+input[type="number"] {
+	-moz-appearance: textfield;
 }
-
-
-
-  

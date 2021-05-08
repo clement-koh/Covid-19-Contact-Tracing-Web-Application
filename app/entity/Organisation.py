@@ -1,6 +1,6 @@
 from ...dbConfig import dbConnect, dbDisconnect
 
-class Business:
+class Organisation:
 	# Constructor
 	def __init__(self, id = None):
 		# Connect to database
@@ -12,7 +12,7 @@ class Business:
 		if id is not None:
 			# Select location from database and populate instance variables
 			result = db.execute("""SELECT id, name
-								   FROM business 
+								   FROM organisation 
 								   WHERE id = (?)""", (id,)).fetchone()
 			
 			# Populate private instance variables with value or None 
@@ -36,8 +36,9 @@ class Business:
 	def getName(self):
 		return self.__name
 	
+
 	# Other Method
-	def getAllBusinessID(self):
+	def getAllOrganisationID(self):
 		"""
 		Returns a int array of all businessID
 		"""
@@ -46,7 +47,7 @@ class Business:
 		db = connection.cursor()
 
 		# Select User from database and populate instance variables
-		results = db.execute("""SELECT id FROM business""").fetchall()
+		results = db.execute("""SELECT id FROM organisation""").fetchall()
 
 		# Disconnect from database
 		dbDisconnect(connection)
@@ -57,6 +58,7 @@ class Business:
 			idList.append(int(result[0]))
 		
 		return idList
+
 
 	def getIDfromName(self, name):
 		""" 
@@ -69,7 +71,7 @@ class Business:
 
 		# Select location name from id
 		result = db.execute("""SELECT id
-							   FROM business 
+							   FROM organisation 
 							   WHERE name = (?)""", (name,)).fetchone()
 
 		# Disconnect from database

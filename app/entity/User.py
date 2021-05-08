@@ -197,3 +197,38 @@ class User:
 		Returns False if verification does not match
 		"""
 		return self.__password == password
+
+	def addNewUser(self, NRIC, firstName, middleName,
+					lastName, gender, mobile, password,
+					accountType='Public'):
+		"""
+		Returns True if record is successfully added to database
+		"""
+		
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+		
+		# insert new user record
+		db.execute("""INSERT INTO user(
+							NRIC, password, firstName,
+							middleName, lastName, mobile, gender,
+							accountActive, accountType
+						)
+						VALUES((?), (?), (?), (?), (?), (?), (?), (?), (?))""",
+						(NRIC, password, firstName, middleName, lastName, mobile,
+						gender, True, accountType))
+		
+		# Commit the update to the database
+		connection.commit()
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		# Check if any rows have been updated successfully
+		if db.rowcount != 0:
+			print("Added new User")
+			return True
+		
+		# If no rows has been updated
+		return False
