@@ -27,6 +27,9 @@ from .boundary.BusinessUser_ViewAlertUI import BusinessUser_ViewAlertUI
 from .boundary.BusinessUser_AcknowledgeAlertUI import BusinessUser_AcknowledgeAlertUI
 from .boundary.BusinessUser_ViewAffectedOutletUI import BusinessUser_ViewAffectedOutletUI
 
+# Boundary for Organisation Staff
+from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserUI
+
 
 # -----------------------------------------------------
 #                   Common Pages
@@ -350,7 +353,7 @@ def UpdateVaccinationPage():
 	# Initialise Health_UpdateVaccinationUI Object
 	Health_UpdateVaccinationBoundary = HealthStaffUser_UpdateVaccinationUI()
 
-    # Get fields from the update vaccination state form
+	# Get fields from the update vaccination state form
 	NRIC = request.form.get('name')
 	vaccination_Status = request.form.get('vaccinationstatus')
 	first_dose = request.form.get('first_dose')
@@ -404,15 +407,44 @@ def viewAffectedOutlet():
 
 
 # -----------------------------------------------------
-#                   Organisation Staff Pages
+#                   Organisation User Pages
 # -----------------------------------------------------
 @app.route('/create_user_account', methods=['GET', 'POST'])
 @loginRequired
 def CreateUserAccount():
+	# Create boundary object
+	organisationUser_createUserBoundary = OrganisationUser_CreateUserUI()
+
+	# If user is requesting the web page
 	if request.method == 'GET':
-		return render_template('overview.html', userType = session['userType'])
+		return organisationUser_createUserBoundary.displayPage()
+	
+	# If user is submitting request to create a new account
 	if request.method == 'POST':
-		return render_template('overview.html', userType = session['userType'])
+
+		# Gets all form data, set to empty string if field is disabled
+		accountType = request.form.get('accountType', '').strip()
+		NRIC = request.form.get('NRIC', '').strip().upper()
+		firstName = request.form.get('firstName', '').strip()
+		middleName = request.form.get('middleName', '').strip()
+		lastName = request.form.get('lastName', '').strip()
+		mobile = request.form.get('mobile', '').strip()
+		password = request.form.get('password', '').strip()
+		confirmPassword = request.form.get('confirmPassword', '').strip()
+		businessName = request.form.get('businessName', '').strip()
+		licenseNo = request.form.get('licenseNo', '').strip()
+		organisationName = request.form.get('organisationName', '').strip()
+
+		result = organisationUser_createUserBoundary.onSubmit(accountType, NRIC, firstName, middleName, 
+															  lastName, mobile, password, confirmPassword,
+															  businessName, licenseNo, organisationName)
+		
+		# If attempt to create account is successful
+		if result == organisationUser_createUserBoundary.RESULT_SUCCESS:
+			return organisationUser_createUserBoundary.displaySuccess()
+		
+		# Display Error if account creation is unsuccessful
+		return organisationUser_createUserBoundary.displayFailure(result)
 
 @app.route('/view_user_account', methods=['GET', 'POST'])
 @loginRequired
@@ -424,7 +456,7 @@ def ViewUserAccount():
 
 @app.route('/update_user_account', methods=['GET', 'POST'])
 @loginRequired
-def UpdateUserAccount():
+def UpdateUserAccount(): 
 	if request.method == 'GET':
 		return render_template('overview.html', userType = session['userType'])
 	if request.method == 'POST':
