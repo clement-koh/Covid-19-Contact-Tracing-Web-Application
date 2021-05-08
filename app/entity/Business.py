@@ -36,7 +36,6 @@ class Business:
 	def getName(self):
 		return self.__name
 	
-
 	# Other Method
 	def getAllBusinessID(self):
 		"""
