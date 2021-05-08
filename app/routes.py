@@ -410,9 +410,9 @@ def viewAffectedOutlet():
 @loginRequired
 def CreateUserAccount():
 	if request.method == 'GET':
-		return render_template('overview.html', userType = session['userType'])
+		return render_template('organisationUser_createUserAccount.html', userType = session['userType'])
 	if request.method == 'POST':
-		return render_template('overview.html', userType = session['userType'])
+		return render_template('organisationUser_createUserAccount.html', userType = session['userType'])
 
 @app.route('/view_user_account', methods=['GET', 'POST'])
 @loginRequired
