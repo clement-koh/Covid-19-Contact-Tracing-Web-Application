@@ -38,10 +38,9 @@ class HealthStaffUser_ViewVaccineStatusController:
 		vaccineStatus = VaccinationStatus(NRIC)
 
 		# Set vaccination date to "-" if there is no value
-		if vaccineStatus.getFirstShotDate() == None:
-			firstShotDate = "-"
-		if vaccineStatus.getSecondShotDate() == None:
-			secondShotDate = "-"
+		firstShotDate = vaccineStatus.getFirstShotDate() if vaccineStatus.getFirstShotDate() != None else "-"
+		secondShotDate = vaccineStatus.getSecondShotDate() if vaccineStatus.getSecondShotDate() != None else "-"
+		vaccinationStatus = vaccineStatus.getVaccinationStatus() if vaccineStatus.getVaccinationStatus() != None else "-"
 		
 		# Returns all details in an array
 		userInfo = []
@@ -52,6 +51,6 @@ class HealthStaffUser_ViewVaccineStatusController:
 		userInfo.append(user.getGender())
 		userInfo.append(firstShotDate)
 		userInfo.append(secondShotDate)
-		userInfo.append(vaccineStatus.getVaccinationStatus())
+		userInfo.append(vaccinationStatus)
 		
 		return userInfo

@@ -29,6 +29,17 @@ class HealthStaffUser_ViewVaccineStatusUI:
 			flash("Unauthorised to access this content", 'error')
 			return redirect('/')
 
+		# If directed here with a user already provided
+		if session['viewVaccinationInformation'] is not None:
+			# Get provided user details
+			self.setPatient(session['viewVaccinationInformation'])
+
+			# Remove user details stored
+			session['viewVaccinationInformation'] = None
+
+			# Display information of user
+			return self.displaySuccess()
+
 		# Render the page
 		return render_template('healthStaff_viewUpdateVaccination.html', userType=userType)
 	
