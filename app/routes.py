@@ -459,6 +459,6 @@ def ViewUserAccount():
 @loginRequired
 def UpdateUserAccount(): 
 	if request.method == 'GET':
-		return render_template('overview.html', userType = session['userType'])
+		return render_template('organisationUser_updateUserAccount.html', userType = session['userType'])
 	if request.method == 'POST':
-		return render_template('overview.html', userType = session['userType'])
+		return render_template('organisationUser_updateUserAccount.html', userType = session['userType'])
