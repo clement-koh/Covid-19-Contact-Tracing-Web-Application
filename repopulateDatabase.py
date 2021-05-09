@@ -258,7 +258,7 @@ for x in firstName:
 						INSERT INTO business_user(NRIC, businessID) VALUES
 						((?), (?))
 					""", 
-					(NRIC, str(businessID)))
+					(NRIC, str(random_businessID)))
 				print('Account type: Business')
 
 			# Generate a organisation user
