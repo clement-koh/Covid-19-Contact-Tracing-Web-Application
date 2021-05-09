@@ -1,0 +1,38 @@
+/*Display labels as blocks and adjust its width*/
+.label_details {
+	width: 150px;
+	display: inline-block;
+}
+
+/* Create a spacing before every label */
+.label_details:before {
+	content: "\A";
+	white-space: pre-line;
+}
+
+/* Adjust width of all input */
+input {
+	width: 240px;
+}
+
+/* Adjust width of create button */
+.create_button {
+	margin-top: 20px;
+	width: auto;
+}
+
+/* Adjust width of account type */
+.select {
+	width: 180px;
+}
+
+/* Hides the step in input number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
+}

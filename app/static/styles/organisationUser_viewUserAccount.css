@@ -1,0 +1,69 @@
+/* table */
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td,
+th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+	width: auto;
+}
+
+tr:nth-child(even) {
+	background-color: #ebebeb;
+}
+
+tr:hover {
+	background-color: lightblue;
+}
+
+/*Display labels as blocks and adjust its width*/
+.label_details {
+	width: 240px;
+	display: inline-block;
+}
+
+/*Display inputs as blocks*/
+input {
+	display: inline-block;
+}
+
+#accStatusBtn {
+	display: inline-block;
+	margin: 0% 5% 0% 5%;
+}
+
+#updateButton {
+	display: inline-block;
+	margin: 0% 5% 0% 5%;
+}
+
+/* Popup Styling */
+.vertical-alignment-helper {
+	display: table;
+	height: 100%;
+	width: 100%;
+	pointer-events: none; /* This makes sure that we can still click outside of the modal to close it */
+}
+.vertical-align-center {
+	/* To center vertically */
+	display: table-cell;
+	vertical-align: middle;
+	pointer-events: none;
+}
+.modal-content {
+	/* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+	width: inherit;
+	max-width: inherit; /* For Bootstrap 4 - to avoid the modal window stretching full width */
+	height: inherit;
+	/* To center horizontally */
+	margin: 0 auto;
+	pointer-events: all;
+}
+
+.modal-body {
+	text-align: center;
+}

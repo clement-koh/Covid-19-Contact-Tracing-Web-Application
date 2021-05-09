@@ -1,102 +1,90 @@
-.LocationContainer
-{
-	width: 50%;
-  margin-bottom: 30px;
+.LocationContainer {
+	margin: auto;
+	width: 60%;
+	margin-bottom: 30px;
 }
 
-.LocationNameContainer 
-{
-  width: 100%;
-  height: 60px;
-  padding: 10px;
-  cursor: pointer;
-  text-align: center;
-  background: #00BCD4;
-  color: white;
+.LocationNameContainer {
+	width: 100%;
+	height: 60px;
+	padding: 10px;
+	cursor: pointer;
+	text-align: center;
+	background: #00bcd4;
+	color: white;
 }
 
-.LocationNameContainer:hover
-{
-  background: #26C281;
+.LocationNameContainer:hover {
+	background: #26c281;
 }
 
-.RecordChunk 
-{
-  font-family: 'Roboto', sans-serif;
-  padding: 0 18px;
-  overflow: hidden;
-  display:none;
-  transition: max-height 0.2s ease-out;
-	background-color:rgb(255, 255, 255);
+.RecordChunk {
+	font-family: "Roboto", sans-serif;
+	padding: 0 18px;
+	overflow: hidden;
+	display: none;
+	transition: max-height 0.2s ease-out;
+	background-color: rgb(255, 255, 255);
 	text-align: center;
 }
 
 /* Center Table */
-.tablerecords 
-{
-  margin-left: auto;
-  margin-right: auto;
-  counter-reset: count; /* Set the serial number counter to 0 */
+.tablerecords {
+	margin-left: auto;
+	margin-right: auto;
+	counter-reset: count; /* Set the serial number counter to 0 */
 }
 
-.tablerecords:before 
-{
-  content:"\A";
-  white-space: pre-line;
+.tablerecords:before {
+	content: "\A";
+	white-space: pre-line;
 }
 
-.tablerecords td:first-child:before 
-{
-  counter-increment: count; /* Increment the serial number counter */
-  content: counter(count); /* Display the counter */
+.tablerecords td:first-child:before {
+	counter-increment: count; /* Increment the serial number counter */
+	content: counter(count); /* Display the counter */
 }
-  
-td, th 
-{
-  border: 2px solid #3E474F;
-  text-align: center;
-  padding: 8px;
+
+td,
+th {
+	border: 2px solid #3e474f;
+	text-align: center;
+	padding: 8px;
 }
 
 /* Button Div */
-.button_div
-{
-  margin-bottom: 30px;
-  overflow: hidden;
+.button_div {
+	overflow: hidden;
+	width: 65%;
+	align-self: center;
+	text-align: center;
+	margin: 0px auto 30px auto;
 }
 
 /* Button Design */
-.showAll 
-{
-  width: 200px;
-  height: 30px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
+.showAll {
+	width: 20%;
+	height: 30px;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.1s ease-in-out;
+	margin: 0px 2.5% 0px 0%;
 }
 
-.closeAll 
-{
-  width: 200px;
-  height: 30px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
+.closeAll {
+	width: 20%;
+	height: 30px;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.1s ease-in-out;
+	margin: 0px 0% 0px 2.5%;
 }
 
-button:hover
-{
-  background: #26C281;
+button:hover {
+	background: #26c281;
 }
 
 .message:before {
-  content:"\A";
-  white-space: pre-line;
+	content: "\A";
+	white-space: pre-line;
 }
-
-
-
-
-
-
-  

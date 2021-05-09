@@ -13,6 +13,9 @@ class HealthStaffUser_UpdateVaccinationUI:
 		Updates a patient's vaccination status.
 		Returns True if the status is updated successfully.
 		"""
+		
+		# Set session to record the user viewed
+		session['viewVaccinationInformation'] = NRIC
       
 		# Create controller to update vaccination Status
 		controller = HealthStaffUser_UpdateVaccinationController()

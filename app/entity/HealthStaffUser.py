@@ -1,7 +1,7 @@
 from ...dbConfig import dbConnect, dbDisconnect
 from .User import User
 
-class BusinessUser(User):
+class HealthStaffUser(User):
 	# Constructor
 	def __init__(self, NRIC = None):
 		# Calls superclass constructor
@@ -14,77 +14,71 @@ class BusinessUser(User):
 		# If the id is provided, fill the object with details from database
 		hasResult = False
 		if id is not None:
-			# Select location from database and populate instance variables
-			result = db.execute("""SELECT id, NRIC, businessID
-								   FROM business_user 
+			# Select details from database and populate instance variables
+			result = db.execute("""SELECT id, NRIC, licenseNo
+								   FROM health_staff_user
 								   WHERE NRIC = (?)""", (NRIC,)).fetchone()
 			
 			# Populate private instance variables with value or None 
 			if result is not None:
 				hasResult = True
-				self.__businesUserID = result[0]
+				self.__healthStaffUserID = result[0]
 				self.__NRIC = result[1]
-				self.__businessID = result[2]
+				self.__licenseNo = result[2]
 		
 		# If no result
 		if not hasResult:
-				self.__businessUserID = None
+				self.__healthStaffUserID = None
 				self.__name = None
-				self.__businessID = None
+				self.__licenseNo = None
 		
 		# Disconnect from database
 		dbDisconnect(connection)
 
 	# Accessor Method
-	def getBusinessUserID(self):
-		return self.__businessUserID
+	def getHealthStaffUserID(self):
+		return self.__healthStaffUserID
 
 	def getNRIC(self):
 		return self.__NRIC
 
-	def getBusinessID(self):
-		return self.__businessID
+	def getLicenseNo(self):
+		return self.__licenseNo
 	
-
 	# Other Method
-	def getUsersInBusiness(self, businessID):
+	def hasLicenseRecord(self, licenseNo):
 		"""
-		Returns a string array of all user's NRIC
+		Returns True if license already exists
 		"""
-		# Open connection to database
+		# Connect to database
 		connection = dbConnect()
 		db = connection.cursor()
 
-		# Select User from database and populate instance variables
-		results = db.execute("""SELECT NRIC FROM business_user
-								WHERE businessID = (?)""", (str(businessID), )).fetchall()
-
+		# Perform query
+		result = db.execute("""SELECT id, NRIC, licenseNo
+								   FROM health_staff_user
+								   WHERE licenseNo = (?)""", (licenseNo,)).fetchone()
+		
 		# Disconnect from database
 		dbDisconnect(connection)
 
-		# Returns a list of all NRIC
-		NRICList = []
-		for result in results:
-			NRICList.append(result[0])
-		
-		return NRICList
+		return True if result is not None else False
 	
 	def addNewUser(self, NRIC, firstName, middleName, lastName, gender, 
-				   mobile, password, businessID, accountType='Business'):
-		# call parents method
+					mobile, password, licenseNo, accountType='Health Staff'):
 		super().addNewUser(NRIC, firstName, middleName, lastName, gender, 
 							mobile, password, accountType=accountType)
-		
+
 		# Open connection to database
 		connection = dbConnect()
 		db = connection.cursor()
 		
-		# insert new business user record
-		db.execute("""INSERT INTO business_user(
-							NRIC, businessID
+		# insert new health staff user record
+		db.execute("""INSERT INTO health_staff_user(
+							NRIC, licenseNo
 						)
 						VALUES((?), (?))""",
-						(NRIC, businessID))
+						(NRIC, licenseNo))
 		
 		# Commit the update to the database
 		connection.commit()
@@ -94,7 +88,7 @@ class BusinessUser(User):
 
 		# Check if any rows have been updated successfully
 		if db.rowcount != 0:
-			print("Added new Business User")
+			print("Added Health User")
 			return True
 		
 		# If no rows has been updated

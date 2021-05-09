@@ -1,0 +1,116 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %} 
+{% set active_page = "organisationUser_create_user_account" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+<title>Create User Account</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/autocomplete_field.css') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/organisationUser_createUserAccount.css')}}"/>
+	<script type=text/javascript src="{{url_for('static', filename='js/autocomplete.js') }}"></script>
+	<script type=text/javascript src="{{url_for('static', filename='js/organisationUser_createUserAccount.js')}}"></script>
+	<script>
+		/* An array containing all the information record */
+		var businessNames = {{ businesses | safe }};
+		var organisationNames = {{ organisations | safe }};
+	</script>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+	<b><i class="fa fa-user-plus"></i> Create User Account</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+	<div class="w3-row-padding w3-margin-bottom">
+		<form method="POST">
+			<!-- Account type -->
+			<div>
+				<label for="acc_type" class="label_details">Account Type:</label>
+				<select name="accountType" class="select" id="acc_type">
+					<option value="Public">Public User</option>
+					<option value="Business">Business User</option>
+					<option value="Health Staff">Health Staff</option>
+					<option value="Organisation">Organization</option>
+				</select>
+			</div> 
+
+			<!-- NRIC -->
+			<div>
+				<label for="nric" class="label_details">NRIC:</label>
+				<input name="NRIC" type="text" id="nric" autocomplete="off"/> 
+			</div>
+
+			<!--First Name -->
+			<div>
+				<label for="first_name" class="label_details">First Name:</label>
+				<input name="firstName" type="text" id="first_name" autocomplete="off"/> 
+			</div>
+
+			<!-- Middle Name -->
+			<div>
+				<label for="middle_name" class="label_details">Middle Name:</label>
+				<input name="middleName" type="text" id="middle_name" autocomplete="off"/> 
+			</div>
+
+			<!-- Last Name -->
+			<div>
+				<label for="last_name" class="label_details">Last Name:</label>
+				<input name="lastName" type="text" id="last_name" autocomplete="off"/> 
+			</div>
+
+			<!-- Account type -->
+			<div>
+				<label for="gender" class="label_details">Gender:</label>
+				<select name="gender" id="gender">
+					<option value="M">Male</option>
+					<option value="F">Female</option>
+				</select> 
+			</div>
+
+			<!-- Contact Number -->
+			<div>
+				<label for="contact_number" class="label_details">Contact Number:</label>
+				<input name="mobile" type="number" id="contact_number" autocomplete="off"/> 
+			</div>
+
+			<!-- Business Name -->
+			<div id="businessDiv">
+				<label id="businessLabel" for="businessName" class="label_details"> Business Name: </label>
+				<div class="autocomplete">
+					<input name="businessName" type="text" id="businessName" autocomplete="off"/> 
+				</div>
+			</div>
+			
+			<!-- License No -->
+			<div id="licenseDIV">
+				<label id="licenseLabel" for="licence_number" class="label_details">License Number:</label>
+				<input name="licenseNo" type="number" id="license_number" autocomplete="off"/> 
+			</div>
+
+			<!-- Organisation Name -->
+			<div id="organisationDiv">
+				<label id="organisationLabel" for="organisationName" class="label_details">Organisation Name:</label>
+				<div class="autocomplete">
+					<input name="organisationName" type="text" id="organisationName" autocomplete="off"/>
+				</div>
+			</div>
+
+			<!-- Password -->
+			<div>
+				<label for="password" class="label_details">Password:</label>
+				<input name="password" type="password" id="password" autocomplete="off"/> 
+			</div>
+
+			<!-- Confirm Password -->
+			<div>
+				<label for="cfm_password" class="label_details">Confirm Password:</label>
+				<input name="confirmPassword" type="password" id="cfm_password" autocomplete="off"/> 
+			</div>
+
+			<!-- Create Button -->
+			<input type="submit" class="create_button" value="Create new user account" />
+		</form>
+	</div>
+{% endblock %}

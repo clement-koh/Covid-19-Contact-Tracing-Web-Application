@@ -14,7 +14,7 @@ class HealthStaffUser_SendAlertBusinessController:
 		"""
 			Returns a string array of all business name
 		"""
-		# Return array containing all NRIC
+		# Return array containing all business name
 		businessIDArray = self.__business.getAllBusinessID()
 		businessNames = []
 		for id in businessIDArray:

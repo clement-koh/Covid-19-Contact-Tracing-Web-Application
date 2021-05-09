@@ -1,0 +1,85 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="organisationUser_view_user_account" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/organisationUser_viewUserAccount.css') }}"/>
+	<script type=text/javascript src="{{url_for('static', filename='js/organisationUser_viewUserAccount.js') }}"></script>
+	<title>View and Update User Account</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+	<!-- Display ICON and Header -->
+	<b><i class='fa fa-user'></i> View and Update User Account</b><br><br>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+	<!-- Search for User -->
+	<div class="w3-row-padding w3-margin-bottom">
+	<form autocomplete="off" method="POST">
+		<label for="user">User: &nbsp;</label>
+		<input id="user" type="text" name="user" size="40" placeholder="Enter NRIC">
+		<input type="submit" id="submit" value="Search">
+	</form>
+	<!-- If User Is Found -->
+	<table style='margin-top: 20px;'>
+		<tr>
+			<th>NRIC</th>
+			<th>Name</th>
+			<th>Contact Number</th>
+			<th>Account Type</th>
+			<th>Account Status</th>
+			<th colspan="2">Actions</th>
+		</tr>
+		<tr>
+			<td>S9999</td>
+			<td>John Doe Anderson</td>
+			<td>88888888</td>
+			<td>Public</td>
+			<td>Suspended</td>
+			<td>
+				<!-- Suspend/Unsuspend User Account -->
+				<button type="button" class="btn btn-danger" id="accStatusBtn" data-toggle="modal" data-target="#exampleModalCenter">
+					<span id="accStatus">Suspend</span>
+				</button>
+			</td>
+			<td>
+				<!-- Redirect to User Update Page -->
+				<form id="updateButton" action="/update_user_account" method="POST">
+					<button type="submit" class="btn btn-primary">Update</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="vertical-alignment-helper">
+			<div class="modal-dialog vertical-align-center">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel"><h1>Warning: </h1></h4>
+					</div>
+					<div class="modal-body"><!-- Confirmation Message -->
+						<h4>
+							You are about to <b>SUSPEND</b> this account <br/>
+							Do you wish to proceed?
+						</h4>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="changeAccStatus()" >Suspend</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
