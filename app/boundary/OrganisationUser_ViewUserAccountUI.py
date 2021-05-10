@@ -54,10 +54,10 @@ class OrganisationUser_ViewUserAccountUI:
 		# Gets the current user type
 		userType = session['userType']
 
-		# Get the patient's details
+		# Get the User's details
 		userDetails = self.__viewUserAccountController.getUserDetails(self.__userNRIC)
 
-		# Render the page with patient's details
+		# Render the page with User's details
 		return render_template('organisationUser_viewUserAccount.html', userType=userType,
 																   userDetails=userDetails)
 
