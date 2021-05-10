@@ -232,3 +232,34 @@ class User:
 		
 		# If no rows has been updated
 		return False
+
+	def updateExistingUser(self, firstName, middleName, lastName,
+							gender, mobile, password):
+		"""
+		Updates the details of an existing user
+		Returns True if record is successfully updated in the database
+		"""
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Update existing user record
+		db.execute("""UPDATE user
+						SET firstName = (?), middleName = (?), lastName = (?),
+						gender = (?), mobile = (?), password = (?)
+						WHERE NRIC = (?)""", (firstName, middleName, lastName,
+												gender, mobile, password, self.__NRIC))
+		
+		# Commit the update to the database
+		connection.commit()
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		# Check if any row has been updated successfully
+		if db.rowcount != 0:
+			print("Updated new User")
+			return True
+		
+		# If no row has been updated
+		return False

@@ -30,6 +30,7 @@ from .boundary.BusinessUser_ViewAffectedOutletUI import BusinessUser_ViewAffecte
 # Boundary for Organisation Staff
 from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserUI
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
+from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
 
 
 # -----------------------------------------------------
@@ -352,7 +353,7 @@ def viewUpdateVaccination():
 def UpdateVaccinationPage():
 
 	# Initialise Health_UpdateVaccinationUI Object
-	Health_UpdateVaccinationBoundary = HealthStaffUser_UpdateVaccinationUI()
+	healthStaffUser_UpdateVaccinationBoundary = HealthStaffUser_UpdateVaccinationUI()
 
 	# Get fields from the update vaccination state form
 	NRIC = request.form.get('name')
@@ -361,8 +362,8 @@ def UpdateVaccinationPage():
 	second_dose = request.form.get('second_dose')
 
 	# If unsuccessful at updating vaccination state
-	if not Health_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
-		return Health_UpdateVaccinationBoundary.displayError()
+	if not healthStaffUser_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
+		return healthStaffUser_UpdateVaccinationBoundary.displayError()
 		
 	# If successful at updating vaccination state
 	return Health_UpdateVaccinationBoundary.displaySuccess()
@@ -479,7 +480,34 @@ def ViewUserAccount():
 @app.route('/update_user_account', methods=['GET', 'POST'])
 @loginRequired
 def UpdateUserAccount(): 
+	# Create boundary object
+	organisationUser_updateUserAccountBoundary = OrganisationUser_UpdateUserAccountUI()
+
 	if request.method == 'GET':
-		return render_template('organisationUser_updateUserAccount.html', userType = session['userType'])
+		NRIC = request.args.get('NRIC')
+		return organisationUser_updateUserAccountBoundary.displayPage(NRIC)
+	
 	if request.method == 'POST':
-		return render_template('organisationUser_updateUserAccount.html', userType = session['userType'])
+		accountType = request.form.get('accountType')
+		NRIC = request.form.get('NRIC')
+		firstName = request.form.get('firstName', '').strip()
+		middleName = request.form.get('middleName', '').strip()
+		lastName = request.form.get('lastName', '').strip()
+		gender = request.form.get('gender')
+		mobile = request.form.get('mobile', '').strip()
+		password = request.form.get('password', '').strip()
+		confirmPassword = request.form.get('confirmPassword', '').strip()
+		businessName = request.form.get('businessName', '').strip()
+		licenseNo = request.form.get('licenseNo', '').strip()
+		organisationName = request.form.get('organisationName', '').strip()
+
+		result = organisationUser_updateUserAccountBoundary.onSubmit(accountType, NRIC, firstName, middleName,
+																	 lastName, gender, mobile, password, confirmPassword,
+																	 businessName, licenseNo, organisationName)
+		
+		# If attempt to update account is successful
+		if result == organisationUser_updateUserAccountBoundary.RESULT_SUCCESS:
+			return organisationUser_updateUserAccountBoundary.displaySuccess(NRIC)
+
+		# Display error message if update is unsuccessful
+		return organisationUser_updateUserAccountBoundary.displayError(NRIC, result)

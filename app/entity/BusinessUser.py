@@ -99,3 +99,32 @@ class BusinessUser(User):
 		
 		# If no rows has been updated
 		return False
+
+	def updateExistingUser(self, firstName, middleName, lastName,
+							gender, mobile, password, businessID):
+		# Call the parent method
+		super().updateExistingUser(firstName, middleName, lastName,
+									gender, mobile, password)
+		
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+		
+		# Update the business user record
+		db.execute("""UPDATE business_user
+						SET businessID = (?)
+						WHERE NRIC = (?)""", (businessID, self.__NRIC))
+		
+		# Commit the update to the database
+		connection.commit()
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		# Check if any row has been updated successfully
+		if db.rowcount != 0:
+			print("Updated Business User")
+			return True
+		
+		# If no row has been updated
+		return False

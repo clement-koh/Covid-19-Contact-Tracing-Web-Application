@@ -93,3 +93,32 @@ class HealthStaffUser(User):
 		
 		# If no rows has been updated
 		return False
+
+	def updateExistingUser(self, firstName, middleName, lastName,
+							gender, mobile, password, licenseNo):
+		# Call the parent method
+		super().updateExistingUser(firstName, middleName, lastName,
+									gender, mobile, password)
+		
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+		
+		# Update the health staff user record
+		db.execute("""UPDATE health_staff_user
+						SET licenseNo = (?)
+						WHERE NRIC = (?)""", (licenseNo, self.__NRIC))
+		
+		# Commit the update to the database
+		connection.commit()
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		# Check if any row has been updated successfully
+		if db.rowcount != 0:
+			print("Updated Health Staff User")
+			return True
+		
+		# If no row has been updated
+		return False
