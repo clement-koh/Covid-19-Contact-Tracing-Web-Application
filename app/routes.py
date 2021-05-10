@@ -29,6 +29,7 @@ from .boundary.BusinessUser_ViewAffectedOutletUI import BusinessUser_ViewAffecte
 
 # Boundary for Organisation Staff
 from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserUI
+from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 
 
 # -----------------------------------------------------
@@ -450,10 +451,30 @@ def CreateUserAccount():
 @app.route('/view_user_account', methods=['GET', 'POST'])
 @loginRequired
 def ViewUserAccount():
+	# Initialise Boundary Object
+	organisationUser_viewUserBoundary = OrganisationUser_ViewUserAccountUI()
+
 	if request.method == 'GET':
-		return render_template('organisationUser_viewUserAccount.html', userType = session['userType'])
+		# Display the requested page
+		return organisationUser_viewUserBoundary.displayPage()
+
 	if request.method == 'POST':
-		return render_template('organisationUser_viewUserAccount.html', userType = session['userType'])
+		# Get form details
+		NRIC = request.form['user'].strip()
+
+		# Set the boundary to contain the User's NRIC
+		organisationUser_viewUserBoundary.setUserID(NRIC)
+
+		# Get submit response 
+		response = organisationUser_viewUserBoundary.onSubmit()
+
+		# Display Error if any
+		if response != organisationUser_viewUserBoundary.RESPONSE_SUCCESS:
+			return organisationUser_viewUserBoundary.displayError(response)
+			
+		# Display Success
+		return organisationUser_viewUserBoundary.displaySuccess()
+
 
 @app.route('/update_user_account', methods=['GET', 'POST'])
 @loginRequired
