@@ -11,7 +11,7 @@ class OrganisationUser_ViewUserAccountController:
 		# Creates a user object
 		user = User(NRIC)
 
-		# Returns True if patient exists
+		# Returns True if user exists
 		if user.getNRIC() is None:
 			return False
 		return True
