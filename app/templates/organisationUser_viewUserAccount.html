@@ -54,7 +54,8 @@
 			</td>
 			<td>
 				<!-- Redirect to User Update Page -->
-				<form id="updateButton" action="/update_user_account" method="POST">
+				<form id="updateButton" action="/update_user_account" method="GET">
+					<input type="hidden" name="NRIC" value="" />
 					<button type="submit" class="btn btn-primary">Update</button>
 				</form>
 			</td>
