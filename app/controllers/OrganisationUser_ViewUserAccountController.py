@@ -6,7 +6,7 @@ class OrganisationUser_ViewUserAccountController:
 
 	def verifyUser(self, NRIC):
 		"""
-			Returns True if patient exists
+			Returns True if user exists
 		"""
 		# Creates a user object
 		user = User(NRIC)
