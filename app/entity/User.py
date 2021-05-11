@@ -67,8 +67,8 @@ class User:
 		return self.__lastName
 
 	def getMobile(self):
-		"""Returns the mobile number of the user as an int"""
-		return int(self.__mobile)
+		"""Returns the mobile number of the user"""
+		return self.__mobile
 	
 	def getGender(self):
 		"""Returns the gender of the user"""
