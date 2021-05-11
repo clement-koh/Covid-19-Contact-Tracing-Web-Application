@@ -55,7 +55,7 @@
 			<td>
 				<!-- Redirect to User Update Page -->
 				<form id="updateButton" action="/update_user_account" method="GET">
-					<input type="hidden" name="NRIC" value="" />
+					<input type="hidden" name="NRIC" value="{{ userDetails[0] }}" />
 					<button type="submit" class="btn btn-primary">Update</button>
 				</form>
 			</td>
