@@ -366,7 +366,7 @@ def UpdateVaccinationPage():
 		return healthStaffUser_UpdateVaccinationBoundary.displayError()
 		
 	# If successful at updating vaccination state
-	return Health_UpdateVaccinationBoundary.displaySuccess()
+	return healthStaffUser_UpdateVaccinationBoundary.displaySuccess()
 	
 				
 # -----------------------------------------------------
