@@ -11,18 +11,15 @@ class OrganisationUser_SuspendUserAccountController:
 		Updates the Account Status of the user.
 		Returns True if successfully updated.
 		Returns False if unsuccessful
-		"""
-
-		# Returns account status to database value 
-		if AccountStatus == "Active":
-			AccountStatus = "1"
-		else:
-			AccountStatus = "0"
-		
-		
-		
+		"""		
 
 		# Create a AccountStatus object containing details of the NRIC owner
 		AccountActiveStatus = User(NRIC)
+
+		# Returns True if account is active return false if not.
+		if AccountActiveStatus.getAccountActive():
+			AccountStatus = True
+		else:
+			AccountStatus = False
 
 		return AccountActiveStatus.updateAccountStatus(NRIC, AccountStatus)

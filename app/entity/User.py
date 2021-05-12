@@ -274,12 +274,12 @@ class User:
 
 		
 
-		# if user status is 1 change to 0 in database
+		# if is true change to false in database
 		AccountActiveStatus = AccountStatus
-		if AccountActiveStatus == "1":
-			AccountActiveStatus = "0"
+		if AccountActiveStatus == True:
+			AccountActiveStatus = False
 		else:
-			AccountActiveStatus = "1"
+			AccountActiveStatus = True
 
 	
 		# Open connection to database

@@ -47,7 +47,7 @@ class OrganisationUser_SuspendUserAccountUI:
 		"""
 
 		#store successful message in session 
-		message = "Account Account Status Change"
+		message = "Account Status Change Successful"
 
 		#Flash Successful message
 		flash(message, 'message')
