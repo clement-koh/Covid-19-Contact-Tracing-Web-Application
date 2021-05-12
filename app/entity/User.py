@@ -263,3 +263,50 @@ class User:
 		
 		# If no row has been updated
 		return False
+
+
+	def updateAccountStatus(self, NRIC, AccountStatus):
+		""" 
+		Updates the accountActive status of the User
+		Returns True if updated successfully
+		Returns False if update failed
+		"""
+
+		
+
+		# if user status is 1 change to 0 in database
+		AccountActiveStatus = AccountStatus
+		if AccountActiveStatus == "1":
+			AccountActiveStatus = "0"
+		else:
+			AccountActiveStatus = "1"
+
+	
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+		
+
+		# Update the AccountActiveState for the user
+		db.execute("""UPDATE user
+					SET accountActive = (?)
+					WHERE NRIC = (?)""", (AccountActiveStatus, self.__NRIC))
+		
+
+		# Commit the update to the database
+		connection.commit()
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		# Update the object's variables
+		self._NRIC = NRIC
+		self.__accountActive = AccountActiveStatus
+	
+
+		# Check if any rows have been updated successfully
+		if db.rowcount != 0:
+			return True
+		
+		# If no rows has been updated
+		return False

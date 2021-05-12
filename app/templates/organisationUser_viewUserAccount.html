@@ -49,7 +49,16 @@
 			<td>
 				<!-- Suspend/Unsuspend User Account -->
 				<button type="button" class="btn btn-danger" id="accStatusBtn" data-toggle="modal" data-target="#exampleModalCenter">
-					<span id="accStatus">Suspend</span>
+					<span id="accStatus">
+
+					{% if userDetails[6] == 'Suspended' %} 
+					Unsuspended
+					{% endif %}
+
+					{% if userDetails[6] == 'Active' %} 
+					Suspend
+					{% endif %}
+					</span>
 				</button>
 			</td>
 			<td>
@@ -61,7 +70,7 @@
 			</td>
 		</tr>
 	</table>
-	{% endif %}
+	
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="vertical-alignment-helper">
@@ -76,16 +85,31 @@
 					</div>
 					<div class="modal-body"><!-- Confirmation Message -->
 						<h4>
-							You are about to <b>SUSPEND</b> this account <br/>
+							You are about to 
+							<b>
+								{% if userDetails[6] == 'Suspended' %} 
+								Unsuspended
+								{% endif %}
+
+								{% if userDetails[6] == 'Active' %} 
+								Suspend
+								{% endif %}
+							</b>
+							 this account <br/>
 							Do you wish to proceed?
 						</h4>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="changeAccStatus()" >Suspend</button>
+						<form id="SuspendAccountButton" action="/Suspend_user_account" method="POST">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+							<input type="hidden" name="NRIC" value="{{userDetails[0]}}"> 
+							<input type="hidden" name="SuspendAccount" value="{{userDetails[6]}}"> 
+							<input id="Suspendform"  name="Suspendform" type="submit" value="Confirm" onclick="changeAccStatus()"/>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	{% endif %}
 {% endblock %}
