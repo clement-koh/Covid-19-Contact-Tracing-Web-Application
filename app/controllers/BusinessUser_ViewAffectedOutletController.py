@@ -62,8 +62,8 @@ class BusinessUser_ViewAffectedOutletController:
 					for item in history:
 						
 						# Convert to datetime object
-						checkInTime = datetime.strptime(item[3], '%Y-%m-%d %H:%M:%S.%f')
-						checkoutTime = datetime.strptime(item[4], '%Y-%m-%d %H:%M:%S.%f')
+						checkInTime = datetime.strptime(item[3], '%Y-%m-%d %H:%M:%S')
+						checkoutTime = datetime.strptime(item[4], '%Y-%m-%d %H:%M:%S')
 
 						# Format the datetime object into a readable string
 						checkInRecord = {}
