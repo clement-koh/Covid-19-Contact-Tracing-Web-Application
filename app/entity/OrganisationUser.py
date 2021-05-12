@@ -44,7 +44,7 @@ class OrganisationUser(User):
 		return self.__NRIC
 
 	def getOrganisationID(self):
-		return self.__businessID
+		return self.__organisationID
 	
 
 	# Other Method
@@ -78,3 +78,31 @@ class OrganisationUser(User):
 		# If no rows has been updated
 		return False
 	
+	def updateExistingUser(self, firstName, middleName, lastName,
+							gender, mobile, password, organisationID):
+		# Call the parent method
+		super().updateExistingUser(firstName, middleName, lastName,
+									gender, mobile, password)
+
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+		
+		# Update the health staff user record
+		db.execute("""UPDATE organisation_user
+						SET organisationID = (?)
+						WHERE NRIC = (?)""", (organisationID, self.__NRIC))
+		
+		# Commit the update to the database
+		connection.commit()
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		# Check if any row has been updated successfully
+		if db.rowcount != 0:
+			print("Updated Organisation User")
+			return True
+		
+		# If no row has been updated
+		return False

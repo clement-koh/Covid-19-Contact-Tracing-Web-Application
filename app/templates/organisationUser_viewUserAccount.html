@@ -26,23 +26,26 @@
 		<input type="submit" id="submit" value="Search">
 	</form>
 	<!-- If User Is Found -->
+	{% if userDetails %}
 	<table style='margin-top: 20px;'>
 		<tr>
 			<th>NRIC</th>
-			<th>First Name</th>
-			<th>Middle Name</th>
-			<th>Last Name</th>
+			<th>Name</th>
 			<th>Contact Number</th>
+			<th>Account Type</th>
 			<th>Account Status</th>
 			<th colspan="2">Actions</th>
 		</tr>
 		<tr>
-			<td>S9999</td>
-			<td>John</td>
-			<td>Doe</td>
-			<td>Anderson</td>
-			<td>88888888</td>
-			<td>Suspended</td>
+			<td>{{ userDetails[0] }}</td>
+			<td>
+				{{ userDetails[1] }}&nbsp 
+				{{ userDetails[2] }}&nbsp
+				{{ userDetails[3] }} 
+			</td>
+			<td>{{ userDetails[4] }}</td>
+			<td>{{ userDetails[5] }}</td>
+			<td>{{ userDetails[6] }}</td>
 			<td>
 				<!-- Suspend/Unsuspend User Account -->
 				<button type="button" class="btn btn-danger" id="accStatusBtn" data-toggle="modal" data-target="#exampleModalCenter">
@@ -51,13 +54,14 @@
 			</td>
 			<td>
 				<!-- Redirect to User Update Page -->
-				<form id="updateButton" action="/update_user_account" method="POST">
+				<form id="updateButton" action="/update_user_account" method="GET">
+					<input type="hidden" name="NRIC" value="{{ userDetails[0] }}" />
 					<button type="submit" class="btn btn-primary">Update</button>
 				</form>
 			</td>
 		</tr>
 	</table>
-
+	{% endif %}
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="vertical-alignment-helper">
