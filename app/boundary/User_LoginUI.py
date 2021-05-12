@@ -35,7 +35,7 @@ class User_LoginUI:
 		session['isAuthenticated'] = True
 		session['user'] = NRIC
 		session['userType'] = controller.getAccountType(NRIC)
-		session['viewVaccinationInformation'] = None
+		session['viewingNRIC'] = None
 
 		return self.RESPONSE_SUCCESS
 
