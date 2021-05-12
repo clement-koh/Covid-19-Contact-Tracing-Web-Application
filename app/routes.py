@@ -513,7 +513,7 @@ def UpdateUserAccount():
 		# Display error message if update is unsuccessful
 		return organisationUser_updateUserAccountBoundary.displayError(NRIC, result)
 
-@app.route('/Suspend_user_account', methods=['POST'])
+@app.route('/suspend_user_account', methods=['POST'])
 @loginRequired
 def SuspendUserAccount():
 
@@ -522,11 +522,9 @@ def SuspendUserAccount():
 	
 	# Get fields from the view User Account form
 	NRIC = request.form.get('NRIC')
-	AccountStatus = request.form.get('SuspendAccount')
-
 
 	# If unsuccessful at updating Account Status
-	if not OrganisationUser_SuspendAccountBoundary.onSubmit(NRIC,AccountStatus):
+	if not OrganisationUser_SuspendAccountBoundary.onSubmit(NRIC):
 		return OrganisationUser_SuspendAccountBoundary.displayError()
 		
 	# If successful at updating Account Status
