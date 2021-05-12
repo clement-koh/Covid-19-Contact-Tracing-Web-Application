@@ -147,7 +147,7 @@ class User:
 		# If no rows has been updated
 		return False
 
-	def updateAccountActive(self, accountActive):
+	def updateAccountActive(self):
 		"""
 		Updates account status of the user.
 		Returns True if updated successfully
@@ -155,7 +155,7 @@ class User:
 		"""
 
 		# Update the object's recorded account status"
-		self.__accountActive = accountActive
+		self.__accountActive = not self.__accountActive
 
 		# Open connection to database
 		connection = dbConnect()
@@ -164,7 +164,7 @@ class User:
 		# Update the account status for the user
 		db.execute("""UPDATE user
 					  SET accountActive = (?)
-					  WHERE NRIC = (?)""", (accountActive, self.__NRIC))
+					  WHERE NRIC = (?)""", (self.__accountActive, self.__NRIC))
 
 		# Commit the update to the database
 		connection.commit()
@@ -232,7 +232,7 @@ class User:
 		
 		# If no rows has been updated
 		return False
-
+		
 	def updateExistingUser(self, firstName, middleName, lastName,
 							gender, mobile, password):
 		"""

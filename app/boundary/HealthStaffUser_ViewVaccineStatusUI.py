@@ -30,12 +30,12 @@ class HealthStaffUser_ViewVaccineStatusUI:
 			return redirect('/')
 
 		# If directed here with a user already provided
-		if session['viewVaccinationInformation'] is not None:
+		if session['viewingNRIC'] is not None:
 			# Get provided user details
-			self.setPatient(session['viewVaccinationInformation'])
+			self.setPatient(session['viewingNRIC'])
 
 			# Remove user details stored
-			session['viewVaccinationInformation'] = None
+			session['viewingNRIC'] = None
 
 			# Display information of user
 			return self.displaySuccess()

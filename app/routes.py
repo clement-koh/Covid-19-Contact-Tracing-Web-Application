@@ -31,6 +31,7 @@ from .boundary.BusinessUser_ViewAffectedOutletUI import BusinessUser_ViewAffecte
 from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserUI
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
+from.boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
 
 
 # -----------------------------------------------------
@@ -511,3 +512,20 @@ def UpdateUserAccount():
 
 		# Display error message if update is unsuccessful
 		return organisationUser_updateUserAccountBoundary.displayError(NRIC, result)
+
+@app.route('/suspend_user_account', methods=['POST'])
+@loginRequired
+def SuspendUserAccount():
+
+	# Initialise OrganisationUser_SuspendUserAccountUI Object
+	OrganisationUser_SuspendAccountBoundary = OrganisationUser_SuspendUserAccountUI()
+	
+	# Get fields from the view User Account form
+	NRIC = request.form.get('NRIC')
+
+	# If unsuccessful at updating Account Status
+	if not OrganisationUser_SuspendAccountBoundary.onSubmit(NRIC):
+		return OrganisationUser_SuspendAccountBoundary.displayError()
+		
+	# If successful at updating Account Status
+	return OrganisationUser_SuspendAccountBoundary.displaySuccess()
