@@ -31,8 +31,8 @@ class PublicUser_LocationHistoryUI:
 			# Populate the dictionary after formating the results to be display
 			for result in results:
 				
-				checkInTime = datetime.strptime(result[3], '%Y-%m-%d %H:%M:%S.%f')
-				checkoutTime = datetime.strptime(result[4], '%Y-%m-%d %H:%M:%S.%f')
+				checkInTime = datetime.strptime(result[3], '%Y-%m-%d %H:%M:%S')
+				checkoutTime = datetime.strptime(result[4], '%Y-%m-%d %H:%M:%S')
 
 				# Create an empty dictionary
 				record = {}
