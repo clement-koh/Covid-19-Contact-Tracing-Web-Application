@@ -352,21 +352,21 @@ def viewUpdateVaccination():
 @loginRequired
 def UpdateVaccinationPage():
 
-	# Initialise Health_UpdateVaccinationUI Object
+	# Initialise HealthStaffUser_UpdateVaccinationUI Object
 	healthStaffUser_UpdateVaccinationBoundary = HealthStaffUser_UpdateVaccinationUI()
 
-	# Get fields from the update vaccination state form
+	# Get fields from the update vaccination status form
 	NRIC = request.form.get('name')
 	vaccination_Status = request.form.get('vaccinationstatus')
 	first_dose = request.form.get('first_dose')
 	second_dose = request.form.get('second_dose')
 
-	# If unsuccessful at updating vaccination state
+	# If unsuccessful at updating vaccination status
 	if not healthStaffUser_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
 		return healthStaffUser_UpdateVaccinationBoundary.displayError()
 		
-	# If successful at updating vaccination state
-	return Health_UpdateVaccinationBoundary.displaySuccess()
+	# If successful at updating vaccination status
+	return healthStaffUser_UpdateVaccinationBoundary.displaySuccess()
 	
 				
 # -----------------------------------------------------
