@@ -28,8 +28,19 @@ class OrganisationUser_ViewUserAccountUI:
 			flash("Unauthorised to access this content", 'error')
 			return redirect('/')
 
+		# If directed here with a user already provided
+		if session['viewingNRIC'] is not None:
+			# Get provided user details
+			self.setUserID(session['viewingNRIC'])
+
+			# Remove user details stored
+			session['viewingNRIC'] = None
+
+			# Display information of user
+			return self.displaySuccess()
+
 		# Render the page
-		return render_template('organisationUser_viewUserAccount.html', userType = userType)
+		return render_template('organisationUser_viewUserAccount.html', userType=userType)
 	
 	def onSubmit(self):
 		"""

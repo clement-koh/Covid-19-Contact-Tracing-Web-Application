@@ -31,6 +31,7 @@ from .boundary.BusinessUser_ViewAffectedOutletUI import BusinessUser_ViewAffecte
 from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserUI
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
+from.boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
 
 
 # -----------------------------------------------------
@@ -352,20 +353,24 @@ def viewUpdateVaccination():
 @loginRequired
 def UpdateVaccinationPage():
 
-	# Initialise Health_UpdateVaccinationUI Object
+	# Initialise HealthStaffUser_UpdateVaccinationUI Object
 	healthStaffUser_UpdateVaccinationBoundary = HealthStaffUser_UpdateVaccinationUI()
 
-	# Get fields from the update vaccination state form
+	# Get fields from the update vaccination status form
 	NRIC = request.form.get('name')
 	vaccination_Status = request.form.get('vaccinationstatus')
 	first_dose = request.form.get('first_dose')
 	second_dose = request.form.get('second_dose')
 
-	# If unsuccessful at updating vaccination state
+	# If unsuccessful at updating vaccination status
 	if not healthStaffUser_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
 		return healthStaffUser_UpdateVaccinationBoundary.displayError()
 		
+<<<<<<< HEAD
 	# If successful at updating vaccination state
+=======
+	# If successful at updating vaccination status
+>>>>>>> refs/remotes/origin/master
 	return healthStaffUser_UpdateVaccinationBoundary.displaySuccess()
 	
 				
@@ -511,3 +516,20 @@ def UpdateUserAccount():
 
 		# Display error message if update is unsuccessful
 		return organisationUser_updateUserAccountBoundary.displayError(NRIC, result)
+
+@app.route('/suspend_user_account', methods=['POST'])
+@loginRequired
+def SuspendUserAccount():
+
+	# Initialise OrganisationUser_SuspendUserAccountUI Object
+	OrganisationUser_SuspendAccountBoundary = OrganisationUser_SuspendUserAccountUI()
+	
+	# Get fields from the view User Account form
+	NRIC = request.form.get('NRIC')
+
+	# If unsuccessful at updating Account Status
+	if not OrganisationUser_SuspendAccountBoundary.onSubmit(NRIC):
+		return OrganisationUser_SuspendAccountBoundary.displayError()
+		
+	# If successful at updating Account Status
+	return OrganisationUser_SuspendAccountBoundary.displaySuccess()
