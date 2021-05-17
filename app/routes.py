@@ -529,3 +529,27 @@ def SuspendUserAccount():
 		
 	# If successful at updating Account Status
 	return OrganisationUser_SuspendAccountBoundary.displaySuccess()
+
+@app.route('/', methods=['GET', 'POST'])
+@loginRequired
+def viewVaccinationReport():
+
+	if request.method == 'GET':
+		# Display the requested page
+		return render_template('overview.html', userType = session['userType'])
+
+	if request.method == 'POST':
+		# Display the requested page
+		return render_template('overview.html', userType = session['userType'])
+
+@app.route('/view_statistic_report', methods=['GET', 'POST'])
+@loginRequired
+def viewStatisticReport():
+
+	if request.method == 'GET':
+		# Display the requested page
+		return render_template('organisationUser_viewStatisticReport.html', userType = session['userType'])
+
+	if request.method == 'POST':
+		# Display the requested page
+		return render_template('organisationUser_viewStatisticReport.html', userType = session['userType'])

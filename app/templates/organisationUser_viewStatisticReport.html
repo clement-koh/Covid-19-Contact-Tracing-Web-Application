@@ -1,0 +1,65 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="organisationUser_view_statistic_report" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/organisationUser_viewStatisticReport.css') }}"/>
+	<script type=text/javascript src="{{url_for('static', filename='js/organisationUser_viewStatisticReport.js') }}"></script>
+	<title>View Statistic Report</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+	<!-- Display ICON and Header -->
+	<b><i class='fa fa-file-text'></i> View Statistic Report</b><br><br>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+	<button type="button" id="viewChart" onclick="viewChart()">Bi-weekly New Infection Chart</button>
+	<button type="button" id="viewDetailedReport" onclick="viewDetailedReport()">Detailed Information</button>
+	<br><br>
+
+	<div id="displayChart">
+		<canvas id="biweeklyChart"></canvas>
+	</div>
+
+	<div id="displayReport" hidden>
+		<form id="form">
+			<label for="dateSelection">Choose a Date: </label>
+			<input type="date" id="dateSelection" required>
+			<button type="submit" onclick="showDetailedReport()">Search</button>
+		</form>
+		<br><br>
+		
+		<table id="detailedReport" hidden>
+			<tr>
+				<th>Date: <span id="date"></span></th>
+			</tr>
+				<th>Total Infected: 13</th>
+			</tr>
+			<tr>
+				<td>
+					<b>Breakdown:</b>
+					<ul>
+						<li>
+							Bapple - Ang Mo Kio Branch: 3
+						</li>
+						<li>
+							Bapple - Choa Chu Kang Branch: 5
+						</li>
+						<li>
+							Fishbook - Punggol Branch: 4
+						</li>
+						<li>
+							Fishbook - Ang Mo Kio Branch: 1
+						</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+	</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+button {
+	margin-right: 50px;
+}
+
+input {
+	margin-right: 30px;
+}
+
+#biweeklyChart {
+	width: 100%;
+	max-width: 800px;
+}
+
+table {
+	border-collapse: collapse;
+	border: 1px solid black;
+	width: 30%;
+}
+
+td, th {
+	padding: 8px;
+	width: auto;
+}
