@@ -15,7 +15,7 @@ class HealthStaffUser_UpdateVaccinationUI:
 		"""
 		
 		# Set session to record the user viewed
-		session['viewVaccinationInformation'] = NRIC
+		session['viewingNRIC'] = NRIC
       
 		# Create controller to update vaccination Status
 		controller = HealthStaffUser_UpdateVaccinationController()
