@@ -1,25 +1,30 @@
-$(document).ready(function() {
+$(document).ready(function () {
 	// display data for the line graph
-    var xValues = getBiweeklyDate();
-	var yValues = [10,5,1,2,4,7,10,3,13,10,24,24,19,38];
+	var xValues = getBiweeklyDate();
+	var yValues = dailyInfectionCount;
+
+	maxInfection = Math.max(...dailyInfectionCount);
+	tableMax = Math.ceil(maxInfection * 1.1)
 
 	new Chart("biweeklyChart", {
 		type: "line",
 		data: {
 			labels: xValues,
-			datasets: [{
-				fill: false,
-				lineTension: 0,
-				backgroundColor: "rgba(0,0,255,1.0)",
-				borderColor: "rgba(0,0,255,0.1)",
-				data: yValues
-			}]
+			datasets: [
+				{
+					fill: false,
+					lineTension: 0,
+					backgroundColor: "rgba(0,0,255,1.0)",
+					borderColor: "rgba(0,0,255,0.1)",
+					data: yValues
+				}
+			]
 		},
 		options: {
 			legend: {display: false},
 			scales: {
-				// yAxis range between 0 to 100
-				yAxes: [{ticks: {min: 0, max: 100}}],
+				// yAxis range between 0 to to largest value in data
+				yAxes: [{ticks: {min: 0, max: tableMax}}]
 			}
 		}
 	});
@@ -36,7 +41,6 @@ $(document).ready(function() {
 
 	// set maximum selectable date as today
 	document.getElementById("dateSelection").setAttribute("max", format);
-
 });
 
 // get the past 14 days (including today)
@@ -47,7 +51,11 @@ function getBiweeklyDate() {
 
 	for (count = 1; count < 15; count++) {
 		// format date output
-		var date = currentDate.toLocaleDateString("default", {day: "2-digit", month: "short", year: "numeric"});
+		var date = currentDate.toLocaleDateString("default", {
+			day: "2-digit",
+			month: "short",
+			year: "numeric"
+		});
 		biWeeklyDate.push(date);
 		// get the previous date
 		currentDate.setDate(currentDate.getDate() - 1);
@@ -93,16 +101,20 @@ function showDetailedReport() {
 	var form = document.getElementById("form");
 
 	// disable page refresh on submit
-	function handleForm(event) { event.preventDefault(); }
-	form.addEventListener('submit', handleForm);
-	
+	function handleForm(event) {
+		event.preventDefault();
+	}
+	form.addEventListener("submit", handleForm);
+
 	// change table date to the selected date
 	if (selectedDate.value != "") {
 		displayTable.style.display = "block";
 		var date = new Date(selectedDate.value);
-		var format = date.toLocaleDateString("default", {day: "2-digit", month: "short", year: "numeric"});
+		var format = date.toLocaleDateString("default", {
+			day: "2-digit",
+			month: "short",
+			year: "numeric"
+		});
 		changeDate.innerHTML = format;
 	}
-
-
 }
