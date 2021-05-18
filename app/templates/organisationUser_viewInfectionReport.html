@@ -6,8 +6,11 @@
 {% block head %}
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/organisationUser_viewStatisticReport.css') }}"/>
-	<script type=text/javascript src="{{url_for('static', filename='js/organisationUser_viewStatisticReport.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/organisationUser_viewInfectionReport.css') }}"/>
+	<script type=text/javascript src="{{url_for('static', filename='js/organisationUser_viewInfectionReport.js') }}"></script>
+	<script>
+		dailyInfectionCount = {{ dailyInfectionNumbers | safe }};
+	</script>
 	<title>View Infection Report</title>
 {% endblock %}
 
@@ -19,11 +22,12 @@
 
 <!-- Main Content of the Page -->
 {% block contentBody %}
-	<button type="button" id="viewChart" onclick="viewChart()">Bi-weekly New Infection Chart</button>
+	<button type="button" id="viewChart" onclick="viewChart()">Infection Chart</button>
 	<button type="button" id="viewDetailedReport" onclick="viewDetailedReport()">Detailed Information</button>
 	<br><br>
 
 	<div id="displayChart">
+		<p>This chart displayed the daily number of active cases in the community in the past 2 weeks</p>
 		<canvas id="biweeklyChart"></canvas>
 	</div>
 
