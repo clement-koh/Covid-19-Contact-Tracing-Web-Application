@@ -52,6 +52,8 @@ function getBiweeklyDate() {
 		// get the previous date
 		currentDate.setDate(currentDate.getDate() - 1);
 	}
+	// sort date in ascending order
+	biWeeklyDate.sort();
 	return biWeeklyDate;
 }
 
