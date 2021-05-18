@@ -32,7 +32,7 @@ from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserU
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
 from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
-
+from .boundary.OrganisationUser_ViewInfectionReportUI import OrganisationUser_ViewInfectionReportUI
 
 # -----------------------------------------------------
 #                   Common Pages
@@ -546,10 +546,13 @@ def viewVaccinationReport():
 @loginRequired
 def viewStatisticReport():
 
+	# Initialise OrganisationUser_SuspendUserAccountUI Object
+	organisationUser_viewInfectionReportBoundary = OrganisationUser_ViewInfectionReportUI()
+
 	if request.method == 'GET':
 		# Display the requested page
-		return render_template('organisationUser_viewInfectionReport.html', userType = session['userType'])
+		return organisationUser_viewInfectionReportBoundary.displayPage()
 
 	if request.method == 'POST':
 		# Display the requested page
-		return render_template('organisationUser_viewInfectionReport.html', userType = session['userType'])
+		pass
