@@ -31,7 +31,7 @@ from .boundary.BusinessUser_ViewAffectedOutletUI import BusinessUser_ViewAffecte
 from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserUI
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
-from.boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
+from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
 
 
 # -----------------------------------------------------
@@ -542,14 +542,14 @@ def viewVaccinationReport():
 		# Display the requested page
 		return render_template('overview.html', userType = session['userType'])
 
-@app.route('/view_statistic_report', methods=['GET', 'POST'])
+@app.route('/view_infection_report', methods=['GET', 'POST'])
 @loginRequired
 def viewStatisticReport():
 
 	if request.method == 'GET':
 		# Display the requested page
-		return render_template('organisationUser_viewStatisticReport.html', userType = session['userType'])
+		return render_template('organisationUser_viewInfectionReport.html', userType = session['userType'])
 
 	if request.method == 'POST':
 		# Display the requested page
-		return render_template('organisationUser_viewStatisticReport.html', userType = session['userType'])
+		return render_template('organisationUser_viewInfectionReport.html', userType = session['userType'])

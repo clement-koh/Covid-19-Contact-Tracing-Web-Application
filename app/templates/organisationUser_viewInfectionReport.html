@@ -1,6 +1,6 @@
 <!-- Extends the basic html template -->
 {% extends "dashboard_layout.html" %}
-{% set active_page ="organisationUser_view_statistic_report" %}
+{% set active_page ="organisationUser_view_infection_report" %}
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
@@ -8,13 +8,13 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/organisationUser_viewStatisticReport.css') }}"/>
 	<script type=text/javascript src="{{url_for('static', filename='js/organisationUser_viewStatisticReport.js') }}"></script>
-	<title>View Statistic Report</title>
+	<title>View Infection Report</title>
 {% endblock %}
 
 <!-- Content Header -->
 {% block contentHeader %}
 	<!-- Display ICON and Header -->
-	<b><i class='fa fa-file-text'></i> View Statistic Report</b><br><br>
+	<b><i class='fa fa-file-text'></i> View Infection Report</b><br><br>
 {% endblock %}
 
 <!-- Main Content of the Page -->
