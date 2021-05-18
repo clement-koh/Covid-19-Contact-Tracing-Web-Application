@@ -555,4 +555,5 @@ def viewStatisticReport():
 
 	if request.method == 'POST':
 		# Display the requested page
-		pass
+		days_ago = int(request.form['days_ago'])
+		return organisationUser_viewInfectionReportBoundary.getAffectedLocation(days_ago)
