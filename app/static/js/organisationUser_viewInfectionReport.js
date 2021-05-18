@@ -4,7 +4,7 @@ $(document).ready(function () {
 	var yValues = dailyInfectionCount;
 
 	maxInfection = Math.max(...dailyInfectionCount);
-	tableMax = Math.ceil(maxInfection * 1.1)
+	tableMax = Math.ceil(maxInfection * 1.1);
 
 	new Chart("biweeklyChart", {
 		type: "line",
@@ -41,6 +41,9 @@ $(document).ready(function () {
 
 	// set maximum selectable date as today
 	document.getElementById("dateSelection").setAttribute("max", format);
+
+	// set default as today
+	document.getElementById("dateSelection").valueAsDate = new Date();
 });
 
 // get the past 14 days (including today)
@@ -51,10 +54,9 @@ function getBiweeklyDate() {
 
 	for (count = 1; count < 15; count++) {
 		// format date output
-		var date = currentDate.toLocaleDateString("default", {
+		var date = currentDate.toLocaleDateString("en-GB", {
 			day: "2-digit",
-			month: "short",
-			year: "numeric"
+			month: "short"
 		});
 		biWeeklyDate.push(date);
 		// get the previous date
@@ -91,6 +93,8 @@ function viewDetailedReport() {
 	// disable button
 	document.getElementById("viewChart").disabled = false;
 	document.getElementById("viewDetailedReport").disabled = true;
+
+	showDetailedReport();
 }
 
 // display detailed report table
@@ -108,13 +112,90 @@ function showDetailedReport() {
 
 	// change table date to the selected date
 	if (selectedDate.value != "") {
-		displayTable.style.display = "block";
 		var date = new Date(selectedDate.value);
+		loadContent(date);
 		var format = date.toLocaleDateString("default", {
 			day: "2-digit",
 			month: "short",
 			year: "numeric"
 		});
 		changeDate.innerHTML = format;
+	}
+}
+
+function loadContent(selectedDate) {
+	// Get current date
+	var today = new Date();
+
+	const diffTime = Math.abs(today.getTime() - selectedDate.getTime());
+	const days_ago = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+	console.log(days_ago);
+
+	// Async Ajax call to fetch data
+	$.ajax({
+		async: true,
+		data: {
+			days_ago: days_ago
+		},
+		type: "POST",
+		url: "/view_infection_report"
+	}).done(function (data) {
+		console.log(data);
+		showData(data);
+		// document.getElementById("dataTable").innerHTML += generateBlock(data);
+	});
+}
+
+function showData(data) {
+	$("#noOfActiveCase").text(data.no_of_cases);
+	$("#locationListing").empty();
+
+	var currentLocation = "";
+	locationCount = 0;
+
+	// Show table header
+	$("#locationListing").append(
+		`<tr><th>Location</th><th>No of cases checked in</th></tr>`
+	);
+
+	// Cycle through all locations visited
+	for (var i = 0; i < data.locations.length; i++) {
+		// Skip to next location if same location
+		if (currentLocation == data.locations[i]) {
+			continue;
+		}
+
+		caseCount = 0;
+		currentLocation = data.locations[i];
+
+		// Count number of repeat for this location
+		for (var j = 0; j < data.locations.length; j++) {
+			if (currentLocation == data.locations[j]) {
+				caseCount++;
+			}
+		}
+
+		// Record location into table
+		$("#locationListing").append(
+			`<tr><td>${currentLocation}</td><td>${caseCount}</tr>`
+		);
+		locationCount++;
+	}
+
+	// If there are no locations visited
+	if (data.locations.length == 0) {
+		// Update header
+		$("#detailHeader").text(
+			`No locations have been visited by covid-19 positive cases:`
+		);
+
+		// Add empty table row
+		$("#locationListing").append(`<tr><td>-</td><td>-</tr>`);
+	} else {
+		// Update header with number of locations affected
+		$("#detailHeader").text(
+			`${locationCount} locations visited by covid-19 positive cases`
+		);
 	}
 }

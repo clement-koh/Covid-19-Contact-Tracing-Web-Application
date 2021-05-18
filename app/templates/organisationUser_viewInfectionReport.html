@@ -31,39 +31,21 @@
 		<canvas id="biweeklyChart"></canvas>
 	</div>
 
-	<div id="displayReport" hidden>
+	<div id="displayReport">
 		<form id="form">
 			<label for="dateSelection">Choose a Date: </label>
 			<input type="date" id="dateSelection" required>
 			<button type="submit" onclick="showDetailedReport()">Search</button>
 		</form>
-		<br><br>
 		
-		<table id="detailedReport" hidden>
-			<tr>
-				<th>Date: <span id="date"></span></th>
-			</tr>
-				<th>New Infected Cases: 13</th>
-			</tr>
-			<tr>
-				<td>
-					<b>Breakdown:</b>
-					<ul>
-						<li>
-							Bapple - Ang Mo Kio Branch: 3
-						</li>
-						<li>
-							Bapple - Choa Chu Kang Branch: 5
-						</li>
-						<li>
-							Fishbook - Punggol Branch: 4
-						</li>
-						<li>
-							Fishbook - Ang Mo Kio Branch: 1
-						</li>
-					</ul>
-				</td>
-			</tr>
-		</table>
+		<div id="detailedReport">
+			<p id="date"></p>
+			<p>Number of active cases in the community: <span id="noOfActiveCase"></span></p>
+			<div>
+				<b id="detailHeader"></b>
+			</div>
+			<table id="locationListing">
+			</table>
+		</div>
 	</div>
 {% endblock %}
