@@ -187,7 +187,7 @@ function showData(data) {
 	if (locationCount == 0) {
 		// Update header
 		$("#detailHeader").text(
-			`No locations have been visited by covid-19 positive cases:`
+			`No locations ha been visited by covid-19 positive cases:`
 		);
 
 		// Add empty table row
@@ -195,7 +195,7 @@ function showData(data) {
 	} else if (locationCount == 1) {
 		// Update header with number of locations affected
 		$("#detailHeader").text(
-			`${locationCount} location have been visited by covid-19 positive cases`
+			`${locationCount} location has been visited by covid-19 positive cases`
 		);
 	} else {
 		// Update header with number of locations affected
