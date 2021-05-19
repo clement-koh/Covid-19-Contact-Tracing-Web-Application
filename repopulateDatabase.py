@@ -8,7 +8,7 @@
 #      >>> python repopulateDatabase.py
 
 import os
-from dbConfig import dbConnect, dbDisconnect
+from app.dbConfig import dbConnect, dbDisconnect
 from random import randrange, randint, uniform
 from datetime import datetime, timedelta
 
