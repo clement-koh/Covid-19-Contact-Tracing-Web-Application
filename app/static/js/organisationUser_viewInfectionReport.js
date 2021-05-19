@@ -184,7 +184,7 @@ function showData(data) {
 	}
 
 	// If there are no locations visited
-	if (data.locations.length == 0) {
+	if (locationCount == 0) {
 		// Update header
 		$("#detailHeader").text(
 			`No locations have been visited by covid-19 positive cases:`
@@ -192,10 +192,15 @@ function showData(data) {
 
 		// Add empty table row
 		$("#locationListing").append(`<tr><td>-</td><td>-</tr>`);
+	} else if (locationCount == 1) {
+		// Update header with number of locations affected
+		$("#detailHeader").text(
+			`${locationCount} location have been visited by covid-19 positive cases`
+		);
 	} else {
 		// Update header with number of locations affected
 		$("#detailHeader").text(
-			`${locationCount} locations visited by covid-19 positive cases`
+			`${locationCount} locations have been visited by covid-19 positive cases`
 		);
 	}
 }
