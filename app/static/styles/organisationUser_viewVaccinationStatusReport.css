@@ -1,0 +1,5 @@
+/* Leave a blank space after header */
+.summary:before { 
+	content: "\A";
+	white-space: pre-line;
+}
