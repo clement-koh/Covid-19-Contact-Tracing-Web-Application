@@ -29,3 +29,8 @@ venv\Scripts\deactivate
 -------------------------------------------------
 set FLASK_APP=run.py
 flask run
+
+-------------------------------------------------
+|			Running unit test            	|
+-------------------------------------------------
+python -m unittest discover -s app.testCases -p *.py --verbose
