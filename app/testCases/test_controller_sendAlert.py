@@ -1,6 +1,4 @@
 from ..controllers.HealthStaffUser_SendAlertPublicController import HealthStaffUser_SendAlertPublicController
-from flask import Flask, session, render_template, redirect
-import os
 
 import unittest
 
