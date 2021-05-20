@@ -187,7 +187,7 @@ function showData(data) {
 	if (locationCount == 0) {
 		// Update header
 		$("#detailHeader").text(
-			`No locations ha been visited by covid-19 positive cases:`
+			`No locations has been visited by covid-19 positive cases:`
 		);
 
 		// Add empty table row
