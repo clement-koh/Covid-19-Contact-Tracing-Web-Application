@@ -19,7 +19,7 @@
 <!-- Functionalities for Health Staff User -->
 {% if userType == 'Health Staff' %}
 	<a href="/view_patient_details" class="w3-bar-item w3-button w3-padding {% if active_page == 'healthStaff_view_contact_details' %} w3-blue {% endif %}"><i class="fa fa-address-book-o"></i> &nbsp; View Contact Details</a>
-	<a href="/" class="w3-bar-item w3-button w3-padding {% if active_page == 'XX' %} w3-blue {% endif %}"><i class="fa fa-bluetooth"></i> &nbsp; Contact Tracing</a>
+	<a href="/Contact_Tracing" class="w3-bar-item w3-button {% if active_page == 'healthStaff_Contact_Tracing' %} w3-blue {% endif %}"><i class="fa fa-user-md fa-fw"></i> Contact Tracing</a>
 	<a href="/send_public_alert" class="w3-bar-item w3-button {% if active_page == 'healthStaff_new_public_alert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  Send Public Alert</a>
 	<a href="/send_business_alert" class="w3-bar-item w3-button {% if active_page == 'healthStaff_new_business_alert' %} w3-blue {% endif %}"><i class="fa fa-bell fa-fw"></i>  Send Business Alert</a>
 	<a href="/view_update_vaccination" class="w3-bar-item w3-button {% if active_page == 'healthStaff_view_update_vaccination' %} w3-blue {% endif %}"><i class="fa fa-user-md fa-fw"></i>  View & Update Vaccination Status</a>

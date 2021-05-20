@@ -263,3 +263,55 @@ class User:
 		
 		# If no row has been updated
 		return False
+
+
+	def getUserDetail(self, NRIC=None):
+		"""
+		return user detail according to NRIC
+		"""
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		
+		# If the NRIC is provided, fill the object with details from database
+		hasResult = False
+		if NRIC is not None:
+			# Select User from database and populate instance variables
+			result = db.execute("""SELECT password, firstName,
+									middleName, lastName, mobile, gender
+									FROM user 
+									WHERE NRIC = (?)""", (NRIC,)).fetchone()
+
+			
+			# If a result is returned, populate object with data
+			if result is not None:
+				hasResult = True
+				# Initialise instance variables for this object
+				self.__password = result[0]
+				self.__firstName = result[1]
+				self.__middleName = result[2]
+				self.__lastName = result[3]
+				self.__mobile = result[4]
+				self.__gender = result[5]
+			
+		if not hasResult:
+			self.__password = None
+			self.__firstName = None
+			self.__middleName = None
+			self.__lastName = None
+			self.__mobile = None
+			self.__gender = None
+		
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		#return list
+		return result
+
+
+			
+
+
+	

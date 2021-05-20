@@ -106,4 +106,37 @@ class InfectedPeople:
 		# If infected return True
 		return True
 
-	
+	def getInfectedPeopleNRIC(self, Date):
+		""" 
+		Return None if there is no result, or 
+		Return an array containing all NRIC infected by user input date
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		#add "00:00:00" time to date 
+		DateTime = Date + " " + "00:00:00"
+
+		#Format statement for SQL
+		latestdate = "+{} days".format(1)
+		
+		# 14 days excluding today
+		earliestDate = "-{} days".format(14 + 1)
+
+
+		# get NRIC list based for past 14 days
+		results = db.execute("""SELECT NRIC, infected_on
+							   FROM infected_people
+							    WHERE date(infected_on) >= strftime('%Y-%m-%d', date(date(?)), (?)) AND
+							   		 date(infected_on) < strftime('%Y-%m-%d', date(date(?)), (?))""", 
+							(DateTime, earliestDate, DateTime, latestdate)).fetchall()
+
+
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# Return the list of NRIC
+		return results
+
