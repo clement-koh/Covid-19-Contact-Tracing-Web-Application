@@ -4,10 +4,13 @@
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
-<title>View Vaccination Report</title>
+	<title>View Vaccination Report</title>
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/organisationUser_viewVaccinationStatusReport.css')}}"/>
 	<script type=text/javascript src="{{ url_for('static', filename='js/organisationUser_viewVaccinationStatusReport.js') }}"></script>
 	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+		status_info = {{ vaccinationStatusData | safe }};
+	</script>
 {% endblock %}
 
 <!-- Content Header -->

@@ -32,7 +32,7 @@ from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserU
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
 from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
-from .boundary.OrganisationUser_ViewInfectionReportUI import OrganisationUser_ViewInfectionReportUI
+from .boundary.OrganisationUser_ViewVaccinationStatusReportUI import OrganisationUser_ViewVaccinationStatusReportUI
 
 
 # -----------------------------------------------------
@@ -531,30 +531,10 @@ def SuspendUserAccount():
 	# If successful at updating Account Status
 	return OrganisationUser_SuspendAccountBoundary.displaySuccess()
 
-@app.route('/viewVaccinationReport', methods=['GET', 'POST'])
+@app.route('/view_vaccination_report', methods=['GET'])
 @loginRequired
-def viewVaccinationReport():
+def ViewVaccinationStatusReport():
+	# Create boundary object
+	organisationUser_ViewVaccinationStatusReportBoundary = OrganisationUser_ViewVaccinationStatusReportUI()
 
-	if request.method == 'GET':
-		# Display the requested page
-		return render_template('organisationUser_viewVaccinationStatusReport.html', userType = session['userType'])
-
-	if request.method == 'POST':
-		# Display the requested page
-		return render_template('organisationUser_viewVaccinationStatusReport.html', userType = session['userType'])
-
-@app.route('/view_infection_report', methods=['GET', 'POST'])
-@loginRequired
-def viewStatisticReport():
-
-	# Initialise OrganisationUser_SuspendUserAccountUI Object
-	organisationUser_viewInfectionReportBoundary = OrganisationUser_ViewInfectionReportUI()
-
-	if request.method == 'GET':
-		# Display the requested page
-		return organisationUser_viewInfectionReportBoundary.displayPage()
-
-	if request.method == 'POST':
-		# Display the requested page
-		days_ago = int(request.form['days_ago'])
-		return organisationUser_viewInfectionReportBoundary.getAffectedLocation(days_ago)
+	return organisationUser_ViewVaccinationStatusReportBoundary.displayPage()

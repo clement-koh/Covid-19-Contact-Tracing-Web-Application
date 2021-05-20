@@ -6,33 +6,33 @@ $(document).ready(function()
   // Draw the chart and set the chart values
   function drawChart() 
   {
-    // Insert the number of people for each status here
-    var total_number = 4000;
-    var fully_vaccinated = 1500;
-    var first_dose = 1700;
-    var not_taken = 600;
-    var not_eligible = 200;
+    // An array containing all the information record
+    var total_number = status_info[0];
+    var fully_vaccinated = status_info[1];
+    var first_dose = status_info[2];
+    var not_taken = status_info[3];
+    var not_eligible = status_info[4];
 
-    // convert value into percentage and display percentage into summary in html
+    // Convert value into percentage and display percentage into summary in html
     var full_vac = (fully_vaccinated / total_number) * 100;
-    document.getElementById('fully_vaccinated').innerHTML = full_vac;
+    document.getElementById('fully_vaccinated').innerHTML = full_vac.toFixed(1);
 
     var taken_first_vac = (first_dose / total_number) * 100;
-    document.getElementById('first_dose').innerHTML = taken_first_vac;
+    document.getElementById('first_dose').innerHTML = taken_first_vac.toFixed(1);
 
     var not_taken_vac = (not_taken / total_number) * 100;
-    document.getElementById('not_taken').innerHTML = not_taken_vac;
+    document.getElementById('not_taken').innerHTML = not_taken_vac.toFixed(1);
 
     var not_eligible_vac = (not_eligible / total_number) * 100;
-    document.getElementById('not_eligible').innerHTML = not_eligible_vac;
+    document.getElementById('not_eligible').innerHTML = not_eligible_vac.toFixed(1);
 
-    //pie chart data
+    // Pie chart data
     var data = google.visualization.arrayToDataTable([
-    ['Status', 'Number of People per Status'],
-    ['Fully Vaccinated', fully_vaccinated],
-    ['Completed First Dose of Vaccination', first_dose],
-    ['Not Taken Vaccination', not_taken],
-    ['Not Eligible for Vaccination', not_eligible],
+      ['Status', 'Number of People per Status'],
+      ['Fully Vaccinated', fully_vaccinated],
+      ['Completed First Dose of Vaccination', first_dose],
+      ['Not Taken Vaccination', not_taken],
+      ['Not Eligible for Vaccination', not_eligible],
     ]);
 
     // Design legend and pie chart
@@ -45,15 +45,15 @@ $(document).ready(function()
         {
           color:'black',
           fontSize: 13, 
-          fontName:'Raleway'
+          fontName:'Nunito'
         }
       },
-      width:900, 
-      height:900,
+      width: 900, 
+      height: 900,
       chartArea:
       {
-        left:0,
-        top:30
+        left: 0,
+        top: 30
       },
       //color of the pie chart
       slices: 
@@ -79,6 +79,6 @@ window.onload = function()
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   var currentday = currentdate.getDate();
   var currentyear = currentdate.getFullYear();
-  document.getElementById('date').innerHTML = currentday + ' ' + months[currentdate.getMonth()] + ' ' + currentyear;
+  document.getElementById('date').innerHTML = currentday + ' ' + months[currentdate.getMonth()-1] + ' ' + currentyear;
 };
 
