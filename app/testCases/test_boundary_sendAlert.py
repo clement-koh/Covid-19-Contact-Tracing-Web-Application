@@ -4,7 +4,7 @@ import os
 
 import unittest
 
-class testCases_HealthStaffUser_SendAlertPublic(unittest.TestCase):
+class testCases_HealthStaffUser_SendAlertPublicUI(unittest.TestCase):
 	def setUp(self):
 		# Create boundary object
 		self.boundary = HealthStaffUser_SendAlertPublicUI()
