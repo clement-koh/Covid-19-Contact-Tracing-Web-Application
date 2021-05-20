@@ -33,6 +33,7 @@ from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUs
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
 from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
 from .boundary.OrganisationUser_ViewVaccinationStatusReportUI import OrganisationUser_ViewVaccinationStatusReportUI
+from .boundary.OrganisationUser_ViewInfectionReportUI import OrganisationUser_ViewInfectionReportUI
 
 
 # -----------------------------------------------------
@@ -281,6 +282,7 @@ def sendBusinessAlertPage():
 	if request.method == 'POST':
 
 		# Get form details
+    
 		recipient = request.form['target'].strip()
 		message = request.form['message'].strip()
 
@@ -536,5 +538,20 @@ def SuspendUserAccount():
 def ViewVaccinationStatusReport():
 	# Create boundary object
 	organisationUser_ViewVaccinationStatusReportBoundary = OrganisationUser_ViewVaccinationStatusReportUI()
-
 	return organisationUser_ViewVaccinationStatusReportBoundary.displayPage()
+
+@app.route('/view_infection_report', methods=['GET', 'POST'])
+@loginRequired
+def viewStatisticReport():
+
+	# Initialise OrganisationUser_SuspendUserAccountUI Object
+	organisationUser_viewInfectionReportBoundary = OrganisationUser_ViewInfectionReportUI()
+
+	if request.method == 'GET':
+		# Display the requested page
+		return organisationUser_viewInfectionReportBoundary.displayPage()
+
+	if request.method == 'POST':
+		# Display the requested page
+		days_ago = int(request.form['days_ago'])
+		return organisationUser_viewInfectionReportBoundary.getAffectedLocation(days_ago)
