@@ -31,8 +31,8 @@ from .boundary.BusinessUser_ViewAffectedOutletUI import BusinessUser_ViewAffecte
 from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserUI
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
-from.boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
-
+from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
+from .boundary.OrganisationUser_ViewInfectionReportUI import OrganisationUser_ViewInfectionReportUI
 
 # -----------------------------------------------------
 #                   Common Pages
@@ -529,3 +529,31 @@ def SuspendUserAccount():
 		
 	# If successful at updating Account Status
 	return OrganisationUser_SuspendAccountBoundary.displaySuccess()
+
+@app.route('/', methods=['GET', 'POST'])
+@loginRequired
+def viewVaccinationReport():
+
+	if request.method == 'GET':
+		# Display the requested page
+		return render_template('overview.html', userType = session['userType'])
+
+	if request.method == 'POST':
+		# Display the requested page
+		return render_template('overview.html', userType = session['userType'])
+
+@app.route('/view_infection_report', methods=['GET', 'POST'])
+@loginRequired
+def viewStatisticReport():
+
+	# Initialise OrganisationUser_SuspendUserAccountUI Object
+	organisationUser_viewInfectionReportBoundary = OrganisationUser_ViewInfectionReportUI()
+
+	if request.method == 'GET':
+		# Display the requested page
+		return organisationUser_viewInfectionReportBoundary.displayPage()
+
+	if request.method == 'POST':
+		# Display the requested page
+		days_ago = int(request.form['days_ago'])
+		return organisationUser_viewInfectionReportBoundary.getAffectedLocation(days_ago)
