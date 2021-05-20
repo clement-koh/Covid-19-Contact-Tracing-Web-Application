@@ -27,14 +27,17 @@ jobs:
         python repopulateDatabase.py
 
     - name: Test Boundary
+      if: ${{ always() }}
       run: |
         python -m unittest discover -s app.testCases -p test_boundary_*.py --verbose
     
     - name: Test Controller
+      if: ${{ always() }}
       run: |
         python -m unittest discover -s app.testCases -p test_controller_*.py --verbose
 
     - name: Test Entity
+      if: ${{ always() }}
       run: |
         python -m unittest discover -s app.testCases -p test_entity_*.py --verbose
 
