@@ -1,0 +1,53 @@
+button {
+	margin-right: 50px;
+}
+
+input {
+	margin-right: 30px;
+}
+
+#biweeklyChart {
+	width: 100%;
+	max-width: 800px;
+}
+
+table {
+	margin-top: 10px;
+	border-collapse: collapse;
+	border: 1px solid black;
+	width: 100%;
+	text-align: justify;
+}
+
+td,
+th {
+	padding: 8px;
+	width: 50%;
+	text-align: center;
+}
+
+#detailedReport {
+	margin: 30px 10%;
+}
+
+tr:nth-child(even) {
+	background-color: #ebebeb;
+}
+
+tr:hover {
+	background-color: lightblue;
+}
+
+#detailedReport > p, #detailHeader {
+	font-size: 120%;
+	font-weight: 900;
+	
+}
+
+span {
+	font-weight: 100;
+}
+
+#date {
+	text-decoration: underline;
+}
