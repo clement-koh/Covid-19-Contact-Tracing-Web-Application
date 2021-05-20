@@ -133,3 +133,40 @@ class VaccinationStatus:
 		# If no rows has been updated
 		return False
 	
+	def getVaccinationStatusData(self):
+		# Array of vaccination status
+		vaccinationStatusData = []
+
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Select from database and add to array to be returned
+		total_records = db.execute("""SELECT COUNT(*)
+									  FROM vaccination_status""").fetchone()
+		vaccinationStatusData.append(total_records[0])
+		fully_vaccinated = db.execute("""SELECT COUNT(*)
+										 FROM vaccination_status
+										 WHERE vaccinationStatus = 'Vaccination Completed'""").fetchone()
+		vaccinationStatusData.append(fully_vaccinated[0])
+		scheduled_second_shot = db.execute("""SELECT COUNT(*)
+											  FROM vaccination_status
+											  WHERE vaccinationStatus = 'Scheduled for Second Shot'""").fetchone()
+		vaccinationStatusData.append(scheduled_second_shot[0])
+		scheduled_first_shot = db.execute("""SELECT COUNT(*)
+											 FROM vaccination_status
+											 WHERE vaccinationStatus = 'Scheduled for First Shot'""").fetchone()
+		eligible_not_taken = db.execute("""SELECT COUNT(*)
+										   FROM vaccination_status
+										   WHERE vaccinationStatus = 'Eligible for Vaccination'""").fetchone()
+		not_taken = scheduled_first_shot[0] + eligible_not_taken[0]
+		vaccinationStatusData.append(not_taken)
+		not_eligible = db.execute("""SELECT COUNT(*)
+									 FROM vaccination_status
+									 WHERE vaccinationStatus = 'Not Eligible for Vaccination'""").fetchone()
+		vaccinationStatusData.append(not_eligible[0])
+
+		# Close the connection to the database
+		dbDisconnect(connection)
+
+		return vaccinationStatusData
