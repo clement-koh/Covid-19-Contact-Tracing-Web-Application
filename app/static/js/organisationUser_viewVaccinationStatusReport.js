@@ -36,32 +36,32 @@ $(document).ready(function()
 		]);
 
 		// Design legend and pie chart
-		var options = 
-		{
-			legend: 
-			{
-				position: 'right', 
-				textStyle: 
-				{
-					color:'black',
-					fontSize: 13, 
-					fontName:'Nunito'
+		var options = {
+			pieSliceText: "percentage",
+			legend: {
+				position: "labeled",
+				maxLines: 1,
+				alignment: "center",
+				textStyle: {
+					color: "black",
+					fontSize: 13,
+					fontName: "Nunito"
 				}
 			},
-			width: 900, 
-			height: 900,
-			chartArea:
-			{
+			width: '100%',
+			height: 300,
+			chartArea: {
 				left: 0,
-				top: 30
+				top: 30,
+				width: "100%",
+				height: "100%"
 			},
 			//color of the pie chart
-			slices:
-			{
-				0: { color: '#00b33c' },
-				1: { color: '#ff9933' },
-				2: { color: '#3366ff' },
-				3: { color: '#ff3300' },
+			slices: {
+				0: {color: "#00b33c"},
+				1: {color: "#ff9933"},
+				2: {color: "#3366ff"},
+				3: {color: "#ff3300"}
 			}
 		};
 
