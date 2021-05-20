@@ -29,9 +29,9 @@ $(document).ready(function()
     //pie chart data
     var data = google.visualization.arrayToDataTable([
     ['Status', 'Number of People per Status'],
-    ['Not Taken Vaccination', not_taken],
-    ['Completed First Dose of Vaccination', first_dose],
     ['Fully Vaccinated', fully_vaccinated],
+    ['Completed First Dose of Vaccination', first_dose],
+    ['Not Taken Vaccination', not_taken],
     ['Not Eligible for Vaccination', not_eligible],
     ]);
 
@@ -48,8 +48,8 @@ $(document).ready(function()
           fontName:'Raleway'
         }
       },
-      width:800, 
-      height:800,
+      width:900, 
+      height:900,
       chartArea:
       {
         left:0,
