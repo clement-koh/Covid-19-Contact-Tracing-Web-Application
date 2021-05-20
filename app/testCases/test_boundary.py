@@ -45,7 +45,7 @@ class testCases_HealthStaffUser_SendAlertPublic(unittest.TestCase):
 	def test_onSubmit_acceptCorrectValues(self):
 		with self.app.test_request_context() as c:
 			session['user'] = 'S1999'
-			result = self.boundary.onSubmit("S0999", "Message from test case with correct value")
+			result = self.boundary.onSubmit("S0999", "Message from BOUNDARY test case with correct values")
 			self.assertEqual(result, "Alert successfully sent to 'S0999'", "onSubmit with correct values did not return Success")
 	
 	def test_onSubmit_rejectIncorrectNRIC(self):
