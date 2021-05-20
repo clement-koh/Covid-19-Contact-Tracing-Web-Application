@@ -54,7 +54,7 @@ class testCases_HealthStaffUser_SendAlertPublic(unittest.TestCase):
 		self.assertFalse(result, "No sender NRIC provided, expected False but returned True")
 
 	def test_sendAlert_rejectInvalidSender(self):
-		result = self.controller.sendAlert("InvalidUser", "Message from CONTROLLER test case with invalid NRIC", "")
+		result = self.controller.sendAlert("S0999", "Message from CONTROLLER test case with invalid NRIC", "InvalidNRIC")
 		self.assertFalse(result, "Invalid NRIC provided, expected False but returned True")
 
 	def test_sendAlert_rejectPublicUserAsSender(self):
