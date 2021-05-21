@@ -1,6 +1,7 @@
 from ..entity.User import User
 from ..entity.InfectedPeople import InfectedPeople
 import datetime
+from operator import itemgetter
 # import itertools
 
 
@@ -68,7 +69,9 @@ class HealthStaffUser_ContactTracingController:
 
 			result.append(userInfo)
 
-		sorted(result, key=lambda e: (e[6], e[0]))
+		# Sorting
+		result.sort(key=itemgetter(0))					# sort by NRIC ascending
+		result.sort(key=itemgetter(6), reverse=True)	# sort by Date descending
 		
 		#return users detail list
 		return result
