@@ -147,7 +147,7 @@ create = ["""
 				read_on DATETIME,
 				is_read BOOLEAN,
 				PRIMARY KEY (id),
-				FOREIGN KEY(sent_by) REFERENCES user ("NRIC"),
+				FOREIGN KEY(sent_by) REFERENCES health_staff_user ("NRIC"),
 				FOREIGN KEY("recipient_NRIC") REFERENCES user ("NRIC")
 			)
 			""",
