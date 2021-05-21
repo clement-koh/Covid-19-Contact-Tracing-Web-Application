@@ -13,7 +13,7 @@ class HealthStaffUser_SendAlertPublicController:
 		# Create User Object
 		user = User(NRIC)
 
-		if user.getNRIC() is None:
+		if user.getNRIC() is None or user.getAccountType() != "Public":
 			return False
 		return True
 
