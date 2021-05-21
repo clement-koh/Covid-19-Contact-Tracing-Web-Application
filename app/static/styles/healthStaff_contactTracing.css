@@ -1,0 +1,36 @@
+/*adding row numbers through css*/
+.report {
+    counter-reset: serial-number; /* Set the serial number counter to 0 */
+}
+
+.report td:first-child:before{
+    counter-increment: serial-number; /* Increment the serial number counter */
+    content: counter(serial-number); /* Display the counter */
+}
+
+/* table */
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+}
+
+/*set odd rows as light grey (even numbered)*/
+.report tr:nth-child(odd) td {
+    background-color: #e1e1e1;
+  }
+  
+/*set table heading as dark grey*/  
+.report tr:first-child th { 
+     background: #A5A5A5; 
+}
+
+/*Display input as block*/
+input {
+    display:inline-block;
+}

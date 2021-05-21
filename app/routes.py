@@ -371,7 +371,10 @@ def UpdateVaccinationPage():
 		
 	# If successful at updating vaccination status
 	return healthStaffUser_UpdateVaccinationBoundary.displaySuccess()
-	
+
+@app.route('/contact_tracing', methods=['GET', 'POST'])
+def contactTracing():
+    return render_template('healthStaff_contactTracing.html')	
 				
 # -----------------------------------------------------
 #                   Business User Pages
