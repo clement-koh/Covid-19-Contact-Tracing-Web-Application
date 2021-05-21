@@ -369,11 +369,7 @@ def UpdateVaccinationPage():
 	if not healthStaffUser_UpdateVaccinationBoundary.onSubmit(NRIC, vaccination_Status, first_dose, second_dose):
 		return healthStaffUser_UpdateVaccinationBoundary.displayError()
 		
-<<<<<<< HEAD
-	# If successful at updating vaccination state
-=======
 	# If successful at updating vaccination status
->>>>>>> refs/remotes/origin/master
 	return healthStaffUser_UpdateVaccinationBoundary.displaySuccess()
 	
 				
