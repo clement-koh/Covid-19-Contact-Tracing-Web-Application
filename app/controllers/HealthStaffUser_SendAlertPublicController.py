@@ -8,7 +8,7 @@ class HealthStaffUser_SendAlertPublicController:
 
 	def verifyNRIC(self, NRIC):
 		"""
-			Returns True if the NRIC provided is a valid user
+			Returns True if the NRIC provided is a valid public user
 		"""
 		# Create User Object
 		user = User(NRIC)
