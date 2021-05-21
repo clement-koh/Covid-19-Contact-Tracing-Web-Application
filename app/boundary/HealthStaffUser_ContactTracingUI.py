@@ -10,12 +10,8 @@ class HealthStaffUser_ContactTracingUI:
 		self.RESPONSE_FAILURE_EMPTY_FIELD = "Date field cannot be empty"
 
 		# Private instance variable
-		self.__date = None 														# date
-		self.__viewPatientContactTracingController = HealthStaffUser_ContactTracingController()	# Controller Object
-
-	# Mutator Method
-	def setDate(self, date):
-		self.__date = date
+		self.__date = None 		# date
+		self.__controller = HealthStaffUser_ContactTracingController()	# Controller Object
 
 	# Other Method
 	def displayPage(self):
@@ -31,11 +27,14 @@ class HealthStaffUser_ContactTracingUI:
 		# Render the page
 		return render_template('healthStaff_ContactTracing.html', userType=userType)
 		
-	def onSubmit(self):
+	def onSubmit(self, date):
 		"""
 		Firstly, verify the input field is empty, then check if date exists
 		Return a response based on the outcome of each check.
 		"""
+		# Store the date in private variable
+		self.__date = date
+
 		# Check if date field is empty
 		if self.__date is None or len(self.__date) == 0:
 			return self.RESPONSE_FAILURE_EMPTY_FIELD
@@ -47,21 +46,22 @@ class HealthStaffUser_ContactTracingUI:
 		"""
 		Displays a success page showing the patient's details
 		"""
-		# gets the current user type
-		userType = session['userType']
-
-		# get date
-		date = self.__date
+		# Ensure that the user is authroised to access this page, otherwise redirect to other page
+		userType = session['userType'] 
+		if userType!= "Health Staff":
+			flash("Unauthorised to access this content", 'error')
+			return redirect('/')
 
 		# get list of nric of infected people for last 14 days 
-		NRIClist = self.__viewPatientContactTracingController.getInfectedPeopleNRIC(self.__date)
+		NRICList = self.__controller.getInfectedPeopleNRIC(self.__date)
 		
 		# get the patient's details
-		patientDetails = self.__viewPatientContactTracingController.getPatientDetails(NRIClist)
+		patientDetails = self.__controller.getPatientDetails(NRICList)
 
 		# Render the page with patient's details
 		return render_template('healthStaff_ContactTracing.html', userType=userType,
-																   patientDetails=patientDetails, date=date)
+																  patientDetails=patientDetails, 
+																  date=self.__date)
 
 	def displayError(self, response):
 		flash(response, 'error')

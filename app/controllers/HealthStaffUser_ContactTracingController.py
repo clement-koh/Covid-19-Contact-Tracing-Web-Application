@@ -1,57 +1,77 @@
 from ..entity.User import User
 from ..entity.InfectedPeople import InfectedPeople
-import itertools
+import datetime
+# import itertools
 
 
 class HealthStaffUser_ContactTracingController:
 	def __init__(self):
-		pass
+		self.INFECTION_TIME = 14 	# Considered as infected for _ days
 
 	# get infected people NRIC for the past 14 days
 	def getInfectedPeopleNRIC(self, date):
 
 		# Creates a InfectedPeople object
-		listNRIC = InfectedPeople.getInfectedPeopleNRIC(self, date)
+		infectedPeople = InfectedPeople()
 
-		# return list of nric according to date of infection
-		return listNRIC
+		currentTime = datetime.datetime.today()
+		enteredDate = datetime.datetime.strptime(date, '%Y-%m-%d')
+
+		daysAgo = (currentTime - enteredDate).days
+
+		# Gets the NRIC list of infected individuals
+		NRICList = infectedPeople.getInfectedPeople(daysAgo,self.INFECTION_TIME)
+
+		# return list of unique NRIC
+		return list(set(NRICList))
     
 
-	def getPatientDetails(self, NRIC):
+	def getPatientDetails(self, NRICList):
 		""" 
-		Returns a string array containing the following information.
+		Returns a 2D string array containing the following information.
 
-		[0] - NRIC, 
-		[1] - First Name, 
-		[2] - Middle Name, 
-		[3] - Last Name, 
-		[4] - Mobile Number,
-		[5] - Gender
-		[6] - Infected On
-		
+		[x][0] - NRIC
+		[x][1] - First Name
+		[x][2] - Middle Name
+		[x][3] - Last Name
+		[x][4] - Mobile Number
+		[x][5] - Gender
+		[x][6] - Infected On
+
 		"""
+		# Creates a InfectedPeople object
+		infectedPeople = InfectedPeople()
 
-		#Separate NRIC and infected date
-		NRIClist = [item[0] for item in NRIC]
-		InfectedDate = [item[1] for item in NRIC]
+		result = []
 
-		#list to store patient detail
-		userInfo = []
+		for NRIC in NRICList:
 
-		#loop through NRIC LIST record
-		for i in range(len(NRIClist)):
+			# List to store patient detail
+			userInfo = []
 
-			# Creates a user object	
-			user = User.getUserDetail(self, NRIClist[i])
+			# Get user information
+			tempUser = User(NRIC)
 
-			#convert string to tuple
-			InfectedDateTuple = (InfectedDate[i],)
-	
-			# store each users detail tuple with infected date tuple to a list 
-			userInfo.append(user + InfectedDateTuple)
+			# Get user last infection date
+			infectedOnString = infectedPeople.getLastInfectedDate(NRIC)
+			infectedOnDateTime = datetime.datetime.strptime(infectedOnString, '%Y-%m-%d %H:%M:%S')
+			infectedOnFormatted = infectedOnDateTime.strftime("%d/%m/%Y")
+
+			# Append data to array
+			userInfo.append(NRIC)
+			userInfo.append(tempUser.getFirstName())
+			userInfo.append(tempUser.getMiddleName())
+			userInfo.append(tempUser.getLastName())
+			userInfo.append(tempUser.getMobile())
+			userInfo.append(tempUser.getGender())
+			userInfo.append(infectedOnFormatted)
+
+			result.append(userInfo)
+
+		sorted(result, key=lambda e: (e[6], e[0]))
 		
 		#return users detail list
-		return userInfo
+		return result
 
 			
 	
