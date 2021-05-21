@@ -32,7 +32,9 @@ from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserU
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
 from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
+from .boundary.OrganisationUser_ViewVaccinationStatusReportUI import OrganisationUser_ViewVaccinationStatusReportUI
 from .boundary.OrganisationUser_ViewInfectionReportUI import OrganisationUser_ViewInfectionReportUI
+
 
 # -----------------------------------------------------
 #                   Common Pages
@@ -280,6 +282,7 @@ def sendBusinessAlertPage():
 	if request.method == 'POST':
 
 		# Get form details
+    
 		recipient = request.form['target'].strip()
 		message = request.form['message'].strip()
 
@@ -530,17 +533,12 @@ def SuspendUserAccount():
 	# If successful at updating Account Status
 	return OrganisationUser_SuspendAccountBoundary.displaySuccess()
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/view_vaccination_report', methods=['GET'])
 @loginRequired
-def viewVaccinationReport():
-
-	if request.method == 'GET':
-		# Display the requested page
-		return render_template('overview.html', userType = session['userType'])
-
-	if request.method == 'POST':
-		# Display the requested page
-		return render_template('overview.html', userType = session['userType'])
+def ViewVaccinationStatusReport():
+	# Create boundary object
+	organisationUser_ViewVaccinationStatusReportBoundary = OrganisationUser_ViewVaccinationStatusReportUI()
+	return organisationUser_ViewVaccinationStatusReportBoundary.displayPage()
 
 @app.route('/view_infection_report', methods=['GET', 'POST'])
 @loginRequired
