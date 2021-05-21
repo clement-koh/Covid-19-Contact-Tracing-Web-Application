@@ -1,0 +1,70 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %}
+{% set active_page ="healthStaff_contact_tracing" %}
+	
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/healthStaff_contactTracing.css') }}"/>
+	<script type=text/javascript src="{{url_for('static', filename='js/healthStaff_contactTracing.js') }}"></script>
+	<title>View and Update Vaccination Status</title>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+	<!-- Display ICON and Header -->
+	<b><i class='fa fa-bluetooth'></i> Contact Tracing Reports</b><br><br>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+	<!-- Search for Dates -->
+	<div class="w3-row-padding w3-margin-bottom">
+		<form autocomplete="off" method="POST">
+			<label for="patient">Select a Date to Generate Report: &nbsp;</label>
+			<input type="date" id="report_date" name="report_date">
+			<input type="submit" id="submit" value="Generate"></br></br>
+		</form>
+
+		<!-- If records found -->
+		<h4><u>Contact Tracing Report for 17 May 2021</u></h4>
+		<table class="report" style='margin-top: 20px;'>
+			<tr>
+				<th>No.</th>
+				<th>NRIC</th>
+				<th>First Name</th>
+				<th>Middle Name</th>
+				<th>Last Name</th>
+				<th>Mobile</th>
+				<th>Infection Date</th>
+			</tr>
+			<tr>
+				<td></td> <!-- to be left blank for autonumbering of row number via css -->
+				<td>S0001</td>
+				<td>John</td>
+				<td>Doe</td>
+				<td>Anderson</td>
+				<td>91234567</td>
+				<td>14 May 2021</td>
+			</tr>
+			<tr>
+				<td></td> <!-- to be left blank for autonumbering of row number via css -->
+				<td>S0002</td>
+				<td>John</td>
+				<td>Doe</td>
+				<td>Anderson</td>
+				<td>91234567</td>
+				<td>14 May 2021</td>
+			</tr>
+			<tr>
+				<td></td> <!-- to be left blank for autonumbering of row number via css -->
+				<td>S0003</td>
+				<td>John</td>
+				<td>Doe</td>
+				<td>Anderson</td>
+				<td>91234567</td>
+				<td>14 May 2021</td>
+			</tr>
+		</table>
+	</div>
+{% endblock %}

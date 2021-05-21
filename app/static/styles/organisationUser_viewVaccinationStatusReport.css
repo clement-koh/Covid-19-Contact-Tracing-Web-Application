@@ -1,0 +1,21 @@
+/* Leave a blank space after header */
+.summary:before {
+	content: "\A";
+	white-space: pre-line;
+}
+
+.summary {
+	margin: 0 auto;
+}
+
+#piechart {
+	margin: 0 auto;
+	/* padding: 0px 100px; */
+	width: 80%;
+	vertical-align: middle;
+	overflow: hidden;
+}
+
+svg > g > g:last-child {
+	pointer-events: none;
+}

@@ -1,0 +1,42 @@
+<!-- Extends the basic html template -->
+{% extends "dashboard_layout.html" %} 
+{% set active_page = "organisationUser_viewVaccinationStatusReport" %}
+
+<!-- Updates the <head> of the webpage -->
+{% block head %}
+	<title>View Vaccination Report</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/organisationUser_viewVaccinationStatusReport.css')}}"/>
+	<script type=text/javascript src="{{ url_for('static', filename='js/organisationUser_viewVaccinationStatusReport.js') }}"></script>
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+		status_info = {{ vaccinationStatusData | safe }};
+	</script>
+{% endblock %}
+
+<!-- Content Header -->
+{% block contentHeader %}
+	<b><i class="fa fa-file"></i> View Vaccination Report</b>
+{% endblock %}
+
+<!-- Main Content of the Page -->
+{% block contentBody %}
+	<div id="content" class="w3-row-padding w3-margin-bottom">
+		<!-- Display Summary -->
+		<div class="summary">
+			<!-- Display Date -->
+			<p>As of <span id="date"></span>,</p>
+			<ul>
+				<!-- Display % of fully vaccinated -->
+				<li><span id="fully_vaccinated"></span>% has been <b>fully vaccinated</b></li>
+				<!-- Display % of completed their first dose of vaccination -->
+				<li><span id="first_dose"></span>% has completed their <b>first dose</b> of vaccination</li>
+				<!-- Display % of not taken vaccination -->
+				<li><span id="not_taken"></span>% have <b>not taken</b> vaccination</li>
+				<!-- Display % of not eligible for vaccination -->
+				<li><span id="not_eligible"></span>% are <b>not eligible</b> for vaccination</li>
+			</ul>  
+		</div>
+		<!-- Display Piechart -->
+		<div id="piechart"></div>
+	</div>		
+{% endblock %}
