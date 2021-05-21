@@ -1,19 +1,20 @@
 window.addEventListener('load', function (){
-   setDate();
+   	setDate();
 });
 
 // block out date selections to only 14 days including current day
 function setDate() {
-    var reportDate = document.getElementById("report_date");
-    // set max to current date
-    var maxDate = new Date().toISOString().split("T")[0]; 
-    reportDate.max = maxDate;
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 0!
+	var yyyy = today.getFullYear();
+	if (dd < 10) {
+		dd = "0" + dd;
+	}
+	if (mm < 10) {
+		mm = "0" + mm;
+	}
 
-    // set default date to current date
-    reportDate.value = maxDate;
-
-    // set min to 13 days before
-    var date = new Date();
-    date.setDate(date.getDate() - 13);
-    reportDate.min = date.toISOString().split('T')[0];
+	today = yyyy + "-" + mm + "-" + dd;
+	document.getElementById("report_date").setAttribute("max", today);
 }
