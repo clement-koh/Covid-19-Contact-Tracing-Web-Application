@@ -21,6 +21,7 @@ from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAler
 from .boundary.HealthStaffUser_SendAlertBusinessUI import HealthStaffUser_SendAlertBusinessUI
 from .boundary.HealthStaffUser_ViewVaccineStatusUI import HealthStaffUser_ViewVaccineStatusUI
 from .boundary.HealthStaffUser_UpdateVaccinationUI import HealthStaffUser_UpdateVaccinationUI
+from .boundary.HealthStaffUser_ContactTracingUI import HealthStaffUser_ContactTracingUI
 
 # Boundary for Business Staff
 from .boundary.BusinessUser_ViewAlertUI import BusinessUser_ViewAlertUI
@@ -371,11 +372,32 @@ def UpdateVaccinationPage():
 		
 	# If successful at updating vaccination status
 	return healthStaffUser_UpdateVaccinationBoundary.displaySuccess()
-
+	
 @app.route('/contact_tracing', methods=['GET', 'POST'])
-def contactTracing():
-    return render_template('healthStaff_contactTracing.html')	
-				
+@loginRequired
+def contactTracingPage():
+	# Initialise Boundary Object
+	healthStaffUser_ContactTracingBoundary = HealthStaffUser_ContactTracingUI()
+
+	# If user is requesting the page
+	if request.method == 'GET':
+		# Display the requested page
+		return healthStaffUser_ContactTracingBoundary.displayPage()
+
+	if request.method == 'POST':
+		# Get form details
+		date = request.form['date'].strip()
+
+		# Get submit response 
+		response = healthStaffUser_ContactTracingBoundary.onSubmit(date)
+
+		# Display Error if any
+		if response != healthStaffUser_ContactTracingBoundary.RESPONSE_SUCCESS:
+			return healthStaffUser_ContactTracingBoundary.displayError(response)
+
+		# Display Success
+		return healthStaffUser_ContactTracingBoundary.displaySuccess()			
+
 # -----------------------------------------------------
 #                   Business User Pages
 # -----------------------------------------------------

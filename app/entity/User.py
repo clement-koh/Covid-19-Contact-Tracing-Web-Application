@@ -263,3 +263,4 @@ class User:
 		
 		# If no row has been updated
 		return False
+
