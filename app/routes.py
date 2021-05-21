@@ -370,9 +370,9 @@ def UpdateVaccinationPage():
 	# If successful at updating vaccination status
 	return healthStaffUser_UpdateVaccinationBoundary.displaySuccess()
 	
-@app.route('/Contact_Tracing', methods=['GET', 'POST'])
+@app.route('/contact_tracing', methods=['GET', 'POST'])
 @loginRequired
-def Contact_TracingPage():
+def contactTracingPage():
 	# Initialise Boundary Object
 	healthStaffUser_ContactTracingBoundary = HealthStaffUser_ContactTracingUI()
 
@@ -384,13 +384,9 @@ def Contact_TracingPage():
 	if request.method == 'POST':
 		# Get form details
 		date = request.form['date'].strip()
-		
-
-		# Set the boundary to contain the date
-		healthStaffUser_ContactTracingBoundary.setDate(date)
 
 		# Get submit response 
-		response = healthStaffUser_ContactTracingBoundary.onSubmit()
+		response = healthStaffUser_ContactTracingBoundary.onSubmit(date)
 
 		# Display Error if any
 		if response != healthStaffUser_ContactTracingBoundary.RESPONSE_SUCCESS:
