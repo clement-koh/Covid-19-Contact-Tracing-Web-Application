@@ -1,5 +1,6 @@
 $(document).ready(function () {
 	// display data for the line graph
+	$(".loader").hide();
 	var xValues = getBiweeklyDate();
 	var yValues = dailyInfectionCount;
 
@@ -130,7 +131,7 @@ function loadContent(selectedDate) {
 	const diffTime = Math.abs(today.getTime() - selectedDate.getTime());
 	const days_ago = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-	console.log(days_ago);
+	$(".loader").show();
 
 	// Async Ajax call to fetch data
 	$.ajax({
@@ -141,9 +142,8 @@ function loadContent(selectedDate) {
 		type: "POST",
 		url: "/view_infection_report"
 	}).done(function (data) {
-		console.log(data);
 		showData(data);
-		// document.getElementById("dataTable").innerHTML += generateBlock(data);
+		$(".loader").hide();
 	});
 }
 
