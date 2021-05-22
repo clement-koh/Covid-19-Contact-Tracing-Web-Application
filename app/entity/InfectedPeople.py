@@ -1,4 +1,4 @@
-from ...dbConfig import dbConnect, dbDisconnect
+from ..dbConfig import dbConnect, dbDisconnect
 
 class InfectedPeople:
 	def __init__(self, id=None):
