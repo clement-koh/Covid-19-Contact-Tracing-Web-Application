@@ -21,7 +21,7 @@ from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAler
 from .boundary.HealthStaffUser_SendAlertBusinessUI import HealthStaffUser_SendAlertBusinessUI
 from .boundary.HealthStaffUser_ViewVaccineStatusUI import HealthStaffUser_ViewVaccineStatusUI
 from .boundary.HealthStaffUser_UpdateVaccinationUI import HealthStaffUser_UpdateVaccinationUI
-from .boundary.HealthStaffUser_ContactTracingUI import HealthStaffUser_ContactTracingUI
+from .boundary.HealthStaffUser_GenerateContactTracingReportUI import HealthStaffUser_GenerateContactTracingReportUI
 
 # Boundary for Business Staff
 from .boundary.BusinessUser_ViewAlertUI import BusinessUser_ViewAlertUI
@@ -377,26 +377,26 @@ def UpdateVaccinationPage():
 @loginRequired
 def contactTracingPage():
 	# Initialise Boundary Object
-	healthStaffUser_ContactTracingBoundary = HealthStaffUser_ContactTracingUI()
+	healthStaffUser_GenerateContactTracingReportBoundary = HealthStaffUser_GenerateContactTracingReportUI()
 
 	# If user is requesting the page
 	if request.method == 'GET':
 		# Display the requested page
-		return healthStaffUser_ContactTracingBoundary.displayPage()
+		return healthStaffUser_GenerateContactTracingReportBoundary.displayPage()
 
 	if request.method == 'POST':
 		# Get form details
 		date = request.form['date'].strip()
 
 		# Get submit response 
-		response = healthStaffUser_ContactTracingBoundary.onSubmit(date)
+		response = healthStaffUser_GenerateContactTracingReportBoundary.onSubmit(date)
 
 		# Display Error if any
-		if response != healthStaffUser_ContactTracingBoundary.RESPONSE_SUCCESS:
-			return healthStaffUser_ContactTracingBoundary.displayError(response)
+		if response != healthStaffUser_GenerateContactTracingReportBoundary.RESPONSE_SUCCESS:
+			return healthStaffUser_GenerateContactTracingReportBoundary.displayError(response)
 
 		# Display Success
-		return healthStaffUser_ContactTracingBoundary.displaySuccess()			
+		return healthStaffUser_GenerateContactTracingReportBoundary.displaySuccess()			
 
 # -----------------------------------------------------
 #                   Business User Pages

@@ -1,8 +1,8 @@
 from flask import session, flash, redirect, render_template
-from ..controllers.HealthStaffUser_ContactTracingController import HealthStaffUser_ContactTracingController
+from ..controllers.HealthStaffUser_GenerateContactTracingReportController import HealthStaffUser_GenerateContactTracingReportController
 
 
-class HealthStaffUser_ContactTracingUI:
+class HealthStaffUser_GenerateContactTracingReportUI:
 	# Constructor
 	def __init__(self):
 		# Define responses status for the class
@@ -11,7 +11,7 @@ class HealthStaffUser_ContactTracingUI:
 
 		# Private instance variable
 		self.__date = None 		# date
-		self.__controller = HealthStaffUser_ContactTracingController()	# Controller Object
+		self.__controller = HealthStaffUser_GenerateContactTracingReportController()	# Controller Object
 
 	# Other Method
 	def displayPage(self):
@@ -25,9 +25,9 @@ class HealthStaffUser_ContactTracingUI:
 			return redirect('/')
 
 		# Render the page
-		return render_template('healthStaff_contactTracing.html', userType=userType,
-																  patientDetails=None,
-																  date=None)
+		return render_template('healthStaff_generateContactTracingReport.html', userType=userType,
+																 				patientDetails=None,
+																 				date=None)
 		
 	def onSubmit(self, date):
 		"""
@@ -61,9 +61,9 @@ class HealthStaffUser_ContactTracingUI:
 		patientDetails = self.__controller.getPatientDetails(NRICList)
 
 		# Render the page with patient's details
-		return render_template('healthStaff_contactTracing.html', userType=userType,
-																  patientDetails=patientDetails, 
-																  date=self.__date)
+		return render_template('healthStaff_generateContactTracingReport.html', userType=userType,
+																  				patientDetails=patientDetails, 
+																  				date=self.__date)
 
 	def displayError(self, response):
 		flash(response, 'error')
