@@ -53,7 +53,7 @@ class OrganisationUser_CreateUserUI:
 			return self.RESULT_FAILURE_INVALID_NAME
 
 		# Check if mobile number is 8 characters
-		if re.search('^[8|9][0-9]{7}$', mobile):
+		if not re.search('^[8|9][0-9]{7}$', mobile):
 			return self.RESULT_FAILURE_MOBILE_LENGTH
 
 		# Check if passwords match
