@@ -34,7 +34,7 @@ from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUs
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
 from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
 from .boundary.OrganisationUser_GenerateVaccinationStatusReportUI import OrganisationUser_GenerateVaccinationStatusReportUI
-from .boundary.OrganisationUser_ViewInfectionReportUI import OrganisationUser_ViewInfectionReportUI
+from .boundary.OrganisationUser_GenerateInfectionReportUI import OrganisationUser_GenerateInfectionReportUI
 
 
 # -----------------------------------------------------
@@ -570,13 +570,13 @@ def ViewVaccinationStatusReport():
 def viewStatisticReport():
 
 	# Initialise OrganisationUser_SuspendUserAccountUI Object
-	organisationUser_viewInfectionReportBoundary = OrganisationUser_ViewInfectionReportUI()
+	organisationUser_generateInfectionReportBoundary = OrganisationUser_GenerateInfectionReportUI()
 
 	if request.method == 'GET':
 		# Display the requested page
-		return organisationUser_viewInfectionReportBoundary.displayPage()
+		return organisationUser_generateInfectionReportBoundary.displayPage()
 
 	if request.method == 'POST':
 		# Display the requested page
 		days_ago = int(request.form['days_ago'])
-		return organisationUser_viewInfectionReportBoundary.getAffectedLocation(days_ago)
+		return organisationUser_generateInfectionReportBoundary.getAffectedLocation(days_ago)
