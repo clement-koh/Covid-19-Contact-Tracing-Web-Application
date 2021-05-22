@@ -48,6 +48,8 @@ function loadContent() {
 		count++;
 		if (count <= 14) {
 			loadContent();
+		} else {
+			$(".loader").hide();
 		}
 	})
 }
