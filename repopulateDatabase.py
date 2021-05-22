@@ -21,7 +21,7 @@ MIN_LOCATION_VISITED = 1        # No of location
 MAX_LOCATION_VISITED = 3        # No of location
 
 # Infection Setting
-POPULATION_PERCENTAGE_CONFIRMED_INFECTED_DAILY = 10	  # In percentage (0.01%)
+POPULATION_PERCENTAGE_CONFIRMED_INFECTED_DAILY = 0.01	  # In percentage (0.01%)
 
 # Vaccination Settings (Sum to 100)
 NOT_ELIGIBLE_FOR_VACCINATION = 10 							
