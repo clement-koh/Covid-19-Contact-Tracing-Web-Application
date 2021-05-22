@@ -11,6 +11,7 @@ class OrganisationUser_CreateUserUI:
 		self.RESULT_FAILURE_EMPTY_FIELD = "Fields cannot be empty"
 		self.RESULT_FAILURE_MOBILE_LENGTH = "Mobile number is invalid or not 8 digits"
 		self.RESULT_FAILURE_PASSWORD_MISMATCH = "Password fields no not match"
+		self.RESULT_FAILURE_INVALID_LICENSE = "License should be 8 characters"
 		self.RESULT_FAILURE_DUPLICATE_VALUE = "{}({}) already exists"
 		self.RESULT_FAILURE_NONEXISTENT_VALUE = "{}({}) not does exist"
 		self.RESULT_FAILURE_UNEXPECTED = "Error creating new account"
@@ -58,6 +59,11 @@ class OrganisationUser_CreateUserUI:
 		# Check if passwords match
 		if password != confirmPassword:
 			return self.RESULT_FAILURE_PASSWORD_MISMATCH
+
+		# Check if license number is valid
+		if (accountType == accountTypes[1]):
+			if (len(licenseNo) != 8):
+				return self.RESULT_FAILURE_INVALID_LICENSE
 
 		# Create controller object
 		controller = OrganisationUser_CreateUserController()
