@@ -156,7 +156,7 @@ class LocationHistory:
 			queryArgs.append(item)
 
 		# Select location history within past __ of days based on NRIC
-		results = db.execute(query,queryArgs).fetchall()
+		results = db.execute(query, queryArgs).fetchall()
 
 		# Disconnect from database
 		dbDisconnect(connection)
