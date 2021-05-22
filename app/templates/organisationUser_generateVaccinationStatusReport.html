@@ -4,9 +4,9 @@
 
 <!-- Updates the <head> of the webpage -->
 {% block head %}
-	<title>View Vaccination Report</title>
-	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/organisationUser_viewVaccinationStatusReport.css')}}"/>
-	<script type=text/javascript src="{{ url_for('static', filename='js/organisationUser_viewVaccinationStatusReport.js') }}"></script>
+	<title>Generate Vaccination Status Report</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='styles/organisationUser_generateVaccinationStatusReport.css')}}"/>
+	<script type=text/javascript src="{{ url_for('static', filename='js/organisationUser_generateVaccinationStatusReport.js') }}"></script>
 	<script src="https://www.gstatic.com/charts/loader.js"></script>
 	<script>
 		status_info = {{ vaccinationStatusData | safe }};
@@ -15,7 +15,7 @@
 
 <!-- Content Header -->
 {% block contentHeader %}
-	<b><i class="fa fa-file"></i> View Vaccination Report</b>
+	<b><i class="fa fa-file"></i> Generate Vaccination Status Report</b>
 {% endblock %}
 
 <!-- Main Content of the Page -->

@@ -1,4 +1,4 @@
-from ...dbConfig import dbConnect, dbDisconnect
+from ..dbConfig import dbConnect, dbDisconnect
 
 class User:
 	# Constructor for user
@@ -263,3 +263,4 @@ class User:
 		
 		# If no row has been updated
 		return False
+

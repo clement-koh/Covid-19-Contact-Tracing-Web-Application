@@ -9,7 +9,9 @@ database = "./app/db.sqlite3"
 
 # Start Connection to database (To be called only when executing a statement)
 def dbConnect():
-	return sqlite3.connect(database)
+	conn = sqlite3.connect(database)
+	conn.execute("PRAGMA foreign_keys = 1")
+	return conn
 
 # Close connection to database (To be called after statement execution is over)
 def dbDisconnect(connection):

@@ -1,4 +1,4 @@
-from ...dbConfig import dbConnect, dbDisconnect
+from ..dbConfig import dbConnect, dbDisconnect
 
 class InfectedPeople:
 	def __init__(self, id=None):
@@ -105,5 +105,29 @@ class InfectedPeople:
 
 		# If infected return True
 		return True
-
 	
+	def getLastInfectedDate(self, NRIC):
+		"""
+			Returns the date as a string
+			Returns None if no date is found
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Select location history within past __ of days based on NRIC
+		results = db.execute("""SELECT infected_on
+								FROM infected_people
+							   	WHERE NRIC = (?)
+								ORDER BY infected_on DESC""", 
+							(NRIC, )).fetchone()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# If no data is retreieved
+		if results is None:
+			return results
+		
+		# Return the retrieved date
+		return results[0]

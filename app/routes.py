@@ -21,6 +21,7 @@ from .boundary.HealthStaffUser_SendAlertPublicUI import HealthStaffUser_SendAler
 from .boundary.HealthStaffUser_SendAlertBusinessUI import HealthStaffUser_SendAlertBusinessUI
 from .boundary.HealthStaffUser_ViewVaccineStatusUI import HealthStaffUser_ViewVaccineStatusUI
 from .boundary.HealthStaffUser_UpdateVaccinationUI import HealthStaffUser_UpdateVaccinationUI
+from .boundary.HealthStaffUser_GenerateContactTracingReportUI import HealthStaffUser_GenerateContactTracingReportUI
 
 # Boundary for Business Staff
 from .boundary.BusinessUser_ViewAlertUI import BusinessUser_ViewAlertUI
@@ -32,8 +33,8 @@ from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserU
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
 from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
-from .boundary.OrganisationUser_ViewVaccinationStatusReportUI import OrganisationUser_ViewVaccinationStatusReportUI
-from .boundary.OrganisationUser_ViewInfectionReportUI import OrganisationUser_ViewInfectionReportUI
+from .boundary.OrganisationUser_GenerateVaccinationStatusReportUI import OrganisationUser_GenerateVaccinationStatusReportUI
+from .boundary.OrganisationUser_GenerateInfectionReportUI import OrganisationUser_GenerateInfectionReportUI
 
 
 # -----------------------------------------------------
@@ -372,7 +373,31 @@ def UpdateVaccinationPage():
 	# If successful at updating vaccination status
 	return healthStaffUser_UpdateVaccinationBoundary.displaySuccess()
 	
-				
+@app.route('/contact_tracing', methods=['GET', 'POST'])
+@loginRequired
+def contactTracingPage():
+	# Initialise Boundary Object
+	healthStaffUser_GenerateContactTracingReportBoundary = HealthStaffUser_GenerateContactTracingReportUI()
+
+	# If user is requesting the page
+	if request.method == 'GET':
+		# Display the requested page
+		return healthStaffUser_GenerateContactTracingReportBoundary.displayPage()
+
+	if request.method == 'POST':
+		# Get form details
+		date = request.form['date'].strip()
+
+		# Get submit response 
+		response = healthStaffUser_GenerateContactTracingReportBoundary.onSubmit(date)
+
+		# Display Error if any
+		if response != healthStaffUser_GenerateContactTracingReportBoundary.RESPONSE_SUCCESS:
+			return healthStaffUser_GenerateContactTracingReportBoundary.displayError(response)
+
+		# Display Success
+		return healthStaffUser_GenerateContactTracingReportBoundary.displaySuccess()			
+
 # -----------------------------------------------------
 #                   Business User Pages
 # -----------------------------------------------------
@@ -537,21 +562,21 @@ def SuspendUserAccount():
 @loginRequired
 def ViewVaccinationStatusReport():
 	# Create boundary object
-	organisationUser_ViewVaccinationStatusReportBoundary = OrganisationUser_ViewVaccinationStatusReportUI()
-	return organisationUser_ViewVaccinationStatusReportBoundary.displayPage()
+	organisationUser_generateVaccinationStatusReportBoundary = OrganisationUser_GenerateVaccinationStatusReportUI()
+	return organisationUser_generateVaccinationStatusReportBoundary.displayPage()
 
 @app.route('/view_infection_report', methods=['GET', 'POST'])
 @loginRequired
 def viewStatisticReport():
 
 	# Initialise OrganisationUser_SuspendUserAccountUI Object
-	organisationUser_viewInfectionReportBoundary = OrganisationUser_ViewInfectionReportUI()
+	organisationUser_generateInfectionReportBoundary = OrganisationUser_GenerateInfectionReportUI()
 
 	if request.method == 'GET':
 		# Display the requested page
-		return organisationUser_viewInfectionReportBoundary.displayPage()
+		return organisationUser_generateInfectionReportBoundary.displayPage()
 
 	if request.method == 'POST':
 		# Display the requested page
 		days_ago = int(request.form['days_ago'])
-		return organisationUser_viewInfectionReportBoundary.getAffectedLocation(days_ago)
+		return organisationUser_generateInfectionReportBoundary.getAffectedLocation(days_ago)

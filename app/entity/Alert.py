@@ -1,4 +1,4 @@
-from ...dbConfig import dbConnect, dbDisconnect
+from ..dbConfig import dbConnect, dbDisconnect
 from datetime import datetime
 
 class Alert:
@@ -73,6 +73,13 @@ class Alert:
 		Adds a new alert into the database
 		Returns true if successfully added to database
 		"""
+		
+		# Perform checks on values
+		if (sentBy is None or len(str(sentBy.strip())) == 0) or \
+			(alertType is None or len(str(alertType).strip()) == 0) or \
+			(recipient is None or len(str(recipient).strip()) == 0) or \
+			(message is None or len(str(message).strip()) == 0):
+			return False
 
 		# Connect to database
 		connection = dbConnect()
