@@ -1,12 +1,15 @@
 from flask import render_template, session, redirect, request, flash
+import re
 from ..controllers.OrganisationUser_CreateUserController import OrganisationUser_CreateUserController
 
 class OrganisationUser_CreateUserUI:
 	# Empty Constructor
 	def __init__(self):
 		self.RESULT_SUCCESS = "Success"
+		self.RESULT_FAILURE_INVALID_NRIC = "An invalid NRIC was provided"
+		self.RESULT_FAILURE_INVALID_NAME = "Name contain invalid character and start with an uppercase alphabet"
 		self.RESULT_FAILURE_EMPTY_FIELD = "Fields cannot be empty"
-		self.RESULT_FAILURE_MOBILE_LENGTH = "Mobile number must be 8 digits"
+		self.RESULT_FAILURE_MOBILE_LENGTH = "Mobile number is invalid or not 8 digits"
 		self.RESULT_FAILURE_PASSWORD_MISMATCH = "Password fields no not match"
 		self.RESULT_FAILURE_DUPLICATE_VALUE = "{}({}) already exists"
 		self.RESULT_FAILURE_NONEXISTENT_VALUE = "{}({}) not does exist"
@@ -38,8 +41,18 @@ class OrganisationUser_CreateUserUI:
 
 			return self.RESULT_FAILURE_EMPTY_FIELD
 
+		# Check if NRIC is starts with S or T and has 3 digits after
+		if not re.search('^[S|T][0-9]{4}$', NRIC.upper()):
+			return self.RESULT_FAILURE_INVALID_NRIC
+
+		# Check first name, middle name, and last name
+		if not re.search('^[A-Z][a-z]+$', firstName) or \
+			not re.search('^[A-Z][a-z]+$', middleName) or \
+			not re.search('^[A-Z][a-z]+$', lastName):
+			return self.RESULT_FAILURE_INVALID_NAME
+
 		# Check if mobile number is 8 characters
-		if len(str(mobile)) != 8:
+		if re.search('^[8|9][0-9]{7}$', mobile):
 			return self.RESULT_FAILURE_MOBILE_LENGTH
 
 		# Check if passwords match
@@ -75,7 +88,7 @@ class OrganisationUser_CreateUserUI:
 			if businessID == -1:
 				return self.RESULT_FAILURE_NONEXISTENT_VALUE.format('Business Name', businessName)
 
-			if controller.addNewBusinessUser(NRIC, firstName, middleName, lastName, 
+			if controller.addNewBusinessUser(NRIC.upper(), firstName, middleName, lastName, 
 											gender, mobile, password, businessID):
 				return self.RESULT_SUCCESS
 			
