@@ -29,7 +29,8 @@ class OrganisationUser_UpdateUserAccountUI:
         organisations = controller.getOrganisationNames()
 
         # Render the web page
-        return render_template('organisationUser_updateUserAccount.html', userInfo=userInfo,
+        return render_template('organisationUser_updateUserAccount.html', userType=userType,
+																		  userInfo=userInfo,
                                                                           businesses=businesses,
                                                                           organisations=organisations)
 
