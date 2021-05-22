@@ -10,7 +10,7 @@ class OrganisationUser_CreateUserUI:
 		self.RESULT_FAILURE_INVALID_NAME = "Name contain invalid character and start with an uppercase alphabet"
 		self.RESULT_FAILURE_EMPTY_FIELD = "Fields cannot be empty"
 		self.RESULT_FAILURE_MOBILE_LENGTH = "Mobile number is invalid or not 8 digits"
-		self.RESULT_FAILURE_PASSWORD_MISMATCH = "Password fields no not match"
+		self.RESULT_FAILURE_PASSWORD_MISMATCH = "Password fields do not match"
 		self.RESULT_FAILURE_INVALID_LICENSE = "License should be 8 characters"
 		self.RESULT_FAILURE_DUPLICATE_VALUE = "{}({}) already exists"
 		self.RESULT_FAILURE_NONEXISTENT_VALUE = "{}({}) not does exist"
