@@ -33,7 +33,7 @@ from .boundary.OrganisationUser_CreateUserUI import OrganisationUser_CreateUserU
 from .boundary.OrganisationUser_ViewUserAccountUI import OrganisationUser_ViewUserAccountUI
 from .boundary.OrganisationUser_UpdateUserAccountUI import OrganisationUser_UpdateUserAccountUI
 from .boundary.OrganisationUser_SuspendUserAccountUI import OrganisationUser_SuspendUserAccountUI
-from .boundary.OrganisationUser_ViewVaccinationStatusReportUI import OrganisationUser_ViewVaccinationStatusReportUI
+from .boundary.OrganisationUser_GenerateVaccinationStatusReportUI import OrganisationUser_GenerateVaccinationStatusReportUI
 from .boundary.OrganisationUser_ViewInfectionReportUI import OrganisationUser_ViewInfectionReportUI
 
 
@@ -562,8 +562,8 @@ def SuspendUserAccount():
 @loginRequired
 def ViewVaccinationStatusReport():
 	# Create boundary object
-	organisationUser_ViewVaccinationStatusReportBoundary = OrganisationUser_ViewVaccinationStatusReportUI()
-	return organisationUser_ViewVaccinationStatusReportBoundary.displayPage()
+	organisationUser_generateVaccinationStatusReportBoundary = OrganisationUser_GenerateVaccinationStatusReportUI()
+	return organisationUser_generateVaccinationStatusReportBoundary.displayPage()
 
 @app.route('/view_infection_report', methods=['GET', 'POST'])
 @loginRequired
