@@ -5,7 +5,7 @@ from operator import itemgetter
 # import itertools
 
 
-class HealthStaffUser_ContactTracingController:
+class HealthStaffUser_GenerateContactTracingReportController:
 	def __init__(self):
 		self.INFECTION_TIME = 14 	# Considered as infected for _ days
 

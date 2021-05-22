@@ -1,7 +1,7 @@
 from flask import session, render_template, redirect, jsonify
-from ..controllers.OrganisationUser_ViewInfectionReportController import OrganisationUser_ViewInfectionReportController
+from ..controllers.OrganisationUser_GenerateInfectionReportController import OrganisationUser_GenerateInfectionReportController
 
-class OrganisationUser_ViewInfectionReportUI:
+class OrganisationUser_GenerateInfectionReportUI:
 	def __init__(self):
 		pass
 
@@ -15,10 +15,10 @@ class OrganisationUser_ViewInfectionReportUI:
 			flash("Unauthorised to access this content", 'error')
 			return redirect('/')
 
-		controller = OrganisationUser_ViewInfectionReportController()
+		controller = OrganisationUser_GenerateInfectionReportController()
 
-		return render_template('organisationUser_viewInfectionReport.html', userType = session['userType'],
-																			dailyInfectionNumbers = controller.get2WeekInfectionCount())
+		return render_template('organisationUser_generateInfectionReport.html', userType = session['userType'],
+																				dailyInfectionNumbers = controller.get2WeekInfectionCount())
 
 	def getAffectedLocation(self, days_ago):
 		"""
@@ -26,7 +26,7 @@ class OrganisationUser_ViewInfectionReportUI:
 		Return the result in as a string in JSON format
 		"""
 		# Create Controller Object
-		controller = OrganisationUser_ViewInfectionReportController()
+		controller = OrganisationUser_GenerateInfectionReportController()
 
 		# Get all infected on X days ago
 		infectedPeopleArray = controller.getInfectedPeople(days_ago)

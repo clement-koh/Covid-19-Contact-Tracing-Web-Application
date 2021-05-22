@@ -2,7 +2,7 @@ from ..entity.InfectedPeople import InfectedPeople
 from ..entity.Location import Location
 from ..entity.LocationHistory import LocationHistory
 
-class OrganisationUser_ViewInfectionReportController:
+class OrganisationUser_GenerateInfectionReportController:
 	# Empty Constructor
 	def __init__(self):
 		self.INFECTION_TIME = 14  #No of days to be considered as infected
