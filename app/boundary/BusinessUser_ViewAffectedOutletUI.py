@@ -30,7 +30,6 @@ class BusinessUser_ViewAffectedOutletUI:
 
 		# Get the results for the past 14 days by providing the array
 		results = controller.getBusinessInfectedRecord(locationIDArray)
-		print(results)
 
 		# Render the webpage
 		return render_template('business_viewAffectedOutlet.html', userType=currentUserType,

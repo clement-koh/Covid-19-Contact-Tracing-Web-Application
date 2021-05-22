@@ -1,4 +1,5 @@
 from flask import render_template, redirect, session, flash
+import re
 from ..controllers.User_UpdateContactController import User_UpdateContactController
 
 class User_UpdateContactUI:
@@ -39,7 +40,7 @@ class User_UpdateContactUI:
 		controller = User_UpdateContactController()
 		
 		# Check if mobile is empty or less than 8 characters
-		if mobile is None or len(str(mobile)) != 8:
+		if not re.search('^[8|9][0-9]{7}$', mobile):
 			return False
 
 		# Calls the controller to update the user's mobile number

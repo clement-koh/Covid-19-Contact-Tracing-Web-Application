@@ -1,5 +1,7 @@
 $(document).ready(function () {
 	// display data for the line graph
+	$(".loader").hide();
+	$("#noOfCases").hide();
 	var xValues = getBiweeklyDate();
 	var yValues = dailyInfectionCount;
 
@@ -93,8 +95,6 @@ function viewDetailedReport() {
 	// disable button
 	document.getElementById("viewChart").disabled = false;
 	document.getElementById("viewDetailedReport").disabled = true;
-
-	showDetailedReport();
 }
 
 // display detailed report table
@@ -107,20 +107,22 @@ function showDetailedReport() {
 	// disable page refresh on submit
 	function handleForm(event) {
 		event.preventDefault();
+		
+		// change table date to the selected date
+		if (selectedDate.value != "") {
+			var date = new Date(selectedDate.value);
+			loadContent(date);
+			$("#noOfCases").show();
+			var format = date.toLocaleDateString("default", {
+				day: "2-digit",
+				month: "short",
+				year: "numeric"
+			});
+			changeDate.innerHTML = format;
+			
+		}
 	}
 	form.addEventListener("submit", handleForm);
-
-	// change table date to the selected date
-	if (selectedDate.value != "") {
-		var date = new Date(selectedDate.value);
-		loadContent(date);
-		var format = date.toLocaleDateString("default", {
-			day: "2-digit",
-			month: "short",
-			year: "numeric"
-		});
-		changeDate.innerHTML = format;
-	}
 }
 
 function loadContent(selectedDate) {
@@ -130,7 +132,7 @@ function loadContent(selectedDate) {
 	const diffTime = Math.abs(today.getTime() - selectedDate.getTime());
 	const days_ago = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-	console.log(days_ago);
+	$(".loader").show();
 
 	// Async Ajax call to fetch data
 	$.ajax({
@@ -141,9 +143,8 @@ function loadContent(selectedDate) {
 		type: "POST",
 		url: "/view_infection_report"
 	}).done(function (data) {
-		console.log(data);
 		showData(data);
-		// document.getElementById("dataTable").innerHTML += generateBlock(data);
+		$(".loader").hide();
 	});
 }
 

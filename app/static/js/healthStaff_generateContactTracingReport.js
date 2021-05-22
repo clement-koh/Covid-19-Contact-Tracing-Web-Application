@@ -1,5 +1,9 @@
 window.addEventListener('load', function (){
    	setDate();
+	$(".loader").hide();
+	$("#submit").click(function() {
+		$(".loader").show();
+	})
 });
 
 // block out date selections to only 14 days including current day

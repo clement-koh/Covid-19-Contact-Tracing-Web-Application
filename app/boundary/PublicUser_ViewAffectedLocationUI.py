@@ -1,4 +1,4 @@
-from flask import session, render_template, jsonify
+from flask import session, render_template, jsonify, flash
 from ..controllers.PublicUser_ViewAffectedLocationController import PublicUser_ViewAffectedLocationController
 from datetime import datetime, timedelta
 
