@@ -77,7 +77,7 @@ class VaccinationStatus:
 		now = datetime.now() 
 
 		#format current date and time
-		current_dateTime = now.strftime("%m/%d/%Y, %H:%M:%S")
+		current_dateTime = now.strftime("%d/%m/%Y, %H:%M:%S")
 
 		# Set dateTime for first shot and second shot
 		firstShotDate = None
