@@ -89,7 +89,7 @@ class OrganisationUser_UpdateUserAccountUI:
 			return self.RESULT_FAILURE_PASSWORD_MISMATCH
 
 		# Check if license number is valid
-		if (accountType == accountTypes[1]):
+		if (accountType == accountTypes[2]):
 			if (len(licenseNo) != 8):
 				return self.RESULT_FAILURE_INVALID_LICENSE
 		
