@@ -2,7 +2,7 @@ from ..entity.LocationHistory import LocationHistory
 from ..entity.Location import Location
 from datetime import datetime
 
-class PublicUser_LocationHistoryController:
+class PublicUser_ViewLocationHistoryController:
 	# Constructor
 	def __init__(self):
 		""" 
@@ -30,8 +30,7 @@ class PublicUser_LocationHistoryController:
 		
 		# Returns the result of the query
 		results = self.__locationHistory.getPastLocationHistory(NRIC, self.HISTORY_NUMBER_OF_DAYS)
-
-
+		
 		# Create an empty array
 		locationHistory = []
 
@@ -47,7 +46,7 @@ class PublicUser_LocationHistoryController:
 				record = {}
 
 				# Records the location name
-				record['locationName'] = self.getLocationName(result[2])
+				record['locationName'] = self.__location.getLocationNameFromID(result[2])
 				
 				# Gets the date
 				record['date'] = checkInTime.strftime('%d %b %Y') 
@@ -62,18 +61,3 @@ class PublicUser_LocationHistoryController:
 				locationHistory.append(record)
 
 		return locationHistory
-
-
-
-
-
-
-
-	def getLocationName(self, id):
-		"""
-		Returns a string
-		Converts the id of a location to the name of a location
-		"""
-		return self.__location.getLocationNameFromID(id)
-
-

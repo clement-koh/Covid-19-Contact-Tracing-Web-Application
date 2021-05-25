@@ -1,5 +1,5 @@
 from flask import render_template, session, redirect, flash
-from ..controllers.PublicUser_LocationHistoryController import PublicUser_LocationHistoryController
+from ..controllers.PublicUser_ViewLocationHistoryController import PublicUser_ViewLocationHistoryController
 from datetime import datetime
 
 
@@ -18,15 +18,10 @@ class PublicUser_LocationHistoryUI:
 			return redirect('/')
 
 		# Create Public User's Location History controller for the current user
-		controller = PublicUser_LocationHistoryController()
-
-
-
+		controller = PublicUser_ViewLocationHistoryController()
 
 		# Get the details for the current User
 		locationHistory = controller.getLocationHistory(session['user'])
-
-		
 
 		# Displays the webpage with formatted data
 		return render_template('public_viewLocationHistory.html', userType=session['userType'],
