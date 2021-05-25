@@ -1,9 +1,7 @@
 from ..entity.User import User
 from ..entity.InfectedPeople import InfectedPeople
 import datetime
-import math
 from operator import itemgetter
-# import itertools
 
 
 class HealthStaffUser_GenerateContactTracingReportController:
