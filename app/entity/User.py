@@ -180,6 +180,35 @@ class User:
 		return False
 	
 	# Other Methods
+	def verifyUser(self,NRIC):
+		""" 
+		Verify the user against retrieved data from database
+		Returns True if verified successfully
+		Returns False if verification does not match
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# If the NRIC is provided, fill the object with details from database
+		hasResult = False
+		if NRIC is not None:
+			# Select User from database and populate instance variables
+			result = db.execute("""SELECT NRIC, password, firstName,
+										middleName, lastName, mobile, gender,
+										accountActive, accountType
+								FROM user 
+								WHERE NRIC = (?)""", (NRIC,)).fetchone()
+
+			# If a result is returned, populate object with data
+			if result is not None:
+				hasResult = True
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		return hasResult
+
 	def verifyLoginDetails(self, NRIC, password):
 		""" 
 		Verify the login details against retrieved data from database
@@ -197,6 +226,52 @@ class User:
 		Returns False if verification does not match
 		"""
 		return self.__password == password
+
+	def getFullUserData(self,NRIC):
+		""" 
+		Returns a string array containing the following information.
+
+		[0] - NRIC, 
+		[1] - First Name, 
+		[2] - Middle Name, 
+		[3] - Last Name, 
+		[4] - Gender, 
+		[5] - Mobile Number,
+		[6] - accountActive, 
+		[7] - accountType
+
+		"""
+
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+
+		# Select User from database and populate instance variables
+		results = db.execute("""SELECT NRIC, password, firstName,
+								middleName, lastName, mobile, gender,
+								accountActive, accountType
+								FROM user 
+								WHERE NRIC = (?)""", (NRIC,)).fetchone()
+
+
+		userInfo = []
+		userInfo.append(results[0])
+		userInfo.append(results[1])
+		userInfo.append(results[2])
+		userInfo.append(results[3])
+		userInfo.append(results[4])
+		userInfo.append(results[5])
+		userInfo.append(results[6])
+		userInfo.append(results[7])
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		return userInfo
+		
+
+		
 
 	def addNewUser(self, NRIC, firstName, middleName,
 					lastName, gender, mobile, password,
