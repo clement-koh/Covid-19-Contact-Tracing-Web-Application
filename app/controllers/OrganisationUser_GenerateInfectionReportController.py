@@ -38,38 +38,32 @@ class OrganisationUser_GenerateInfectionReportController:
 	#				Affected Location Detail
 	# -------------------------------------------------
 
-	def getInfectedPeople(self, days_ago):
+	def getInfectionData(self, days_ago):
 		""" 
 		Returns a string array
 		Takes in an input to returns an array of infected people's NRIC ___ days ago
-		"""
-		return self.__infectedPeople.getInfectedPeople(days_ago,self.INFECTION_TIME)
 
-	def getVisitedLocation(self, days_ago, people):
-		""" 
-		Takes in a array of NRIC and 
-		returns an array of int containing locationID visited by everyone in the array
+		Takes in an input to return an array of:
+		[0]: The number of infected people ___ days ago
+		[1]: An array of location names that were visited by infected people
 		"""
-		allLocation = []
+		infectedPeople = self.__infectedPeople.getInfectedPeople(days_ago,self.INFECTION_TIME)
+		
+		# Array of location ID
+		visitedLocations = []
 
 		# Combine all location for all people
-		for user in people:
-			allLocation += self.__locationHistory.getLocationHistoryOn(user, days_ago)
+		for person in infectedPeople:
+			visitedLocations += self.__locationHistory.getLocationHistoryOn(person, days_ago)
 
-		# Return an array of location ID
-		return allLocation
-
-	def getLocationName(self, idArray):
-		""" 
-		Takes in a array of location id and 
-		returns an string array of location name
-		"""
-		allLocation = []
+		# Array of location names
+		locationNamesTemp = []
 
 		# Combine all location names
-		for id in idArray:
-			allLocation.append(self.__location.getLocationNameFromID(id))
+		for id in visitedLocations:
+			locationNamesTemp.append(self.__location.getLocationNameFromID(id))
 
-		# Return an array of location name
-		return sorted(allLocation)
+		# Sort the location name array
+		locationNames = sorted(locationNamesTemp)
 
+		return [len(infectedPeople), locationNames]

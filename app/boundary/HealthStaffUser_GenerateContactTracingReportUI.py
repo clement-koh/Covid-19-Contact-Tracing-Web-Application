@@ -54,11 +54,8 @@ class HealthStaffUser_GenerateContactTracingReportUI:
 			flash("Unauthorised to access this content", 'error')
 			return redirect('/')
 
-		# get list of nric of infected people for last 14 days 
-		NRICList = self.__controller.getInfectedPeopleNRIC(self.__date)
-		
-		# get the patient's details
-		patientDetails = self.__controller.getPatientDetails(NRICList)
+		# Get the details of the infected people
+		patientDetails = self.__controller.getInfectedPeopleDetails(self.__date)
 
 		# Render the page with patient's details
 		return render_template('healthStaff_generateContactTracingReport.html', userType=userType,
