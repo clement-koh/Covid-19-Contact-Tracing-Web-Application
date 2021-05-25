@@ -1,6 +1,7 @@
 from ..entity.User import User
 from ..entity.InfectedPeople import InfectedPeople
 import datetime
+import math
 from operator import itemgetter
 # import itertools
 
@@ -35,7 +36,7 @@ class HealthStaffUser_GenerateContactTracingReportController:
 
 		# return list of unique NRIC
 		NRICList = list(set(tempNRICList))
-    
+	
 		result = []
 
 		for NRIC in NRICList:
@@ -51,13 +52,16 @@ class HealthStaffUser_GenerateContactTracingReportController:
 			infectedOnDateTime = datetime.datetime.strptime(infectedOnString, '%Y-%m-%d %H:%M:%S')
 			infectedOnFormatted = infectedOnDateTime.strftime("%d/%m/%Y")
 
+			# Get user details
+			userDetails = tempUser.getFullUserData(NRIC)
+
 			# Append data to array
 			userInfo.append(NRIC)
-			userInfo.append(tempUser.getFirstName())
-			userInfo.append(tempUser.getMiddleName())
-			userInfo.append(tempUser.getLastName())
-			userInfo.append(tempUser.getMobile())
-			userInfo.append(tempUser.getGender())
+			userInfo.append(userDetails[2])
+			userInfo.append(userDetails[3])
+			userInfo.append(userDetails[4])
+			userInfo.append(userDetails[6])
+			userInfo.append(userDetails[5])
 			userInfo.append(infectedOnFormatted)
 
 			result.append(userInfo)
