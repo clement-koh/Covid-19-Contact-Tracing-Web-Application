@@ -39,23 +39,23 @@
 		<tr>
 			<td>{{ userDetails[0] }}</td>
 			<td>
-				{{ userDetails[1] }}
 				{{ userDetails[2] }}
-				{{ userDetails[3] }} 
+				{{ userDetails[3] }}
+				{{ userDetails[4] }} 
 			</td>
-			<td>{{ userDetails[4] }}</td>
 			<td>{{ userDetails[5] }}</td>
-			<td>{{ userDetails[6] }}</td>
+			<td>{{ userDetails[8] }}</td>
+			<td>{{ userDetails[7] }}</td>
 			<td>
 				<!-- Suspend/Unsuspend User Account -->
 				<button type="button" class="btn btn-danger" id="accStatusBtn" data-toggle="modal" data-target="#exampleModalCenter">
 					<span id="accStatus">
 
-					{% if userDetails[6] == 'Suspended' %} 
+					{% if userDetails[7] == 'Suspended' %} 
 					Unsuspend
 					{% endif %}
 
-					{% if userDetails[6] == 'Active' %} 
+					{% if userDetails[7] == 'Active' %} 
 					Suspend
 					{% endif %}
 					</span>
