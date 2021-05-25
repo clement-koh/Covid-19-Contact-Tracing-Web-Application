@@ -5,17 +5,7 @@ class User_ChangePasswordController:
 	def __init__(self):
 		pass
 
-	def validatePassword(self, NRIC, password):
-		"""
-		Returns a True if password is corrct
-		"""
-		# Create a user object containing details of the NRIC owner
-		user = User(NRIC)
-
-		# Verify if the password is correct
-		return user.verifyPassword(password)
-
-	def updatePassword(self, NRIC, password):
+	def updatePassword(self, NRIC, old_pw, new_pw):
 		"""
 		Updates the mobile number of the user.
 		Returns True if successfully updated.
@@ -26,4 +16,4 @@ class User_ChangePasswordController:
 		user = User(NRIC)
 
 		# Update the password of the user
-		return user.updatePassword(password)
+		return user.updatePassword(old_pw, new_pw)

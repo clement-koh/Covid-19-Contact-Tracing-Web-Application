@@ -1,5 +1,6 @@
 from ..entity.VaccinationStatus import VaccinationStatus
 from ..entity.User import User
+from datetime import datetime
 
 class PublicUser_ViewVaccineCertificateController:
     def __init__(self):
@@ -14,6 +15,7 @@ class PublicUser_ViewVaccineCertificateController:
         [2] First shot date
         [3] Second shot date
         """
+		# Get the vaccination details of the user
 
         # Creates a User object
         user = User(NRIC)
@@ -30,5 +32,13 @@ class PublicUser_ViewVaccineCertificateController:
         vaccinationDetails.append(vaccinationStatus.getVaccinationStatus())
         vaccinationDetails.append(vaccinationStatus.getFirstShotDate())
         vaccinationDetails.append(vaccinationStatus.getSecondShotDate())
+		
+        if vaccinationDetails[2] is not None:
+            vaccinationDetails[2] = datetime.strptime(vaccinationDetails[2], '%d/%m/%Y, %H:%M:%S')
+            vaccinationDetails[2] = vaccinationDetails[2].strftime('%d %b %Y')
+		
+        if vaccinationDetails[3] is not None:
+            vaccinationDetails[3] = datetime.strptime(vaccinationDetails[3], '%d/%m/%Y, %H:%M:%S')
+            vaccinationDetails[3] = vaccinationDetails[3].strftime('%d %b %Y')
 
         return vaccinationDetails

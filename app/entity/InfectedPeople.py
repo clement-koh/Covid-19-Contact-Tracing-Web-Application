@@ -54,11 +54,12 @@ class InfectedPeople:
 		latestdate = "-{} days".format(noOfDaysAgo)
 		earliestDate = "-{} days".format(noOfDaysAgo + infection_time)
 
+
 		# Select location history within past __ of days based on NRIC
 		results = db.execute("""SELECT DISTINCT NRIC
 							   FROM infected_people
 							   WHERE date(infected_on) >= strftime('%Y-%m-%d', date(date('now','localtime')), (?)) AND
-							   		 date(infected_on) < strftime('%Y-%m-%d', date(date('now','localtime')), (?))""", 
+							   		 date(infected_on) <= strftime('%Y-%m-%d', date(date('now','localtime')), (?))""", 
 							(earliestDate, latestdate)).fetchall()
 
 		# Disconnect from database
@@ -92,7 +93,7 @@ class InfectedPeople:
 								FROM infected_people
 							   	WHERE NRIC = (?) AND
 							   		  date(infected_on) >= strftime('%Y-%m-%d', date(date('now','localtime')), (?)) AND
-							   		  date(infected_on) < strftime('%Y-%m-%d', date(date('now','localtime')), (?))""", 
+							   		  date(infected_on) <= strftime('%Y-%m-%d', date(date('now','localtime')), (?))""", 
 							(NRIC, earliestDate, latestdate)).fetchone()
 
 		# Disconnect from database
