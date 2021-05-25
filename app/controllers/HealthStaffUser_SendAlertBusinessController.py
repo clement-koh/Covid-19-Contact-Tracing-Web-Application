@@ -30,7 +30,7 @@ class HealthStaffUser_SendAlertBusinessController:
 			if businessName == name:
 				validationCode = 0
 		
-		# Check if business name does not exist
+		# If business name does not exist
 		if validationCode == -1:
 			return validationCode
 
