@@ -9,35 +9,12 @@ class HealthStaffUser_ViewPatientDetailsController:
 			Returns True if patient exists
 		"""
 		# Creates a user object
-		user = User(NRIC)
-
-		# Returns True if patient exists
-		if user.getNRIC() is None:
-			return False
-		return True
+		user = User()
+		return user.verifyUser(NRIC)
 
 	def getPatientDetails(self, NRIC):
 		""" 
-		Returns a string array containing the following information.
+		Returns a string array containing all the User Details
 
-		[0] - NRIC, 
-		[1] - First Name, 
-		[2] - Middle Name, 
-		[3] - Last Name, 
-		[4] - Gender, 
-		[5] - Mobile Number, 
 		"""
-
-		# Creates a user object
-		user = User(NRIC)
-		
-		# Returns all details in an array
-		userInfo = []
-		userInfo.append(NRIC)
-		userInfo.append(user.getFirstName())
-		userInfo.append(user.getMiddleName())
-		userInfo.append(user.getLastName())
-		userInfo.append(user.getGender())
-		userInfo.append(user.getMobile())
-		
-		return userInfo
+		return User().getFullUserData(NRIC)
