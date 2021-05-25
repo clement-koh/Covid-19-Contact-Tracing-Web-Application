@@ -159,7 +159,7 @@ def settingsPage():
 			error_message = "New Password and Confirm New Password does not match"
 			return user_changePasswordBoundary.displayError(message=error_message)
 
-		# If unsuccessful at updating
+		# If unsuccessful at compare old password and updating
 		if not user_changePasswordBoundary.onSubmit(oldPassword, newPassword):
 			error_message = "Current Password is incorrect" 
 			return user_changePasswordBoundary.displayError(message=error_message)
