@@ -40,7 +40,6 @@ class HealthStaffUser_SendAlertBusinessUI:
 		Else return a success response
 		"""
 		validationCode = self.__controller.sendAlert(businessName, message, session['user'])
-		print(validationCode)
 
 		# Check if input values are empty
 		if businessName is None or len(businessName) == 0 or message is None or len(message) == 0:
