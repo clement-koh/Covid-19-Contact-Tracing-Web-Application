@@ -194,17 +194,17 @@ class User:
 		connection = dbConnect()
 		db = connection.cursor()
 
-		# If the NRIC is provided, fill the object with details from database
+		
 		hasResult = False
 		if NRIC is not None:
-			# Select User from database and populate instance variables
+			# Select User from database
 			result = db.execute("""SELECT NRIC, password, firstName,
 										middleName, lastName, mobile, gender,
 										accountActive, accountType
 								FROM user 
 								WHERE NRIC = (?)""", (NRIC,)).fetchone()
 
-			# If a result is returned, populate object with data
+			
 			if result is not None:
 				hasResult = True
 
@@ -235,14 +235,15 @@ class User:
 		""" 
 		Returns a string array containing the following information.
 
-		[0] - NRIC, 
-		[1] - First Name, 
-		[2] - Middle Name, 
-		[3] - Last Name, 
-		[4] - Gender, 
-		[5] - Mobile Number,
-		[6] - accountActive, 
-		[7] - accountType
+		[0] - NRIC,
+		[1] - Password, 
+		[2] - First Name, 
+		[3] - Middle Name, 
+		[4] - Last Name, 
+		[5] - Gender, 
+		[6] - Mobile Number,
+		[7] - AccountActive, 
+		[8] - AccountType
 
 		"""
 
@@ -251,7 +252,7 @@ class User:
 		db = connection.cursor()
 
 
-		# Select User from database and populate instance variables
+		# Select User from database
 		results = db.execute("""SELECT NRIC, password, firstName,
 								middleName, lastName, mobile, gender,
 								accountActive, accountType
@@ -267,7 +268,18 @@ class User:
 		userInfo.append(results[4])
 		userInfo.append(results[5])
 		userInfo.append(results[6])
-		userInfo.append(results[7])
+
+		# Local variable
+		accountStatus = None
+		
+		# Returns account status
+		if results[7]:
+			accountStatus = "Active"
+		else:
+			accountStatus = "Suspended"
+		
+		userInfo.append(accountStatus)
+		userInfo.append(results[8])
 
 		# Disconnect from database
 		dbDisconnect(connection)

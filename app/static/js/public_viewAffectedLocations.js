@@ -9,11 +9,11 @@ count = 0;
 function generateBlock(data) {
 
 	// Create a HTML block to be displayed
-	var block = "<b><i>Visited Areas for " + data.date + "</i></b><p>" + 
-				`There are a total of ${data.no_of_cases} active cases in the community. <br />`;
+	var block = "<b><i>Visited Areas for " + data[0] + "</i></b><p>" + 
+				`There are a total of ${data[1]} active cases in the community. <br />`;
 
 	// Adds message based on number of location affected
-	if (Number(data.locations.length) > 0) {
+	if (Number(data[2].length) > 0) {
 		block += "Below are the locations that have been visited.\
 					Please take the necessary precaution when frequenting these locations";
 	} else {
@@ -22,8 +22,8 @@ function generateBlock(data) {
 	block += "</p><ol>";
 	
 	// Adds all affected location in the block
-	for (var location in data.locations) {
-		block += `<li> ${data.locations[location]} </li>`;
+	for (var i = 0; i < data[2].length; i++) {
+		block += `<li> ${data[2][i]} </li>`;
 	}
 	block += "</ol><hr/>";
 

@@ -8,9 +8,7 @@ class HealthStaffUser_ViewPatientDetailsController:
 		"""
 			Returns True if patient exists
 		"""
-		# Creates a user object
-		user = User()
-		return user.verifyUser(NRIC)
+		return User().verifyUser(NRIC)
 
 	def getPatientDetails(self, NRIC):
 		""" 
