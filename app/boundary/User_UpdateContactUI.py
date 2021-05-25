@@ -16,17 +16,12 @@ class User_UpdateContactUI:
 		controller = User_UpdateContactController()
 		
 		NRIC = session['user']
-		firstName = controller.getUserFirstName(NRIC)
-		middleName = controller.getUserMiddleName(NRIC)
-		lastName = controller.getUserLastName(NRIC)
-		mobile = controller.getUserMobile(NRIC)
+
+		#get user detail in array
+		data = controller.getPatientDetails(NRIC)
 		
 		return render_template('general_updateContactDetails.html', userType=session['userType'],
-																	firstName=firstName,
-																	middleName=middleName,
-																	lastName=lastName,
-																	NRIC=NRIC,
-																	mobile=mobile)
+																	data = data)
 
 
 	def onSubmit(self, mobile):

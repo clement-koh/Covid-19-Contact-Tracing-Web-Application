@@ -15,29 +15,31 @@
 
 <!-- Main Content of the Page -->
 {% block contentBody %}
+	{% if data %}
 	<form action='/update_contact' method='POST'>
 		<!-- First Name -->
 		<label>First Name :</label>
-		<input type="text" placeholder="{{firstName}}" disabled><br/>
+		<input type="text" placeholder="{{ data[1] }}" disabled><br/>
 
 		<!-- Middle Name -->
 		<label>Middle Name :</label>
-		<input type="text" placeholder="{{middleName}}" disabled><br/>
+		<input type="text" placeholder="{{ data[2] }}" disabled><br/>
 
 		<!-- Last Name -->
 		<label>Last Name :</label>
-		<input type="text" placeholder="{{lastName}}" disabled><br/>
+		<input type="text" placeholder="{{ data[3] }}" disabled><br/>
 
 		<!-- NRIC -->
 		<label>NRIC :</label>
-		<input type="text" placeholder="{{NRIC}}" disabled><br/>
+		<input type="text" placeholder="{{ data[0] }}" disabled><br/>
 
 		<!-- Contact Number -->
 		<label>Contact Number :</label>
-		<input name="mobile" type="number" id="current_contact" value="{{mobile}}"><br/>
+		<input name="mobile" type="number" id="current_contact" value="{{ data[5] }}"><br/>
 		<br/><br/>
 		
 		<!-- Submit Button -->
 		<input type="submit" value="Update"><br/><br/>
 	</form>
+	{% endif %}
 {% endblock %}

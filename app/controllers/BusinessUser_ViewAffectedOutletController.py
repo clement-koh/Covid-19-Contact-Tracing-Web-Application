@@ -25,8 +25,13 @@ class BusinessUser_ViewAffectedOutletController:
 
 	def getBusinessInfectedRecord(self, NRIC):
 		"""
-		Returns a JSON string containing the data for each location infected check ins
+		Returns a 2D string array containing the data for each location infected check ins
 		date, timeIn and timeOut
+
+		[x][] - Location Name
+		[][0] - Date
+		[][1] - Check In Time
+		[][2] - Check Out Time
 		"""
 		# BusinessUser, Location, InfectedPeople and LocationHistory Entity Objects
 		businessUser = BusinessUser(NRIC)

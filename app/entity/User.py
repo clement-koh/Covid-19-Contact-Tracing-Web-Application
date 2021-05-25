@@ -83,37 +83,41 @@ class User:
 		return self.__accountType
 
 	# Mutator Methods
-	def updatePassword(self, password):
+	def updatePassword(self, old_pw, new_pw):
 		""" 
 		Updates the password of the user. 
 		Returns True if updated successfully
 		Returns False if update failed
 		"""
 
-		# Update the object's recorded password"
-		self.__password = password
+		#if old password is NOT equal to database return false
+		if old_pw != self.__password:
+			return False
+		
+		else:
+			# Update the object's recorded password"
+			self.__password = new_pw
+			# Open connection to database
+			connection = dbConnect()
+			db = connection.cursor()
 
-		# Open connection to database
-		connection = dbConnect()
-		db = connection.cursor()
-
-		# Update the password for the user
-		db.execute("""UPDATE user
-					  SET password = (?)
-					  WHERE NRIC = (?)""", (password, self.__NRIC))
-		
-		# Commit the update to the database
-		connection.commit()
-		
-		# Close the connection to the database
-		dbDisconnect(connection)
-		
-		# Check if any rows have been updated successfully
-		if db.rowcount != 0:
-			return True
-		
-		# If no rows has been updated
-		return False	
+			# Update the password for the user
+			db.execute("""UPDATE user
+						SET password = (?)
+						WHERE NRIC = (?)""", (new_pw, self.__NRIC))
+			
+			# Commit the update to the database
+			connection.commit()
+			
+			# Close the connection to the database
+			dbDisconnect(connection)
+			
+			# Check if any rows have been updated successfully
+			if db.rowcount != 0:
+				return True
+			
+			# If no rows has been updated
+			return False	
 
 	def updateMobile(self, mobile):
 		""" 
@@ -190,17 +194,17 @@ class User:
 		connection = dbConnect()
 		db = connection.cursor()
 
-		# If the NRIC is provided, fill the object with details from database
+		
 		hasResult = False
 		if NRIC is not None:
-			# Select User from database and populate instance variables
+			# Select User from database
 			result = db.execute("""SELECT NRIC, password, firstName,
 										middleName, lastName, mobile, gender,
 										accountActive, accountType
 								FROM user 
 								WHERE NRIC = (?)""", (NRIC,)).fetchone()
 
-			# If a result is returned, populate object with data
+			
 			if result is not None:
 				hasResult = True
 
@@ -231,14 +235,15 @@ class User:
 		""" 
 		Returns a string array containing the following information.
 
-		[0] - NRIC, 
-		[1] - First Name, 
-		[2] - Middle Name, 
-		[3] - Last Name, 
-		[4] - Gender, 
-		[5] - Mobile Number,
-		[6] - accountActive, 
-		[7] - accountType
+		[0] - NRIC,
+		[1] - Password, 
+		[2] - First Name, 
+		[3] - Middle Name, 
+		[4] - Last Name, 
+		[5] - Gender, 
+		[6] - Mobile Number,
+		[7] - AccountActive, 
+		[8] - AccountType
 
 		"""
 
@@ -247,7 +252,7 @@ class User:
 		db = connection.cursor()
 
 
-		# Select User from database and populate instance variables
+		# Select User from database
 		results = db.execute("""SELECT NRIC, password, firstName,
 								middleName, lastName, mobile, gender,
 								accountActive, accountType
@@ -263,7 +268,18 @@ class User:
 		userInfo.append(results[4])
 		userInfo.append(results[5])
 		userInfo.append(results[6])
-		userInfo.append(results[7])
+
+		# Local variable
+		accountStatus = None
+		
+		# Returns account status
+		if results[7]:
+			accountStatus = "Active"
+		else:
+			accountStatus = "Suspended"
+		
+		userInfo.append(accountStatus)
+		userInfo.append(results[8])
 
 		# Disconnect from database
 		dbDisconnect(connection)
