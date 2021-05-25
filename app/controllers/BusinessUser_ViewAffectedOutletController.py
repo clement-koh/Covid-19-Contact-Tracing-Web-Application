@@ -10,18 +10,18 @@ class BusinessUser_ViewAffectedOutletController:
 		self.SHOW_RECORD_NO_OF_DAYS = 14	# No of days to show(exlusive of today)
 		self.INFECTION_TIME = 14			# Duration to consider as infected
 
-	def getUserBusinessID(self, NRIC):
-		# Create a businessUser entity object
-		businessUser = BusinessUser(NRIC)
+	# def getUserBusinessID(self, NRIC):
+	# 	# Create a businessUser entity object
+	# 	businessUser = BusinessUser(NRIC)
 
-		# Returns the id of the business the user belongs to
-		return businessUser.getBusinessID()
+	# 	# Returns the id of the business the user belongs to
+	# 	return businessUser.getBusinessID()
 
-	def getAllBusinessLocation(self, businessID):
-		# Create a location entity object
-		location = Location()
+	# def getAllBusinessLocation(self, businessID):
+	# 	# Create a location entity object
+	# 	location = Location()
 
-		return location.getLocationsBelongingToBusiness(businessID)
+	# 	return location.getLocationsBelongingToBusiness(businessID)
 
 	def getBusinessInfectedRecord(self, NRIC):
 		"""
