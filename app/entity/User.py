@@ -1,10 +1,6 @@
 from ..dbConfig import dbConnect, dbDisconnect
 
 class User:
-	# Constructor
-	def __init__(self):
-		pass
-
 	# Constructor for user
 	def __init__(self, NRIC=None):
 		# Connect to database
