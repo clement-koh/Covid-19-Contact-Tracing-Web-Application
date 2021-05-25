@@ -52,10 +52,10 @@ class InfectedPeople:
 
 		#Format statement for SQL
 		latestdate = "-{} days".format(noOfDaysAgo)
-		earliestDate = "-{} days".format(noOfDaysAgo + infection_time + 1)
+		earliestDate = "-{} days".format(noOfDaysAgo + infection_time)
 
 		# Select location history within past __ of days based on NRIC
-		results = db.execute("""SELECT id, NRIC, infected_on
+		results = db.execute("""SELECT DISTINCT NRIC
 							   FROM infected_people
 							   WHERE date(infected_on) >= strftime('%Y-%m-%d', date(date('now','localtime')), (?)) AND
 							   		 date(infected_on) < strftime('%Y-%m-%d', date(date('now','localtime')), (?))""", 
@@ -69,9 +69,8 @@ class InfectedPeople:
 		
 		# Get all infected people's NRIC
 		for result in results:
-			NRIClist.append(result[1])
+			NRIClist.append(result[0])
 
-		# Return the list of NRIC
 		return NRIClist
 
 	def isInfected(self, NRIC, daysConsideredAsInfected):
@@ -86,7 +85,7 @@ class InfectedPeople:
 		#Format statement for SQL
 		latestdate = "+{} days".format(1)
 		# 14 days excluding today
-		earliestDate = "-{} days".format(daysConsideredAsInfected + 1)
+		earliestDate = "-{} days".format(daysConsideredAsInfected)
 
 		# Select location history within past __ of days based on NRIC
 		results = db.execute("""SELECT count(*)

@@ -78,5 +78,5 @@ window.onload = function()
 	var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 	var currentday = currentdate.getDate();
 	var currentyear = currentdate.getFullYear();
-	document.getElementById('date').innerHTML = currentday + ' ' + months[currentdate.getMonth()-1] + ' ' + currentyear;
+	document.getElementById('date').innerHTML = currentday + ' ' + months[currentdate.getMonth()] + ' ' + currentyear;
 };

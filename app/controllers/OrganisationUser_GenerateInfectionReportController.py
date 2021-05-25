@@ -52,7 +52,7 @@ class OrganisationUser_GenerateInfectionReportController:
 		"""
 		allLocation = []
 
-		# Combine all location for all peoplle
+		# Combine all location for all people
 		for user in people:
 			allLocation += self.__locationHistory.getLocationHistoryOn(user, days_ago)
 
