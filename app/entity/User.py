@@ -83,37 +83,41 @@ class User:
 		return self.__accountType
 
 	# Mutator Methods
-	def updatePassword(self, password):
+	def updatePassword(self, old_pw, new_pw):
 		""" 
 		Updates the password of the user. 
 		Returns True if updated successfully
 		Returns False if update failed
 		"""
 
-		# Update the object's recorded password"
-		self.__password = password
+		#if old password is NOT equal to database return false
+		if old_pw != self.__password:
+			return False
+		
+		else:
+			# Update the object's recorded password"
+			self.__password = new_pw
+			# Open connection to database
+			connection = dbConnect()
+			db = connection.cursor()
 
-		# Open connection to database
-		connection = dbConnect()
-		db = connection.cursor()
-
-		# Update the password for the user
-		db.execute("""UPDATE user
-					  SET password = (?)
-					  WHERE NRIC = (?)""", (password, self.__NRIC))
-		
-		# Commit the update to the database
-		connection.commit()
-		
-		# Close the connection to the database
-		dbDisconnect(connection)
-		
-		# Check if any rows have been updated successfully
-		if db.rowcount != 0:
-			return True
-		
-		# If no rows has been updated
-		return False	
+			# Update the password for the user
+			db.execute("""UPDATE user
+						SET password = (?)
+						WHERE NRIC = (?)""", (new_pw, self.__NRIC))
+			
+			# Commit the update to the database
+			connection.commit()
+			
+			# Close the connection to the database
+			dbDisconnect(connection)
+			
+			# Check if any rows have been updated successfully
+			if db.rowcount != 0:
+				return True
+			
+			# If no rows has been updated
+			return False	
 
 	def updateMobile(self, mobile):
 		""" 
