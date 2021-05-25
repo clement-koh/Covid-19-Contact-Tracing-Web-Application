@@ -10,11 +10,10 @@ class HealthStaffUser_SendAlertBusinessUI:
 		self.RESPONSE_FAILURE_INVALID_RECIPIENT = "Recipient('{}') is not a valid user"
 		self.RESPONSE_FAILURE_UNKNOWN_ERROR = "Error sending alert to recipient"
 		self.RESPONSE_SUCCESS = """Your alert message has been successfully 
-                              		delivered to {} users in {}!"""
+                              		delivered to all users in {}!"""
 
 		# Private Instance Variable
 		self.__controller = HealthStaffUser_SendAlertBusinessController()	# Initialize Controller Object
-		self.__alertCount = 0
 
 	def displayPage(self):
 		"""
@@ -40,26 +39,31 @@ class HealthStaffUser_SendAlertBusinessUI:
 		Returns a failure response if either is met.
 		Else return a success response
 		"""
+		validationCode = self.__controller.sendAlert(businessName, message, session['user'])
+		print(validationCode)
 
 		# Check if input values are empty
 		if businessName is None or len(businessName) == 0 or message is None or len(message) == 0:
 			return self.RESPONSE_FAILURE_FIELD_EMPTY
 		
 		# Check if recipient exists
-		if not self.__controller.verifyBusinessName(businessName):
+		if validationCode == -1:
 			# Update failure response message
 			self.RESPONSE_FAILURE_INVALID_RECIPIENT = self.RESPONSE_FAILURE_INVALID_RECIPIENT.format(businessName)
 			return self.RESPONSE_FAILURE_INVALID_RECIPIENT
 		
 		# If successful, send the alert
-		self.__alertCount = self.__controller.sendAlert(businessName, message, session['user'])
-		if self.__alertCount != -1:
+		elif validationCode == 0:
 			# Update the success message
-			self.RESPONSE_SUCCESS = self.RESPONSE_SUCCESS.format(self.__alertCount, businessName)
+			self.RESPONSE_SUCCESS = self.RESPONSE_SUCCESS.format(businessName)
 			return self.RESPONSE_SUCCESS
+
+		# If not all the users in the business receive the alert
 		else:
 			# If fail to send, return failure response
 			return self.RESPONSE_FAILURE_UNKNOWN_ERROR
+
+		
 
 	def displayError(self, errorMessage):
 		"""
