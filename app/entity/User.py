@@ -349,7 +349,7 @@ class User:
 
 		# Check if any row has been updated successfully
 		if db.rowcount != 0:
-			print("Updated new User")
+			print("Updated existing User")
 			return True
 		
 		# If no row has been updated

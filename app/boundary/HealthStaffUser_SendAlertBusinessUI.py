@@ -39,30 +39,28 @@ class HealthStaffUser_SendAlertBusinessUI:
 		Returns a failure response if either is met.
 		Else return a success response
 		"""
-		validationCode = self.__controller.sendAlert(businessName, message, session['user'])
 
 		# Check if input values are empty
 		if businessName is None or len(businessName) == 0 or message is None or len(message) == 0:
 			return self.RESPONSE_FAILURE_FIELD_EMPTY
+
+		validationCode = self.__controller.sendAlert(businessName, message, session['user'])
 		
 		# Check if recipient exists
-		if validationCode == -1:
+		if validationCode == 1:
 			# Update failure response message
-			self.RESPONSE_FAILURE_INVALID_RECIPIENT = self.RESPONSE_FAILURE_INVALID_RECIPIENT.format(businessName)
-			return self.RESPONSE_FAILURE_INVALID_RECIPIENT
-		
-		# If successful, send the alert
-		elif validationCode == 0:
-			# Update the success message
-			self.RESPONSE_SUCCESS = self.RESPONSE_SUCCESS.format(businessName)
-			return self.RESPONSE_SUCCESS
+			return self.RESPONSE_FAILURE_INVALID_RECIPIENT.format(businessName)
 
 		# If not all the users in the business receive the alert
-		else:
+		elif validationCode == 2:
 			# If fail to send, return failure response
 			return self.RESPONSE_FAILURE_UNKNOWN_ERROR
 
-		
+		# If successful
+		else:
+			# Update the success message
+			self.RESPONSE_SUCCESS = self.RESPONSE_SUCCESS.format(businessName)
+			return self.RESPONSE_SUCCESS
 
 	def displayError(self, errorMessage):
 		"""

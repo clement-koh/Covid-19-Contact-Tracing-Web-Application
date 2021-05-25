@@ -6,15 +6,128 @@ class OrganisationUser_UpdateUserAccountUI:
 	# Empty constructor
 	def __init__(self):
 		self.RESULT_SUCCESS = "Success"
-		self.RESULT_FAILURE_INVALID_NRIC = "An invalid NRIC was provided"
-		self.RESULT_FAILURE_INVALID_NAME = "Name contain invalid characters or does not start with an uppercase alphabet"
-		self.RESULT_FAILURE_EMPTY_FIELD = "Fields cannot be empty"
-		self.RESULT_FAILURE_MOBILE_LENGTH = "Mobile number is invalid or not 8 digits"
-		self.RESULT_FAILURE_PASSWORD_MISMATCH = "Password fields do not match"
-		self.RESULT_FAILURE_INVALID_LICENSE = "License should be 8 characters"
+		self.ERROR = ""
 		self.RESULT_FAILURE_DUPLICATE_VALUE = "{}({}) already exists"
 		self.RESULT_FAILURE_NONEXISTENT_VALUE = "{}({}) does not exist"
-		self.RESULT_FAILURE_UNEXPECTED = "An error occurred when updating the account"
+		self.__controller = OrganisationUser_UpdateUserAccountController()
+		self.__accountTypes = ['Public', 'Business', 'Health Staff', 'Organisation']
+
+	def __checkFieldsNotEmpty(self, accountType, NRIC, firstName, middleName,
+					 	lastName, gender, mobile, password, confirmPassword):
+		# Check for empty fields
+		if accountType == "" or NRIC == "" or \
+			firstName == "" or middleName == "" or \
+			lastName == "" or mobile == "" or \
+			password == "" or confirmPassword == "" or \
+			gender == "":
+			
+			self.ERROR = "Fields cannot be empty"
+			return False
+
+		return True
+
+	def __checkRequiredInfoNotEmpty(self, accountType, businessName, licenseNo, organisationName):
+		# Check if required info for account type is provided
+		if (accountType == self.__accountTypes[1] and businessName == "") or \
+			(accountType == self.__accountTypes[2] and licenseNo == "") or \
+			(accountType == self.__accountTypes[3] and organisationName == ""):
+			
+			self.ERROR = "Fields cannot be empty"
+			return False
+
+		return True
+
+	def __checkIsValidNRIC(self, NRIC):
+		# Check if NRIC is starts with S or T and has 3 digits after
+		if not re.search('^[S|T][0-9]{4}$', NRIC.upper()):
+			self.ERROR = "An invalid NRIC was provided"
+			return False
+		return True
+
+	def __checkIsValidFullName(self, firstName, middleName, lastName):
+		# Check first name, middle name, and last name
+		if not re.search('^[A-Z][a-z]+$', firstName) or \
+			not re.search('^[A-Z][a-z]+$', middleName) or \
+			not re.search('^[A-Z][a-z]+$', lastName):
+			self.ERROR = "Name contain invalid characters or does not start with an uppercase alphabet"
+			return False
+
+		return True
+
+	def __checkIsValidMobile(self, mobile):
+		# Check if mobile number is 8 characters
+		if not re.search('^[8|9][0-9]{7}$', mobile):
+			self.ERROR = "Mobile number is invalid or not 8 digits"
+			return False
+		return True
+
+	def __checkIsValidPassword(self, password, confirmPassword):
+		# Check if passwords match
+		if password != confirmPassword:
+			self.ERROR = "Password fields do not match"
+			return False
+
+		return True
+
+	def __checkIsValidLicenseNumber(self, accountType, licenseNo):
+		# Check if license number is valid
+		if (accountType == self.__accountTypes[2]):
+			if (len(licenseNo) != 8):
+				self.ERROR = "License should be 8 characters"
+				return False
+			
+		return True
+
+	def __updateByAccountType(self, accountType, NRIC, firstName, middleName,
+							  lastName, gender, mobile, password,
+				 			  businessName, licenseNo, organisationName):
+
+		# Get current user data
+		userInfo = self.__controller.getUserDetails(NRIC)
+
+		# Is account type is public user
+		if accountType == self.__accountTypes[0]:
+			# Attempt to update the user
+			if self.__controller.updatePublicUser(NRIC, firstName, middleName, lastName,
+											gender, mobile, password):
+				return self.RESULT_SUCCESS
+		
+		# Is account type is business user
+		if accountType == self.__accountTypes[1]:
+			# Check if business name is related to a business ID
+			businessID = self.__controller.getBusinessID(businessName)
+			if businessID == -1:
+
+				return self.RESULT_FAILURE_NONEXISTENT_VALUE.format('Business Name', businessName)
+
+			# Attempt to update the business user
+			if self.__controller.updateBusinessUser(NRIC, firstName, middleName, lastName,
+											 gender, mobile, password, businessName):
+				return self.RESULT_SUCCESS
+
+		# Is account type is health staff user
+		if accountType == self.__accountTypes[2]:
+			if str(licenseNo) != str(userInfo[9]):
+				# Check if license number already exists
+				if self.__controller.isDuplicateLicenseNo(licenseNo):
+					return self.RESULT_FAILURE_DUPLICATE_VALUE.format('License Number', licenseNo)
+
+			# Attempt to update the health staff user
+			if self.__controller.updateHealthStaffUser(NRIC, firstName, middleName, lastName,
+												gender, mobile, password, licenseNo):
+				return self.RESULT_SUCCESS
+
+		# Is account type is organisation user
+		if accountType == self.__accountTypes[3]:
+			# Check if organisation name is related to an organisation ID
+			organisationID = self.__controller.getOrganisationID(organisationName)
+			if organisationID == -1:
+				return self.RESULT_FAILURE_NONEXISTENT_VALUE.format('Organisation Name', organisationName)
+			
+			# Attempt to update the organisation user
+			if self.__controller.updateOrganisationUser(NRIC, firstName, middleName, lastName,
+												 gender, mobile, password, organisationID):
+				return self.RESULT_SUCCESS
 
 	def displayPage(self, NRIC):
 		"""
@@ -26,11 +139,9 @@ class OrganisationUser_UpdateUserAccountUI:
 			flash("Unauthorised access to this content", "error")
 			return redirect("/")
 		
-		# Create controller object
-		controller = OrganisationUser_UpdateUserAccountController()
-		userInfo = controller.getUserDetails(NRIC)
-		businesses = controller.getBusinessNames()
-		organisations = controller.getOrganisationNames()
+		userInfo = self.__controller.getUserDetails(NRIC)
+		businesses = self.__controller.getBusinessNames()
+		organisations = self.__controller.getOrganisationNames()
 
 		# Render the web page
 		return render_template('organisationUser_updateUserAccount.html', userType=userType,
@@ -41,109 +152,28 @@ class OrganisationUser_UpdateUserAccountUI:
 	def onSubmit(self, accountType, NRIC, firstName, middleName,
 				 lastName, gender, mobile, password, confirmPassword,
 				 businessName, licenseNo, organisationName):
-		accountTypes = [
-			'Public',
-			'Business',
-			'Health Staff',
-			'Organisation'
-		]
 
-		# Create controller object
-		controller = OrganisationUser_UpdateUserAccountController()
-		
-		# Get current user data
-		userInfo = controller.getUserDetails(NRIC)
+		if self.__checkFieldsNotEmpty(accountType, NRIC, firstName, middleName,
+					 				  lastName, gender, mobile, password, confirmPassword) and \
+			self.__checkRequiredInfoNotEmpty(accountType, businessName, licenseNo, organisationName) and \
+			self.__checkIsValidNRIC(NRIC) and \
+			self.__checkIsValidFullName(firstName, middleName, lastName) and \
+			self.__checkIsValidMobile(mobile) and \
+			self.__checkIsValidPassword(password, confirmPassword) and \
+			self.__checkIsValidLicenseNumber(accountType, licenseNo):
 
-		# Check for empty fields
-		if accountType == "" or NRIC == "" or \
-			firstName == "" or middleName == "" or \
-			lastName == "" or mobile == "" or \
-			password == "" or confirmPassword == "" or \
-			gender == "" :
-			
-			return self.RESULT_FAILURE_EMPTY_FIELD
+			# Check the account type and update the user accordingly
+			return self.__updateByAccountType(accountType, NRIC, firstName, middleName,
+										lastName, gender, mobile, password,
+										businessName, licenseNo, organisationName)
 
-		# Check if required info for account type is provided
-		if (accountType == accountTypes[1] and businessName == "") or \
-			(accountType == accountTypes[2] and licenseNo == "") or \
-			(accountType == accountTypes[3] and organisationName == ""):
+		return self.ERROR
 
-			return self.RESULT_FAILURE_EMPTY_FIELD
-
-		# Check if NRIC is starts with S or T and has 3 digits after
-		if not re.search('^[S|T][0-9]{4}$', NRIC.upper()):
-			return self.RESULT_FAILURE_INVALID_NRIC
-
-		# Check first name, middle name, and last name
-		if not re.search('^[A-Z][a-z]+$', firstName) or \
-			not re.search('^[A-Z][a-z]+$', middleName) or \
-			not re.search('^[A-Z][a-z]+$', lastName):
-			return self.RESULT_FAILURE_INVALID_NAME
-
-		# Check if mobile number is 8 characters
-		if not re.search('^[8|9][0-9]{7}$', mobile):
-			return self.RESULT_FAILURE_MOBILE_LENGTH
-
-		# Check if passwords match
-		if password != confirmPassword:
-			return self.RESULT_FAILURE_PASSWORD_MISMATCH
-
-		# Check if license number is valid
-		if (accountType == accountTypes[2]):
-			if (len(licenseNo) != 8):
-				return self.RESULT_FAILURE_INVALID_LICENSE
-		
-		# If account type is public user
-		if accountType == accountTypes[0]:
-			# Attempt to update the user
-			if controller.updatePublicUser(NRIC, firstName, middleName, lastName,
-											gender, mobile, password):
-				return self.RESULT_SUCCESS
-		
-		# If account type is business user
-		if accountType == accountTypes[1]:
-			# Check if business name is related to a business ID
-			businessID = controller.getBusinessID(businessName)
-			if businessID == -1:
-
-				return self.RESULT_FAILURE_NONEXISTENT_VALUE.format('Business Name', businessName)
-
-			# Attempt to update the business user
-			if controller.updateBusinessUser(NRIC, firstName, middleName, lastName,
-											 gender, mobile, password, businessName):
-				return self.RESULT_SUCCESS
-
-		# If account type is health staff user
-		if accountType == accountTypes[2]:
-			if str(licenseNo) != str(userInfo[9]):
-				# Check if license number already exists
-				if controller.isDuplicateLicenseNo(licenseNo):
-					return self.RESULT_FAILURE_DUPLICATE_VALUE.format('License Number', licenseNo)
-
-			# Attempt to update the health staff user
-			if controller.updateHealthStaffUser(NRIC, firstName, middleName, lastName,
-												gender, mobile, password, licenseNo):
-				return self.RESULT_SUCCESS
-
-		# If account type is organisation user
-		if accountType == accountTypes[3]:
-			# Check if organisation name is related to an organisation ID
-			organisationID = controller.getOrganisationID(organisationName)
-			if organisationID == -1:
-				return self.RESULT_FAILURE_NONEXISTENT_VALUE.format('Organisation Name', organisationName)
-			
-			# Attempt to update the organisation user
-			if controller.updateOrganisationUser(NRIC, firstName, middleName, lastName,
-												 gender, mobile, password, organisationID):
-				return self.RESULT_SUCCESS
-
-		return self.RESULT_FAILURE_UNEXPECTED
-	
 	def displaySuccess(self, NRIC):
 		flash("Account updated successfully", "message")
 		print(request.url)
 		return redirect(url_for('UpdateUserAccount', NRIC=NRIC))
 
-	def displayError(self, NRIC, message):
-		flash(message, "error")
+	def displayError(self, NRIC):
+		flash(self.ERROR, "error")
 		return redirect(url_for('UpdateUserAccount', NRIC=NRIC))

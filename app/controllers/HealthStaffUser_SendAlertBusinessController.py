@@ -18,21 +18,17 @@ class HealthStaffUser_SendAlertBusinessController:
 		"""
 			Requests the alert entity to send a new alert
 			Returns the validation code
+			0 - Success
+			1 - Business Name not found
+			2 - Fail to send to users in the business
 		"""
-		# Validation code to display specific error message
-		validationCode = -1
 
 		# Get the business name list
 		businessNameList = self.getRecipientList()
 
-		# Validate if the business name exist
-		for name in businessNameList:
-			if businessName == name:
-				validationCode = 0
-		
-		# If business name does not exist
-		if validationCode == -1:
-			return validationCode
+		# 1. Check if Business Name Exists
+		if not businessName in businessNameList:
+			return 1
 
 		# Gets the business ID
 		businessID = self.__business.getIDfromName(businessName)
@@ -44,16 +40,13 @@ class HealthStaffUser_SendAlertBusinessController:
 		alertType = 'Business - {}'.format(businessName)
 		count = 0
 
-		# Check if all users in the business receive the alert
+		# 2. Check if all users in the business receive the alert
 		for user in userList:
 			if self.__alert.newAlert(sender, alertType, user, message):
 				count += 1
 
 		if count != len(userList):
-			print("Number of alerts sent does not match number of users")
-			validationCode = -2
-			return validationCode
+			return 2
 			
-		validationCode = 0
-		return validationCode
-
+		# Return Success
+		return 0
