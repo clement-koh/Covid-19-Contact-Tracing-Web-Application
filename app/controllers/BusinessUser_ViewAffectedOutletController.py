@@ -23,16 +23,22 @@ class BusinessUser_ViewAffectedOutletController:
 
 		return location.getLocationsBelongingToBusiness(businessID)
 
-	def getBusinessInfectedRecord(self, locationIDArray):
+	def getBusinessInfectedRecord(self, NRIC):
 		"""
 		Returns a JSON string containing the data for each location infected check ins
 		date, timeIn and timeOut
 		"""
-
-		# InfectedPeople and LocationHistory Entity Objects
+		# BusinessUser, Location, InfectedPeople and LocationHistory Entity Objects
+		businessUser = BusinessUser(NRIC)
+		location = Location()
 		infectedPeople = InfectedPeople()
 		locationHistory = LocationHistory()
-		location = Location()
+
+		# Returns the id of the business the user belongs to
+		businessID = businessUser.getBusinessID()
+
+		# Returns the list of locationsID
+		locationIDArray = location.getLocationsBelongingToBusiness(businessID)
 
 		# Create a 2d array to store all infected individuals on each day
 		# Generate a record for each daily for SHOW_RECORD_NO_OF_DAYS days
@@ -47,9 +53,9 @@ class BusinessUser_ViewAffectedOutletController:
 		for locationID in locationIDArray:
 			day = 0
 			# Get a infected check in record
-			infectedCheckIns = {}
-			infectedCheckIns['locationName'] = location.getLocationNameFromID(locationID)
-			infectedCheckIns['checkInData'] = []
+			infectedCheckIns = []
+			infectedCheckIns.append(location.getLocationNameFromID(locationID))
+			infectedCheckIns.append([])
 
 			# Get the check in records for today + past 14 days
 			while day <= self.SHOW_RECORD_NO_OF_DAYS:
@@ -66,22 +72,22 @@ class BusinessUser_ViewAffectedOutletController:
 						checkoutTime = datetime.strptime(item[4], '%Y-%m-%d %H:%M:%S')
 
 						# Format the datetime object into a readable string
-						checkInRecord = {}
-						checkInRecord['date'] = checkInTime.strftime('%d %b %Y')
-						checkInRecord['timeIn'] = '{:02d}:{:02d}'.format(checkInTime.hour,
-														  				 checkInTime.minute)
-						checkInRecord['timeOut'] = '{:02d}:{:02d}'.format(checkoutTime.hour,
-														    			  checkoutTime.minute)
+						checkInRecord = []
+						checkInRecord.append(checkInTime.strftime('%d %b %Y'))
+						checkInRecord.append('{:02d}:{:02d}'.format(checkInTime.hour,
+														  				 checkInTime.minute))
+						checkInRecord.append('{:02d}:{:02d}'.format(checkoutTime.hour,
+														    			  checkoutTime.minute))
 
 						# Adds the record into the checkInData
-						infectedCheckIns['checkInData'].append(checkInRecord)
+						infectedCheckIns[1].append(checkInRecord)
 				
 				# Increase day count by 1
 				day += 1
 			# Add the records for one location
 			locationRecord.append(infectedCheckIns)
 			
-		return json.dumps(locationRecord)
+		return locationRecord
 
 
 
