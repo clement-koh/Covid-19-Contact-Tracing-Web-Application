@@ -240,8 +240,8 @@ class User:
 		[2] - First Name, 
 		[3] - Middle Name, 
 		[4] - Last Name, 
-		[5] - Gender, 
-		[6] - Mobile Number,
+		[5] - Mobile Number, 
+		[6] - Gender,
 		[7] - AccountActive, 
 		[8] - AccountType
 
