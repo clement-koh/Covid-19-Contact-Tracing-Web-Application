@@ -29,13 +29,13 @@
 
 				<!-- Div to show the location Name -->
 				<div class="LocationNameContainer">
-					<h4>{{location.locationName}}</h4>
+					<h4>{{location[0]}}</h4>
 				</div>
 
 				<!-- Div containing the records for that location -->
 				<div class="RecordChunk">
 					<!-- If there is Location Data -->
-					{% if location.checkInData != [] %}
+					{% if location[1] != [] %}
 						<span class="message">Check in Time of COVID-19 Positive People</span>  
 						<div class="RecordRow">
 							<!-- Table To Display Time Records -->
@@ -49,12 +49,12 @@
 								</tr>
 
 								<!-- Display all records for current location -->
-								{% for record in location.checkInData %}
+								{% for record in location[1] %}
 									<tr>
 										<td></td><!-- this is left blank to generate count -->
-										<td>{{record.date}}</td>
-										<td>{{record.timeIn}}</td>
-										<td>{{record.timeOut}}</td>
+										<td>{{record[0]}}</td>
+										<td>{{record[1]}}</td>
+										<td>{{record[2]}}</td>
 									</tr>
 								{% endfor %}
 							</table>
