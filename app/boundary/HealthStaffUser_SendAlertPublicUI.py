@@ -31,23 +31,24 @@ class HealthStaffUser_SendAlertPublicUI:
 		"""
 		# Initialize Controller Object
 		controller = HealthStaffUser_SendAlertPublicController()
+		validationCode = controller.sendAlert(NRIC, message, session['user'])
 
 		# Check if input values are empty
 		if NRIC is None or len(NRIC) == 0 or message is None or len(message) == 0:
 			return self.RESPONSE_FAILURE_FIELD_EMPTY
 		
 		# Check if recipient exists
-		if not controller.verifyNRIC(NRIC):
+		if validationCode == -1:
 			# Update failure response message
 			self.RESPONSE_FAILURE_INVALID_RECIPIENT = self.RESPONSE_FAILURE_INVALID_RECIPIENT.format(NRIC)
 			return self.RESPONSE_FAILURE_INVALID_RECIPIENT
 		
 		# If successful, send the alert
-		isSent = controller.sendAlert(NRIC, message, session['user'])
-		if isSent:
+		elif validationCode == 0:
 			# Update the success message
 			self.RESPONSE_SUCCESS = self.RESPONSE_SUCCESS.format(NRIC)
 			return self.RESPONSE_SUCCESS
+
 		else:
 			# If fail to send, return failure response
 			return self.RESPONSE_FAILURE_UNKNOWN_ERROR

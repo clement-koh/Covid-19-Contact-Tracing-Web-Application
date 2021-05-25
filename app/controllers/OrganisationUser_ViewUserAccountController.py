@@ -8,13 +8,17 @@ class OrganisationUser_ViewUserAccountController:
 		"""
 			Returns True if user exists
 		"""
+		#Create a User Object
+		user = User()
 
-		return User().verifyUser(NRIC)
+		return user.verifyUser(NRIC)
 
 	def getUserDetails(self, NRIC):
 		""" 
 		Returns a string array containing all the User Details
 
 		"""
-		
-		return User().getFullUserData(NRIC)
+		#Create a User Object
+		user = User()
+
+		return user.getFullUserData(NRIC)

@@ -539,7 +539,7 @@ def UpdateUserAccount():
 			return organisationUser_updateUserAccountBoundary.displaySuccess(NRIC)
 
 		# Display error message if update is unsuccessful
-		return organisationUser_updateUserAccountBoundary.displayError(NRIC, result)
+		return organisationUser_updateUserAccountBoundary.displayError(NRIC)
 
 @app.route('/suspend_user_account', methods=['POST'])
 @loginRequired
