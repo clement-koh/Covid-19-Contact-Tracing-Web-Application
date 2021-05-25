@@ -1,7 +1,6 @@
 from ..dbConfig import dbConnect, dbDisconnect
 from datetime import datetime
 
-
 class VaccinationStatus:
 	def __init__(self, NRIC=None):
 		# Connect to database
@@ -170,3 +169,26 @@ class VaccinationStatus:
 		dbDisconnect(connection)
 
 		return vaccinationStatusData
+
+	def getFullVaccinationData(self, NRIC):
+		"""
+			Returns a string array
+			[0] - NRIC
+			[1] - Vaccination Status
+			[2] - Date of first shot
+			[3] - Date of second shot
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Select from database and populate instance variables
+		result = db.execute("""SELECT NRIC, vaccinationStatus,
+								dateOfFirstShot, dateOfSecondShot
+								FROM vaccination_status
+								WHERE NRIC = (?)""", (NRIC,)).fetchone()
+		
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		return result
