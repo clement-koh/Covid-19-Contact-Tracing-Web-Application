@@ -286,7 +286,25 @@ class User:
 
 		return userInfo
 		
+	def verifyUserType(self, NRIC, userType):
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
 
+
+		# Select User from database
+		results = db.execute("""SELECT accountType
+								FROM user 
+								WHERE NRIC = (?)""", (NRIC,)).fetchone()
+		
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		if results is None or userType == results[0]:
+			return False
+		else:
+			return True
+	
 		
 
 	def addNewUser(self, NRIC, firstName, middleName,

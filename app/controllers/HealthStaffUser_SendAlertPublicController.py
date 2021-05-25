@@ -9,26 +9,30 @@ class HealthStaffUser_SendAlertPublicController:
 	def sendAlert(self, recipient, message, sender):
 		"""
 			Requests the alert entity to send a new alert
-			Returns True is sent successfully
+			Returns 
+			0 - Sent Successfully
+			1 - Invalid User
+			2 - Error sending Alert
 		"""
-		# Private variable
-		validationCode = 0
 
 		# Verify NRIC
-		user = User(recipient)
+		user = User()
 
-		if user.getNRIC() is None or user.getAccountType() != "Public":
-			validationCode = -1
-			return validationCode
+		# 1. Check if user exists
+		if not user.verifyUserType(recipient, "Public"):
+			return 1
 
 		# Create alert object
 		alert = Alert()
 
 		# Return True if alert is sent successfully
 		isSent = alert.newAlert(sender, "Public", recipient, message)
-		if isSent == True:
-			return validationCode
+		
+		# If sending is successful
+		if isSent:
+			return 0
+		
+		# If sending has met with an error
 		else:
-			validationCode = -2
-			return validationCode
+			return 2
 
