@@ -38,14 +38,11 @@ class OrganisationUser_CreateUserController:
 	
 	def isDuplicateNRIC(self, NRIC):
 		# Create User Object
-		user = User(NRIC)
+		user = User()
 
 		# Check if user exists
-		if user.getNRIC() is None:
-			return False
-		
-		# If user does not exists
-		return True
+		return user.verifyUser(NRIC)
+
 	
 	def isDuplicateLicenseNo(self, licenseNo):
 		# Create Health Staff User Object
