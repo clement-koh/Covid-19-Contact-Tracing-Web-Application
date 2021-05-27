@@ -13,10 +13,6 @@ class OrganisationUser_ViewUserAccountUI:
 		self.__viewUserAccountController = OrganisationUser_ViewUserAccountController()	# Controller Object	
 
 
-	# Mutator Method
-	def setUserID(self, NRIC):
-		self.__userNRIC = NRIC
-
 	# Other Method
 	def displayPage(self):
 		"""
@@ -31,7 +27,7 @@ class OrganisationUser_ViewUserAccountUI:
 		# If directed here with a user already provided
 		if session['viewingNRIC'] is not None:
 			# Get provided user details
-			self.setUserID(session['viewingNRIC'])
+			self.__userNRIC = session['viewingNRIC']
 
 			# Remove user details stored
 			session['viewingNRIC'] = None
