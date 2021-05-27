@@ -76,16 +76,9 @@ class OrganisationUser_UpdateUserAccountController:
             organisation = Organisation(id)
             organisationName = organisation.getName()
         
-        userInfo = []
+        userInfo = user.getFullUserData(NRIC)
         
-        userInfo.append(user.getAccountType())
-        userInfo.append(user.getNRIC())
-        userInfo.append(user.getFirstName())
-        userInfo.append(user.getMiddleName())
-        userInfo.append(user.getLastName())
-        userInfo.append(user.getGender())
-        userInfo.append(user.getMobile())
-        userInfo.append(user.getPassword())
+        userInfo.pop(7)
         userInfo.append(businessName)
         userInfo.append(licenseNo)
         userInfo.append(organisationName)
