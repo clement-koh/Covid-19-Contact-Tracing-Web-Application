@@ -3,7 +3,7 @@ from ..controllers.PublicUser_ViewLocationHistoryController import PublicUser_Vi
 from datetime import datetime
 
 
-class PublicUser_LocationHistoryUI:
+class PublicUser_ViewLocationHistoryUI:
 	# Empty Constructor
 	def __init__(self):
 		pass

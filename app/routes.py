@@ -9,7 +9,7 @@ from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
 
 # Boundary for Public Users
 from .boundary.PublicUser_ExposureStatusUI import PublicUser_ExposureStatusUI
-from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistoryUI
+from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_ViewLocationHistoryUI
 from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedLocationUI
 from .boundary.PublicUser_ViewAlertUI import PublicUser_ViewAlertUI
 from .boundary.PublicUser_AcknowledgeAlertUI import PublicUser_AcknowledgeAlertUI
@@ -204,9 +204,9 @@ def viewAlertPage():
 @loginRequired
 def viewLocationHistoryPage():
 	# Initialise User_ChangePasswordUI Object
-	publicUser_locationHistoryBoundary = PublicUser_LocationHistoryUI()
+	publicUser_viewLocationHistoryBoundary = PublicUser_ViewLocationHistoryUI()
 
-	return publicUser_locationHistoryBoundary.displayPage()
+	return publicUser_viewLocationHistoryBoundary.displayPage()
 
 @app.route('/view_affected_location', methods=['GET', 'POST'])
 @loginRequired
