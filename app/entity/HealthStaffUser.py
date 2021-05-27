@@ -29,7 +29,7 @@ class HealthStaffUser(User):
 		# If no result
 		if not hasResult:
 				self.__healthStaffUserID = None
-				self.__name = None
+				self.__NRIC = None
 				self.__licenseNo = None
 		
 		# Disconnect from database
