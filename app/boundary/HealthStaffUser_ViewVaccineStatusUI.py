@@ -27,7 +27,7 @@ class HealthStaffUser_ViewVaccineStatusUI:
 		# If directed here with a user already provided
 		if session['viewingNRIC'] is not None:
 			# Get provided user details
-			self.self.__patientNRIC = session['viewingNRIC']
+			self.__patientNRIC = session['viewingNRIC']
 
 			# Remove user details stored
 			session['viewingNRIC'] = None
