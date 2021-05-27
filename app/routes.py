@@ -208,12 +208,6 @@ def viewLocationHistoryPage():
 
 	return publicUser_locationHistoryBoundary.displayPage()
 
-	# Get location history of current user
-	locationHistory = public_locationHistoryController.getLocationHistory()
-	
-	return render_template('public_viewLocationHistory.html', userType=userLoginController.getUserType(),
-															  locationHistory=locationHistory)
-
 @app.route('/view_affected_location', methods=['GET', 'POST'])
 @loginRequired
 def viewAffectedLocationPage():
