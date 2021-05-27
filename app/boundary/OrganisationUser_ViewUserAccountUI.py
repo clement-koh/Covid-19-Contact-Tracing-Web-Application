@@ -38,11 +38,14 @@ class OrganisationUser_ViewUserAccountUI:
 		# Render the page
 		return render_template('organisationUser_viewUserAccount.html', userType=userType)
 	
-	def onSubmit(self):
+	def onSubmit(self, NRIC):
 		"""
 		Firstly, verify the input field is empty, then check if NRIC exists
 		Return a response based on the outcome of each check.
 		"""
+
+		self.__userNRIC = NRIC
+
 		# Check if NRIC field is empty
 		if self.__userNRIC is None or len(self.__userNRIC) == 0:
 			return self.RESPONSE_FAILURE_EMPTY_FIELD

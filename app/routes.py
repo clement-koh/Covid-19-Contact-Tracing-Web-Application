@@ -486,11 +486,8 @@ def ViewUserAccount():
 		# Get form details
 		NRIC = request.form['user'].strip()
 
-		# Set the boundary to contain the User's NRIC
-		organisationUser_viewUserBoundary.setUserID(NRIC)
-
 		# Get submit response 
-		response = organisationUser_viewUserBoundary.onSubmit()
+		response = organisationUser_viewUserBoundary.onSubmit(NRIC)
 
 		# Display Error if any
 		if response != organisationUser_viewUserBoundary.RESPONSE_SUCCESS:
