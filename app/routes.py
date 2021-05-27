@@ -307,11 +307,8 @@ def viewPatientDetailsPage():
 		# Get form details
 		NRIC = request.form['user'].strip()
 
-		# Set the boundary to contain the patient's NRIC
-		healthStaffUser_viewPatientDetailsBoundary.setPatient(NRIC)
-
 		# Get submit response 
-		response = healthStaffUser_viewPatientDetailsBoundary.onSubmit()
+		response = healthStaffUser_viewPatientDetailsBoundary.onSubmit(NRIC)
 
 		# Display Error if any
 		if response != healthStaffUser_viewPatientDetailsBoundary.RESPONSE_SUCCESS:
@@ -334,11 +331,8 @@ def viewUpdateVaccination():
 		# Get form details
 		NRIC = request.form['user'].strip()
 
-		# Set the boundary to contain the patient's NRIC
-		healthStaffUser_viewVaccineStatusBoundary.setPatient(NRIC)
-
 		# Get submit response 
-		response = healthStaffUser_viewVaccineStatusBoundary.onSubmit()
+		response = healthStaffUser_viewVaccineStatusBoundary.onSubmit(NRIC)
 
 		# Display Error if any
 		if response != healthStaffUser_viewVaccineStatusBoundary.RESPONSE_SUCCESS:
