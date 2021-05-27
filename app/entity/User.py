@@ -300,7 +300,7 @@ class User:
 		# Disconnect from database
 		dbDisconnect(connection)
 
-		if results is None or userType == results[0]:
+		if results is None or userType != results[0]:
 			return False
 		else:
 			return True
