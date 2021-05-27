@@ -29,7 +29,7 @@ class PublicUser_ViewVaccineCertificateController:
 		fullUserDetails = user.getFullUserData(NRIC)
 		fullVaccinationDetails = vaccinationStatus.getFullVaccinationData(NRIC)
 
-		fullName = fullUserDetails[1] + " " + fullUserDetails[2] + " " + fullUserDetails[3]
+		fullName = fullUserDetails[2] + " " + fullUserDetails[3] + " " + fullUserDetails[4]
 
 		vaccinationDetails.append(fullName)
 		vaccinationDetails.append(fullVaccinationDetails[1])
