@@ -174,6 +174,6 @@ class OrganisationUser_UpdateUserAccountUI:
 		print(request.url)
 		return redirect(url_for('UpdateUserAccount', NRIC=NRIC))
 
-	def displayError(self, NRIC):
-		flash(self.ERROR, "error")
+	def displayError(self, NRIC, error):
+		flash(error, "error")
 		return redirect(url_for('UpdateUserAccount', NRIC=NRIC))
