@@ -72,13 +72,10 @@ class LoginTestCases(unittest.TestCase):
 			self.assertEqual(result, expectedResult, errorMessage)
 	
 	def test_displaySuccess_displaySuccessPage(self):
-		with self.app.test_request_context() as c:
-			session['userType'] = 'Public'
-			session['isAuthenticated'] = True
-			result = self.boundary.displaySuccess()
-			expectedResult = redirect('/')
-			errorMessage = 'Failed to login or display the overview page'
-			self.assertEqual(result, expectedResult, errorMessage)
+		result = self.boundary.displaySuccess().location
+		expectedResult = redirect('/').location
+		errorMessage = 'Failed to redirect to overview page'
+		self.assertEqual(result, expectedResult, errorMessage)
 	
 	def test_displayError_displayErrorPage(self):
 		with self.app.test_request_context() as c:
