@@ -4,7 +4,7 @@ class User_UpdateContactController:
 	def __init__(self):
 		pass
 
-	def getPatientDetails(self, NRIC):
+	def getUserDetails(self, NRIC):
 		""" 
 		Returns a string array containing all the User Details
 

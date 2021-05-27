@@ -18,7 +18,7 @@ class User_UpdateContactUI:
 		NRIC = session['user']
 
 		#get user detail in array
-		data = controller.getPatientDetails(NRIC)
+		data = controller.getUserDetails(NRIC)
 		
 		return render_template('general_updateContactDetails.html', userType=session['userType'],
 																	data = data)
