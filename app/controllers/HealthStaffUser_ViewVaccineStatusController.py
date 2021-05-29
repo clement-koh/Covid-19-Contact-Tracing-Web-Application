@@ -36,7 +36,7 @@ class HealthStaffUser_ViewVaccineStatusController:
 		vaccineStatus = VaccinationStatus()
 
 		
-		vaccinationstatus = vaccineStatus.getFullVaccinationData(NRIC)
+		vaccinationStatus = vaccineStatus.getFullVaccinationData(NRIC)
 
 		
 		
@@ -48,11 +48,13 @@ class HealthStaffUser_ViewVaccineStatusController:
 		userInfo.append(userData[4])
 		userInfo.append(userData[6])
 		
-		userInfo.append(vaccinationstatus[2])
-		userInfo.append(vaccinationstatus[3])
-		userInfo.append(vaccinationstatus[1])
-
-
-		print(userInfo)
+		if vaccinationStatus is None:
+			userInfo.append("-")
+			userInfo.append("-")
+			userInfo.append("-")
+		else:
+			userInfo.append(vaccinationStatus[2] if vaccinationStatus[2] is not None else "-")
+			userInfo.append(vaccinationStatus[3] if vaccinationStatus[3] is not None else "-")
+			userInfo.append(vaccinationStatus[1] if vaccinationStatus[1] is not None else "-")
 
 		return userInfo
