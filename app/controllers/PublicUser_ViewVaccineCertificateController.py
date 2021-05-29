@@ -32,9 +32,9 @@ class PublicUser_ViewVaccineCertificateController:
 		fullName = fullUserDetails[2] + " " + fullUserDetails[3] + " " + fullUserDetails[4]
 
 		vaccinationDetails.append(fullName)
-		vaccinationDetails.append(fullVaccinationDetails[1])
-		vaccinationDetails.append(fullVaccinationDetails[2])
-		vaccinationDetails.append(fullVaccinationDetails[3])
+		vaccinationDetails.append(fullVaccinationDetails[1] if fullVaccinationDetails is not None else "Eligible for Vaccination")
+		vaccinationDetails.append(fullVaccinationDetails[2] if fullVaccinationDetails is not None else None)
+		vaccinationDetails.append(fullVaccinationDetails[3] if fullVaccinationDetails is not None else None)
 		
 		if vaccinationDetails[2] is not None:
 			vaccinationDetails[2] = datetime.strptime(vaccinationDetails[2], '%d/%m/%Y, %H:%M:%S')
