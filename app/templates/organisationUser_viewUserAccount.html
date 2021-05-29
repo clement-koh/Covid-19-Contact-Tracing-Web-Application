@@ -87,11 +87,11 @@
 						<h4>
 							You are about to 
 							<b>
-								{% if userDetails[6] == 'Suspended' %} 
+								{% if userDetails[7] == 'Suspended' %} 
 									unsuspend
 								{% endif %}
 
-								{% if userDetails[6] == 'Active' %} 
+								{% if userDetails[7] == 'Active' %} 
 									suspend
 								{% endif %}
 							</b>
@@ -103,7 +103,7 @@
 						<form id="SuspendAccountButton" action="/suspend_user_account" method="POST">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 							<input type="hidden" name="NRIC" value="{{userDetails[0]}}"> 
-							<input id="Suspendform"  name="Suspendform" type="submit" value="Confirm" onclick="changeAccStatus()"/>
+							<input id="Suspendform" class="btn btn-danger" name="Suspendform" type="submit" value="Confirm" onclick="changeAccStatus()"/>
 						</form>
 					</div>
 				</div>
