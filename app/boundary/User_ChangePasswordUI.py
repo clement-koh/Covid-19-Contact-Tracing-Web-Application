@@ -42,12 +42,9 @@ class User_ChangePasswordUI:
 		# Calls the controller to update the user's password
 		NRIC = session['user']
 	
-		# If current password is incorrect
-		if not controller.validatePassword(NRIC, old_pw):
-			return False
 		
 		# return result(True/False) of attempt to update password
-		return controller.updatePassword(NRIC, new_pw)
+		return controller.updatePassword(NRIC ,old_pw, new_pw)
 
 	def displaySuccess(self):
 		"""

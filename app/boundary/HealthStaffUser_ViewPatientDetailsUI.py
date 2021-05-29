@@ -13,10 +13,6 @@ class HealthStaffUser_ViewPatientDetailsUI:
 		self.__patientNRIC = None 														# Patient's NRIC Number
 		self.__viewPatientController = HealthStaffUser_ViewPatientDetailsController()	# Controller Object
 
-	# Mutator Method
-	def setPatient(self, NRIC):
-		self.__patientNRIC = NRIC
-
 	# Other Method
 	def displayPage(self):
 		"""
@@ -31,11 +27,14 @@ class HealthStaffUser_ViewPatientDetailsUI:
 		# Render the page
 		return render_template('healthStaff_viewUserDetails.html', userType=userType)
 		
-	def onSubmit(self):
+	def onSubmit(self, NRIC):
 		"""
 		Firstly, verify the input field is empty, then check if NRIC exists
 		Return a response based on the outcome of each check.
 		"""
+
+		self.__patientNRIC = NRIC
+		
 		# Check if NRIC field is empty
 		if self.__patientNRIC is None or len(self.__patientNRIC) == 0:
 			return self.RESPONSE_FAILURE_EMPTY_FIELD

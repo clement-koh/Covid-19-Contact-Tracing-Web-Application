@@ -13,10 +13,6 @@ class OrganisationUser_ViewUserAccountUI:
 		self.__viewUserAccountController = OrganisationUser_ViewUserAccountController()	# Controller Object	
 
 
-	# Mutator Method
-	def setUserID(self, NRIC):
-		self.__userNRIC = NRIC
-
 	# Other Method
 	def displayPage(self):
 		"""
@@ -31,7 +27,7 @@ class OrganisationUser_ViewUserAccountUI:
 		# If directed here with a user already provided
 		if session['viewingNRIC'] is not None:
 			# Get provided user details
-			self.setUserID(session['viewingNRIC'])
+			self.__userNRIC = session['viewingNRIC']
 
 			# Remove user details stored
 			session['viewingNRIC'] = None
@@ -42,11 +38,14 @@ class OrganisationUser_ViewUserAccountUI:
 		# Render the page
 		return render_template('organisationUser_viewUserAccount.html', userType=userType)
 	
-	def onSubmit(self):
+	def onSubmit(self, NRIC):
 		"""
 		Firstly, verify the input field is empty, then check if NRIC exists
 		Return a response based on the outcome of each check.
 		"""
+
+		self.__userNRIC = NRIC
+
 		# Check if NRIC field is empty
 		if self.__userNRIC is None or len(self.__userNRIC) == 0:
 			return self.RESPONSE_FAILURE_EMPTY_FIELD

@@ -10,11 +10,10 @@ class HealthStaffUser_SendAlertBusinessUI:
 		self.RESPONSE_FAILURE_INVALID_RECIPIENT = "Recipient('{}') is not a valid user"
 		self.RESPONSE_FAILURE_UNKNOWN_ERROR = "Error sending alert to recipient"
 		self.RESPONSE_SUCCESS = """Your alert message has been successfully 
-                              		delivered to {} users in {}!"""
+                              		delivered to all users in {}!"""
 
 		# Private Instance Variable
 		self.__controller = HealthStaffUser_SendAlertBusinessController()	# Initialize Controller Object
-		self.__alertCount = 0
 
 	def displayPage(self):
 		"""
@@ -44,22 +43,24 @@ class HealthStaffUser_SendAlertBusinessUI:
 		# Check if input values are empty
 		if businessName is None or len(businessName) == 0 or message is None or len(message) == 0:
 			return self.RESPONSE_FAILURE_FIELD_EMPTY
+
+		validationCode = self.__controller.sendAlert(businessName, message, session['user'])
 		
 		# Check if recipient exists
-		if not self.__controller.verifyBusinessName(businessName):
+		if validationCode == 1:
 			# Update failure response message
-			self.RESPONSE_FAILURE_INVALID_RECIPIENT = self.RESPONSE_FAILURE_INVALID_RECIPIENT.format(businessName)
-			return self.RESPONSE_FAILURE_INVALID_RECIPIENT
-		
-		# If successful, send the alert
-		self.__alertCount = self.__controller.sendAlert(businessName, message, session['user'])
-		if self.__alertCount != -1:
-			# Update the success message
-			self.RESPONSE_SUCCESS = self.RESPONSE_SUCCESS.format(self.__alertCount, businessName)
-			return self.RESPONSE_SUCCESS
-		else:
+			return self.RESPONSE_FAILURE_INVALID_RECIPIENT.format(businessName)
+
+		# If not all the users in the business receive the alert
+		elif validationCode == 2:
 			# If fail to send, return failure response
 			return self.RESPONSE_FAILURE_UNKNOWN_ERROR
+
+		# If successful
+		else:
+			# Update the success message
+			self.RESPONSE_SUCCESS = self.RESPONSE_SUCCESS.format(businessName)
+			return self.RESPONSE_SUCCESS
 
 	def displayError(self, errorMessage):
 		"""

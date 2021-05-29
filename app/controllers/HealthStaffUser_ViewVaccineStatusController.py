@@ -9,48 +9,52 @@ class HealthStaffUser_ViewVaccineStatusController:
 		"""
 			Returns True if patient exists
 		"""
-		# Creates a user object
-		user = User(NRIC)
+		return User().verifyUser(NRIC)
 
-		# Returns True if patient exists
-		if user.getNRIC() is None:
-			return False
-		return True
+		
 	
 	def getPatientVaccineStatusDetails(self, NRIC):
 		""" 
 		Returns a string array containing the following information.
 
-		[0] - NRIC, 
+		[0] - NRIC,
 		[1] - First Name, 
 		[2] - Middle Name, 
 		[3] - Last Name, 
 		[4] - Gender, 
-		[5] - FirstShotDate, 
-		[6] - SecondShotDate,
-		[7] - VaccinationStatus,
+		[5] - dateOfFirstShot, 
+		[6] - dateOfSecondShot
+		[7] - vaccinationStatus
 		"""
 
 		# Creates a user object
-		user = User(NRIC)
+		user = User()
+
+		userData = user.getFullUserData(NRIC)
 
 		# Creates a VaccinationStatus object
-		vaccineStatus = VaccinationStatus(NRIC)
+		vaccineStatus = VaccinationStatus()
 
-		# Set vaccination date to "-" if there is no value
-		firstShotDate = vaccineStatus.getFirstShotDate() if vaccineStatus.getFirstShotDate() != None else "-"
-		secondShotDate = vaccineStatus.getSecondShotDate() if vaccineStatus.getSecondShotDate() != None else "-"
-		vaccinationStatus = vaccineStatus.getVaccinationStatus() if vaccineStatus.getVaccinationStatus() != None else "-"
+		
+		vaccinationStatus = vaccineStatus.getFullVaccinationData(NRIC)
+
+		
 		
 		# Returns all details in an array
 		userInfo = []
-		userInfo.append(NRIC)
-		userInfo.append(user.getFirstName())
-		userInfo.append(user.getMiddleName())
-		userInfo.append(user.getLastName())
-		userInfo.append(user.getGender())
-		userInfo.append(firstShotDate)
-		userInfo.append(secondShotDate)
-		userInfo.append(vaccinationStatus)
+		userInfo.append(userData[0])
+		userInfo.append(userData[2])
+		userInfo.append(userData[3])
+		userInfo.append(userData[4])
+		userInfo.append(userData[6])
 		
+		if vaccinationStatus is None:
+			userInfo.append("-")
+			userInfo.append("-")
+			userInfo.append("Eligible for Vaccination")
+		else:
+			userInfo.append(vaccinationStatus[2] if vaccinationStatus[2] is not None else "-")
+			userInfo.append(vaccinationStatus[3] if vaccinationStatus[3] is not None else "-")
+			userInfo.append(vaccinationStatus[1] if vaccinationStatus[1] is not None else "Eligible for Vaccination")
+
 		return userInfo

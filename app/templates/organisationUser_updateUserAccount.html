@@ -15,10 +15,10 @@
 		var organisationNames = {{ organisations | safe }};
 
 		$(document).ready(function () {
-			{% if userInfo[0] == 'Business' %}
+			{% if userInfo[7] == 'Business' %}
 				autocomplete(document.getElementById("businessName"), businessNames);
 			{% endif %}
-			{% if userInfo[0] == 'Organisation' %}
+			{% if userInfo[7] == 'Organisation' %}
 				autocomplete(document.getElementById("organisationName"),organisationNames);
 			{% endif %}
 		});
@@ -38,13 +38,13 @@
 			<!-- Account type -->
 			<div>
 				<label for="acc_type" class="label_details">Account Type:</label>
-				<input name="accountType" class="select" id="acc_type" value="{{ userInfo[0] }}" readonly />
+				<input name="accountType" class="select" id="acc_type" value="{{ userInfo[7] }}" readonly />
 			</div> 
 
 			<!-- NRIC -->
 			<div>
 				<label for="nric" class="label_details">NRIC:</label>
-				<input name="NRIC" type="text" id="nric" autocomplete="off" value="{{ userInfo[1] }}" readonly /> 
+				<input name="NRIC" type="text" id="nric" autocomplete="off" value="{{ userInfo[0] }}" readonly /> 
 			</div>
 
 			<!--First Name -->
@@ -69,7 +69,7 @@
 			<div>
 				<label for="gender" class="label_details">Gender:</label>
 				<select name="gender" id="gender">
-					{% if userInfo[5] == 'M' %}
+					{% if userInfo[6] == 'M' %}
 						<option selected value="M">Male</option>
 						<option value="F">Female</option>
 					{% else %}
@@ -82,11 +82,11 @@
 			<!-- Contact Number -->
 			<div>
 				<label for="contact_number" class="label_details">Contact Number:</label>
-				<input name="mobile" type="number" id="contact_number" autocomplete="off" value="{{ userInfo[6] }}"/> 
+				<input name="mobile" type="number" id="contact_number" autocomplete="off" value="{{ userInfo[5] }}"/> 
 			</div>
 
 			<!-- Business Name -->
-			{% if userInfo[0] == 'Business' %}
+			{% if userInfo[7] == 'Business' %}
 				<div id="businessDiv">
 					<label id="businessLabel" for="businessName" class="label_details"> Business Name: </label>
 					<div class="autocomplete">
@@ -96,7 +96,7 @@
 			{% endif %}
 			
 			<!-- License No -->
-			{% if userInfo[0] == 'Health Staff' %}
+			{% if userInfo[7] == 'Health Staff' %}
 				<div id="licenseDIV">
 					<label id="licenseLabel" for="licence_number" class="label_details">License Number:</label>
 					<input name="licenseNo" type="number" id="license_number" autocomplete="off" value="{{ userInfo[9] }}"/> 
@@ -104,7 +104,7 @@
 			{% endif %}
 
 			<!-- Organisation Name -->
-			{% if userInfo[0] == 'Organisation' %}
+			{% if userInfo[7] == 'Organisation' %}
 				<div id="organisationDiv">
 					<label id="organisationLabel" for="organisationName" class="label_details">Organisation Name:</label>
 					<div class="autocomplete">
@@ -116,13 +116,13 @@
 			<!-- Password -->
 			<div>
 				<label for="password" class="label_details">Password:</label>
-				<input name="password" type="password" id="password" autocomplete="off" value="{{ userInfo[7] }}"/>
+				<input name="password" type="password" id="password" autocomplete="off" value="{{ userInfo[1] }}"/>
 			</div>
 
 			<!-- Confirm Password -->
 			<div>
 				<label for="cfm_password" class="label_details">Confirm Password:</label>
-				<input name="confirmPassword" type="password" id="cfm_password" autocomplete="off" value="{{ userInfo[7] }}"/>
+				<input name="confirmPassword" type="password" id="cfm_password" autocomplete="off" value="{{ userInfo[1] }}"/>
 			</div></br></br>
 
 			<!-- Update Button -->
