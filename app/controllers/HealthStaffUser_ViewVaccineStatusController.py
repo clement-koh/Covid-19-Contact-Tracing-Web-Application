@@ -51,10 +51,10 @@ class HealthStaffUser_ViewVaccineStatusController:
 		if vaccinationStatus is None:
 			userInfo.append("-")
 			userInfo.append("-")
-			userInfo.append("-")
+			userInfo.append("Eligible for Vaccination")
 		else:
 			userInfo.append(vaccinationStatus[2] if vaccinationStatus[2] is not None else "-")
 			userInfo.append(vaccinationStatus[3] if vaccinationStatus[3] is not None else "-")
-			userInfo.append(vaccinationStatus[1] if vaccinationStatus[1] is not None else "-")
+			userInfo.append(vaccinationStatus[1] if vaccinationStatus[1] is not None else "Eligible for Vaccination")
 
 		return userInfo
