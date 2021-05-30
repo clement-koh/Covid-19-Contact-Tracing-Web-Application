@@ -269,6 +269,9 @@ for x in firstName:
 							(NRIC, ))
 				print('Account type: Organisation')
 
+db.execute("""UPDATE user
+					  SET accountActive = (?)
+					  WHERE NRIC = (?)""", (False, "S0777"))
 
 # Generate Locations (100 Locations)
 count = 1
