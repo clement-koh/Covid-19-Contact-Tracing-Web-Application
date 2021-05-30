@@ -22,15 +22,9 @@ class BusinessUser_ViewAffectedOutletUI:
 		# Initialise controller
 		controller = BusinessUser_ViewAffectedOutletController()
 
-		# Get which business the user belongs to
-		businessID = controller.getUserBusinessID(session['user'])
-		
-		# Get the locations for this business
-		locationIDArray = controller.getAllBusinessLocation(businessID)
-
-		# Get the results for the past 14 days by providing the array
-		results = controller.getBusinessInfectedRecord(locationIDArray)
+		# Get the results for the past 14 days based on the current user's business
+		results = controller.getBusinessInfectedRecord(session['user'])
 
 		# Render the webpage
 		return render_template('business_viewAffectedOutlet.html', userType=currentUserType,
-																   locationDetails=json.loads(results))
+																   locationDetails=results)

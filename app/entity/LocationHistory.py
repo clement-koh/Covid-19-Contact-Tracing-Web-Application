@@ -42,9 +42,6 @@ class LocationHistory:
 	
 	def getNRIC(self):
 		return self.__NRIC
-
-	def getlocationVisited(self):
-		return self.__locatedVisited
 	
 	def getTimeIn(self):
 		return self.__time_in

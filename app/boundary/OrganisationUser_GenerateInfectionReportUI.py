@@ -1,3 +1,4 @@
+from operator import rshift
 from flask import session, render_template, redirect, jsonify
 from ..controllers.OrganisationUser_GenerateInfectionReportController import OrganisationUser_GenerateInfectionReportController
 
@@ -28,19 +29,13 @@ class OrganisationUser_GenerateInfectionReportUI:
 		# Create Controller Object
 		controller = OrganisationUser_GenerateInfectionReportController()
 
-		# Get all infected on X days ago
-		infectedPeopleArray = controller.getInfectedPeople(days_ago)
-
-		# Get all location id visited by infected on X days ago
-		locationIDArray = controller.getVisitedLocation(days_ago, infectedPeopleArray)
-		
-		# Get all location name
-		locationNameArray = controller.getLocationName(locationIDArray)
+		# Get all infected on X days ago and all location names
+		result = controller.getInfectionData(days_ago)
 
 		# Create a dictionary that contains all the information that will contain
 		# all the information to be displayed on the webpage
 		dictionary = {}
-		dictionary['no_of_cases'] = len(infectedPeopleArray)
-		dictionary['locations'] = locationNameArray
+		dictionary['no_of_cases'] = result[0]
+		dictionary['locations'] = result[1]
 
 		return jsonify(dictionary)

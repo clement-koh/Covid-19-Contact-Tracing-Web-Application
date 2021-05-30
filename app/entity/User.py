@@ -83,37 +83,41 @@ class User:
 		return self.__accountType
 
 	# Mutator Methods
-	def updatePassword(self, password):
+	def updatePassword(self, old_pw, new_pw):
 		""" 
 		Updates the password of the user. 
 		Returns True if updated successfully
 		Returns False if update failed
 		"""
 
-		# Update the object's recorded password"
-		self.__password = password
+		#if old password is NOT equal to database return false
+		if old_pw != self.__password:
+			return False
+		
+		else:
+			# Update the object's recorded password"
+			self.__password = new_pw
+			# Open connection to database
+			connection = dbConnect()
+			db = connection.cursor()
 
-		# Open connection to database
-		connection = dbConnect()
-		db = connection.cursor()
-
-		# Update the password for the user
-		db.execute("""UPDATE user
-					  SET password = (?)
-					  WHERE NRIC = (?)""", (password, self.__NRIC))
-		
-		# Commit the update to the database
-		connection.commit()
-		
-		# Close the connection to the database
-		dbDisconnect(connection)
-		
-		# Check if any rows have been updated successfully
-		if db.rowcount != 0:
-			return True
-		
-		# If no rows has been updated
-		return False	
+			# Update the password for the user
+			db.execute("""UPDATE user
+						SET password = (?)
+						WHERE NRIC = (?)""", (new_pw, self.__NRIC))
+			
+			# Commit the update to the database
+			connection.commit()
+			
+			# Close the connection to the database
+			dbDisconnect(connection)
+			
+			# Check if any rows have been updated successfully
+			if db.rowcount != 0:
+				return True
+			
+			# If no rows has been updated
+			return False	
 
 	def updateMobile(self, mobile):
 		""" 
@@ -180,6 +184,35 @@ class User:
 		return False
 	
 	# Other Methods
+	def verifyUser(self,NRIC):
+		""" 
+		Verify the user against retrieved data from database
+		Returns True if verified successfully
+		Returns False if verification does not match
+		"""
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		
+		hasResult = False
+		if NRIC is not None:
+			# Select User from database
+			result = db.execute("""SELECT NRIC, password, firstName,
+										middleName, lastName, mobile, gender,
+										accountActive, accountType
+								FROM user 
+								WHERE NRIC = (?)""", (NRIC,)).fetchone()
+
+			
+			if result is not None:
+				hasResult = True
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		return hasResult
+
 	def verifyLoginDetails(self, NRIC, password):
 		""" 
 		Verify the login details against retrieved data from database
@@ -197,6 +230,82 @@ class User:
 		Returns False if verification does not match
 		"""
 		return self.__password == password
+
+	def getFullUserData(self,NRIC):
+		""" 
+		Returns a string array containing the following information.
+
+		[0] - NRIC,
+		[1] - Password, 
+		[2] - First Name, 
+		[3] - Middle Name, 
+		[4] - Last Name, 
+		[5] - Mobile Number, 
+		[6] - Gender,
+		[7] - AccountActive, 
+		[8] - AccountType
+
+		"""
+
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+
+		# Select User from database
+		results = db.execute("""SELECT NRIC, password, firstName,
+								middleName, lastName, mobile, gender,
+								accountActive, accountType
+								FROM user 
+								WHERE NRIC = (?)""", (NRIC,)).fetchone()
+
+
+		userInfo = []
+		userInfo.append(results[0])
+		userInfo.append(results[1])
+		userInfo.append(results[2])
+		userInfo.append(results[3])
+		userInfo.append(results[4])
+		userInfo.append(results[5])
+		userInfo.append(results[6])
+
+		# Local variable
+		accountStatus = None
+		
+		# Returns account status
+		if results[7]:
+			accountStatus = "Active"
+		else:
+			accountStatus = "Suspended"
+		
+		userInfo.append(accountStatus)
+		userInfo.append(results[8])
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		return userInfo
+		
+	def verifyUserType(self, NRIC, userType):
+		# Connect to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+
+		# Select User from database
+		results = db.execute("""SELECT accountType
+								FROM user 
+								WHERE NRIC = (?)""", (NRIC,)).fetchone()
+		
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		if results is None or userType != results[0]:
+			return False
+		else:
+			return True
+	
+		
 
 	def addNewUser(self, NRIC, firstName, middleName,
 					lastName, gender, mobile, password,
@@ -258,7 +367,7 @@ class User:
 
 		# Check if any row has been updated successfully
 		if db.rowcount != 0:
-			print("Updated new User")
+			print("Updated existing User")
 			return True
 		
 		# If no row has been updated

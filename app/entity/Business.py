@@ -58,6 +58,29 @@ class Business:
 		
 		return idList
 
+	
+	def getAllBusinessName(self):
+		"""
+		Returns a string array of all businessID
+		"""
+		# Open connection to database
+		connection = dbConnect()
+		db = connection.cursor()
+
+		# Select User from database and populate instance variables
+		results = db.execute("""SELECT name FROM business""").fetchall()
+
+		# Disconnect from database
+		dbDisconnect(connection)
+
+		# Returns a list of all business name
+		nameList = []
+		for result in results:
+			nameList.append(result[0])
+		
+		return nameList
+
+
 	def getIDfromName(self, name):
 		""" 
 		Return None if there is no result, or 

@@ -9,7 +9,7 @@ from .boundary.User_ChangePasswordUI import User_ChangePasswordUI
 
 # Boundary for Public Users
 from .boundary.PublicUser_ExposureStatusUI import PublicUser_ExposureStatusUI
-from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_LocationHistoryUI
+from .boundary.PublicUser_ViewLocationHistoryUI import PublicUser_ViewLocationHistoryUI
 from .boundary.PublicUser_ViewAffectedLocationUI import PublicUser_ViewAffectedLocationUI
 from .boundary.PublicUser_ViewAlertUI import PublicUser_ViewAlertUI
 from .boundary.PublicUser_AcknowledgeAlertUI import PublicUser_AcknowledgeAlertUI
@@ -159,7 +159,7 @@ def settingsPage():
 			error_message = "New Password and Confirm New Password does not match"
 			return user_changePasswordBoundary.displayError(message=error_message)
 
-		# If unsuccessful at updating
+		# If unsuccessful at compare old password and updating
 		if not user_changePasswordBoundary.onSubmit(oldPassword, newPassword):
 			error_message = "Current Password is incorrect" 
 			return user_changePasswordBoundary.displayError(message=error_message)
@@ -204,15 +204,9 @@ def viewAlertPage():
 @loginRequired
 def viewLocationHistoryPage():
 	# Initialise User_ChangePasswordUI Object
-	publicUser_locationHistoryBoundary = PublicUser_LocationHistoryUI()
+	publicUser_viewLocationHistoryBoundary = PublicUser_ViewLocationHistoryUI()
 
-	return publicUser_locationHistoryBoundary.displayPage()
-
-	# Get location history of current user
-	locationHistory = public_locationHistoryController.getLocationHistory()
-	
-	return render_template('public_viewLocationHistory.html', userType=userLoginController.getUserType(),
-															  locationHistory=locationHistory)
+	return publicUser_viewLocationHistoryBoundary.displayPage()
 
 @app.route('/view_affected_location', methods=['GET', 'POST'])
 @loginRequired
@@ -313,11 +307,8 @@ def viewPatientDetailsPage():
 		# Get form details
 		NRIC = request.form['user'].strip()
 
-		# Set the boundary to contain the patient's NRIC
-		healthStaffUser_viewPatientDetailsBoundary.setPatient(NRIC)
-
 		# Get submit response 
-		response = healthStaffUser_viewPatientDetailsBoundary.onSubmit()
+		response = healthStaffUser_viewPatientDetailsBoundary.onSubmit(NRIC)
 
 		# Display Error if any
 		if response != healthStaffUser_viewPatientDetailsBoundary.RESPONSE_SUCCESS:
@@ -340,11 +331,8 @@ def viewUpdateVaccination():
 		# Get form details
 		NRIC = request.form['user'].strip()
 
-		# Set the boundary to contain the patient's NRIC
-		healthStaffUser_viewVaccineStatusBoundary.setPatient(NRIC)
-
 		# Get submit response 
-		response = healthStaffUser_viewVaccineStatusBoundary.onSubmit()
+		response = healthStaffUser_viewVaccineStatusBoundary.onSubmit(NRIC)
 
 		# Display Error if any
 		if response != healthStaffUser_viewVaccineStatusBoundary.RESPONSE_SUCCESS:
@@ -492,11 +480,8 @@ def ViewUserAccount():
 		# Get form details
 		NRIC = request.form['user'].strip()
 
-		# Set the boundary to contain the User's NRIC
-		organisationUser_viewUserBoundary.setUserID(NRIC)
-
 		# Get submit response 
-		response = organisationUser_viewUserBoundary.onSubmit()
+		response = organisationUser_viewUserBoundary.onSubmit(NRIC)
 
 		# Display Error if any
 		if response != organisationUser_viewUserBoundary.RESPONSE_SUCCESS:

@@ -13,11 +13,6 @@ class HealthStaffUser_ViewVaccineStatusUI:
 		self.__patientNRIC = None 														# Patient's NRIC Number
 		self.__viewVaccineStatusController = HealthStaffUser_ViewVaccineStatusController()	# Controller Object
 
-
-	# Mutator Method
-	def setPatient(self, NRIC):
-		self.__patientNRIC = NRIC
-
 	# Other Method
 	def displayPage(self):
 		"""
@@ -32,7 +27,7 @@ class HealthStaffUser_ViewVaccineStatusUI:
 		# If directed here with a user already provided
 		if session['viewingNRIC'] is not None:
 			# Get provided user details
-			self.setPatient(session['viewingNRIC'])
+			self.__patientNRIC = session['viewingNRIC']
 
 			# Remove user details stored
 			session['viewingNRIC'] = None
@@ -44,11 +39,13 @@ class HealthStaffUser_ViewVaccineStatusUI:
 		return render_template('healthStaff_viewUpdateVaccination.html', userType=userType)
 	
 
-	def onSubmit(self):
+	def onSubmit(self, NRIC):
 		"""
 		Firstly, verify the input field is empty, then check if NRIC exists
 		Return a response based on the outcome of each check.
 		"""
+		self.__patientNRIC = NRIC
+
 		# Check if NRIC field is empty
 		if self.__patientNRIC is None or len(self.__patientNRIC) == 0:
 			return self.RESPONSE_FAILURE_EMPTY_FIELD

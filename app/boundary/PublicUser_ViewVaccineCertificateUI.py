@@ -25,14 +25,5 @@ class PublicUser_ViewVaccineCertificateUI:
 		# Get the vaccination details of the user
 		vaccinationDetails = controller.getVaccinationDetails(session['user'])
 		
-		if vaccinationDetails[2] is not None:
-			vaccinationDetails[2] = datetime.strptime(vaccinationDetails[2], '%d/%m/%Y, %H:%M:%S')
-			vaccinationDetails[2] = vaccinationDetails[2].strftime('%d %b %Y')
-		
-		if vaccinationDetails[3] is not None:
-			vaccinationDetails[3] = datetime.strptime(vaccinationDetails[3], '%d/%m/%Y, %H:%M:%S')
-			vaccinationDetails[3] = vaccinationDetails[3].strftime('%d %b %Y')
-
-		print(vaccinationDetails)
 		return render_template('public_viewVaccineCertificate.html', userType=currentUserType,
 																	 vaccinationDetails=vaccinationDetails)

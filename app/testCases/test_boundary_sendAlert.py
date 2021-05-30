@@ -69,22 +69,31 @@ class testCases_HealthStaffUser_SendAlertPublicUI(unittest.TestCase):
 			self.assertEqual(result, expectedResult, errorMsg)
 	
 	def test_onSubmit_rejectIncorrectNRIC(self):
-		result = self.boundary.onSubmit("S9999", "Message from test case with incorrect NRIC")
-		expectedResult = "Recipient('S9999') is not a valid user"
-		errorMsg = "onSubmit with incorrect NRIC did not return the correct error"
-		self.assertEqual(result, expectedResult, errorMsg)
+		with self.app.test_request_context() as c:
+			session['user'] = 'S1999'
+
+			result = self.boundary.onSubmit("S9999", "Message from test case with incorrect NRIC")
+			expectedResult = "Recipient('S9999') is not a valid user"
+			errorMsg = "onSubmit with incorrect NRIC did not return the correct error"
+			self.assertEqual(result, expectedResult, errorMsg)
 
 	def test_onSubmit_rejectEmptyNRIC(self):
-		result = self.boundary.onSubmit("", "Message with empty NRIC")
-		expectedResult = "Fields cannot be empty"
-		errorMsg = "onSubmit with blank NRIC did not return the correct error"
-		self.assertEqual(result, expectedResult, errorMsg)
+		with self.app.test_request_context() as c:
+			session['user'] = 'S1999'
+
+			result = self.boundary.onSubmit("", "Message with empty NRIC")
+			expectedResult = "Fields cannot be empty"
+			errorMsg = "onSubmit with blank NRIC did not return the correct error"
+			self.assertEqual(result, expectedResult, errorMsg)
 
 	def test_onSubmit_rejectEmptyMessage(self):
-		result = self.boundary.onSubmit("S0999", "")
-		expectedResult = "Fields cannot be empty"
-		errorMsg = "onSubmit with blank message did not return the correct error"
-		self.assertEqual(result, expectedResult, errorMsg)
+		with self.app.test_request_context() as c:
+			session['user'] = 'S1999'
+			
+			result = self.boundary.onSubmit("S0999", "")
+			expectedResult = "Fields cannot be empty"
+			errorMsg = "onSubmit with blank message did not return the correct error"
+			self.assertEqual(result, expectedResult, errorMsg)
 
 	def test_displayError_displayErrorPage(self):
 		# Setting Session Context

@@ -8,47 +8,17 @@ class OrganisationUser_ViewUserAccountController:
 		"""
 			Returns True if user exists
 		"""
-		# Creates a user object
-		user = User(NRIC)
+		#Create a User Object
+		user = User()
 
-		# Returns True if user exists
-		if user.getNRIC() is None:
-			return False
-		return True
+		return user.verifyUser(NRIC)
 
 	def getUserDetails(self, NRIC):
 		""" 
-		Returns a string array containing the following information.
+		Returns a string array containing all the User Details
 
-		[0] - NRIC, 
-		[1] - First Name, 
-		[2] - Middle Name, 
-		[3] - Last Name, 
-		[4] - Mobile Number, 
-		[5] - Account Type, 
-		[6] - Account Status, 
 		"""
-		# Local variable
-		accountStatus = None
+		#Create a User Object
+		user = User()
 
-		# Creates a user object
-		user = User(NRIC)
-		
-		# Returns all details in an array
-		userInfo = []
-		userInfo.append(NRIC)
-		userInfo.append(user.getFirstName())
-		userInfo.append(user.getMiddleName())
-		userInfo.append(user.getLastName())
-		userInfo.append(user.getMobile())
-		userInfo.append(user.getAccountType())
-
-		# Returns account status
-		if user.getAccountActive():
-			accountStatus = "Active"
-		else:
-			accountStatus = "Suspended"
-		
-		userInfo.append(accountStatus)
-		
-		return userInfo
+		return user.getFullUserData(NRIC)

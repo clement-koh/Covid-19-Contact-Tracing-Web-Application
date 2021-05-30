@@ -1,6 +1,7 @@
 from ..entity.Location import Location
 from ..entity.LocationHistory import LocationHistory
 from ..entity.InfectedPeople import InfectedPeople
+from datetime import datetime, timedelta
 
 class PublicUser_ViewAffectedLocationController:
 	# Constructor
@@ -12,42 +13,44 @@ class PublicUser_ViewAffectedLocationController:
 		# Gets all records within the last __ days
 		self.QUARANTINE_PERIOD = 14
 
-		# Create private instance variables
-		self.__location = Location()				# Initialise Location Object
-		self.__locationHistory = LocationHistory()	# Initialise LocationHistory Object
-		self.__infectedPeople = InfectedPeople()	# Initialise InfectedPeople Object
-
-	def getInfectedPeople(self, days_ago):
+	def getAffectedLocationRecords(self, days_ago):
 		""" 
-		Returns a string array
-		Takes in an input to returns an array of infected people's NRIC ___ days ago
-		"""
-		return self.__infectedPeople.getInfectedPeople(days_ago,self.QUARANTINE_PERIOD)
+		Returns an array containing the following location
+		[0] - Date
+		[1] - No of cases for the day
+		[2] - Affected locations
 
-	def getVisitedLocation(self, days_ago, people):
 		""" 
-		Takes in a array of NRIC and 
-		returns an array of int containing unique locationID visited by everyone in the array
-		"""
-		allLocation = []
+		location = Location()
+		locationHistory = LocationHistory()
+		infectedPeople = InfectedPeople()
 
-		# Combine all location for all peoplle
-		for user in people:
-			allLocation += self.__locationHistory.getLocationHistoryOn(user, days_ago)
+		allLocationID = []
+		allLocationName = []
 
-		# Return an array of unique location ID
-		return list(set(allLocation))
+		infectedPeopleArray = infectedPeople.getInfectedPeople(days_ago,self.QUARANTINE_PERIOD)
 
-	def getLocationName(self, idArray):
-		""" 
-		Takes in a array of location id and 
-		returns an string array of location name
-		"""
-		allLocation = []
+		# Combine all location ID for all peoplle
+		for user in infectedPeopleArray:
+			allLocationID += locationHistory.getLocationHistoryOn(user, days_ago)
+
+		# Remove duplicates in the array
+		allLocationID = list(set(allLocationID))
 
 		# Combine all location names
-		for id in idArray:
-			allLocation.append(self.__location.getLocationNameFromID(id))
+		for id in allLocationID:
+			allLocationName.append(location.getLocationNameFromID(id))
+
+		# Get the date and time X days ago
+		today = datetime.now()
+		today = today.replace(hour=0, minute=0, second=0, microsecond=0)
+		record_date = today - timedelta(days=days_ago)
+
+		# Format the data to be returned
+		result = []
+		result.append(record_date.strftime('%d %b %Y'))
+		result.append(len(infectedPeopleArray))
+		result.append(allLocationName)
 
 		# Return an array of unique location name
-		return sorted(list(set(allLocation)))
+		return result
