@@ -39,10 +39,11 @@ class LoginTestCases(unittest.TestCase):
 		self.assertEqual(result, expectedResult, errorMessage)
 
 	def test_onSubmit_rejectSuspendedAccount(self):
-		result = self.boundary.onSubmit('S0777', 'S0777')
-		expectedResult = 'Account is suspended'
-		errorMessage = 'onSubmit() with suspended account credentials returned Success'
-		self.assertEqual(result, expectedResult, errorMessage)
+		with self.app.test_request_context() as c:
+			result = self.boundary.onSubmit('S0777', 'S0777')
+			expectedResult = 'Account is suspended'
+			errorMessage = 'onSubmit() with suspended account credentials returned Success'
+			self.assertEqual(result, expectedResult, errorMessage)
 
 	def test_isLoginFieldsEmpty_acceptNonEmptyFields(self):
 		result = self.boundary.isLoginFieldsEmpty('S0001', 'S0001')
