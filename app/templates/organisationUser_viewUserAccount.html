@@ -44,7 +44,10 @@
 				{{ userDetails[4] }} 
 			</td>
 			<td>{{ userDetails[5] }}</td>
-			<td>{{ userDetails[8] }}</td>
+			{% if userDetails[8] == 'Health Staff' %}
+				<td>{{ userDetails[8] }}</td>
+			{% endif %}
+			<td>{{ userDetails[8] }} User</td>
 			<td>{{ userDetails[7] }}</td>
 			<td>
 				<!-- Suspend/Unsuspend User Account -->
